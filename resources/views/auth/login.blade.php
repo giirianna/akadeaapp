@@ -1,47 +1,200 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon" />
+    <title>Sign In | {{ config('app.name', 'Laravel') }}</title>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <!-- ========== All CSS files linkup ========= -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/lineicons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/materialdesignicons.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/fullcalendar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+</head>
+<body>
+    <!-- ======== Preloader =========== -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+    <!-- ======== Preloader =========== -->
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <!-- ======== main-wrapper start =========== -->
+    <main class="main-wrapper">
+        <!-- ========== signin-section start ========== -->
+        <section class="signin-section">
+            <div class="container-fluid">
+                <!-- ========== title-wrapper start ========== -->
+                <div class="title-wrapper pt-30">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="title">
+                                <h2>Sign In</h2>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-md-6">
+                            <div class="breadcrumb-wrapper">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="{{ route('login') }}">Home</a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            Sign In
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- ========== title-wrapper end ========== -->
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                <div class="row g-0 auth-row">
+                    <div class="col-lg-6">
+                        <div class="auth-cover-wrapper bg-primary-100">
+                            <div class="auth-cover">
+                                <div class="title text-center">
+                                    <h1 class="text-primary mb-10">Welcome Back</h1>
+                                    <p class="text-medium">
+                                        Sign in to your existing account to continue
+                                    </p>
+                                </div>
+                                <div class="cover-image">
+                                    <img src="{{ asset('assets/images/auth/signin-image.svg') }}" alt="" />
+                                </div>
+                                <div class="shape-image">
+                                    <img src="{{ asset('assets/images/auth/shape.svg') }}" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-6">
+                        <div class="signin-wrapper">
+                            <div class="form-wrapper">
+                                <h6 class="mb-15">Sign In Form</h6>
+                                <p class="text-sm mb-25">
+                                    Enter your credentials to access your account
+                                </p>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+                                <!-- Display session status if any -->
+                                @if ($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Error!</strong>
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                                <form action="{{ route('login') }}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="input-style-1">
+                                                <label for="email">Email</label>
+                                                <input
+                                                    id="email"
+                                                    type="email"
+                                                    name="email"
+                                                    placeholder="Enter your email"
+                                                    value="{{ old('email') }}"
+                                                    required
+                                                    autofocus
+                                                />
+                                                @error('email')
+                                                    <span class="text-danger d-block mt-2">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <!-- end col -->
+                                        <div class="col-12">
+                                            <div class="input-style-1">
+                                                <label for="password">Password</label>
+                                                <input
+                                                    id="password"
+                                                    type="password"
+                                                    name="password"
+                                                    placeholder="Enter your password"
+                                                    required
+                                                />
+                                                @error('password')
+                                                    <span class="text-danger d-block mt-2">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <!-- end col -->
+                                        <div class="col-xxl-6 col-lg-12 col-md-6">
+                                            <div class="form-check checkbox-style mb-30">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="checkbox"
+                                                    id="remember"
+                                                    name="remember"
+                                                />
+                                                <label class="form-check-label" for="remember">
+                                                    Remember me next time
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- end col -->
+                                        <div class="col-xxl-6 col-lg-12 col-md-6">
+                                            <div class="text-start text-md-end text-lg-start text-xxl-end mb-30">
+                                                @if (Route::has('password.request'))
+                                                    <a href="{{ route('password.request') }}" class="hover-underline">
+                                                        Forgot Password?
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!-- end col -->
+                                        <div class="col-12">
+                                            <div class="button-group d-flex justify-content-center flex-wrap">
+                                                <button type="submit" class="main-btn primary-btn btn-hover w-100 text-center">
+                                                    Sign In
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+                                </form>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+                                <div class="signin-option pt-40">
+                                    <p class="text-sm text-medium text-center text-gray">
+                                        Don't have an account yet?
+                                    </p>
+                                    <div class="pt-20 pb-20 d-flex justify-content-center">
+                                        @if (Route::has('register'))
+                                            <a href="{{ route('register') }}" class="hover-underline text-primary">
+                                                Create an account
+                                            </a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+        </section>
+        <!-- ========== signin-section end ========== -->
+    </main>
+    <!-- ======== main-wrapper end =========== -->
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+</body>
+</html>
