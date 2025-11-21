@@ -764,7 +764,7 @@
                     <div class="pricing-badge" data-en="Popular" data-id="Populer">Popular</div>
                     <div class="pricing-name" data-en="Basic" data-id="Dasar">Basic</div>
                     <p class="pricing-description" data-en="Perfect for small schools" data-id="Sempurna untuk sekolah kecil">Perfect for small schools</p>
-                    <div class="pricing-price">$99</div>
+                    <div class="pricing-price">Rp 0</div>
                     <p class="pricing-period" data-en="per month" data-id="per bulan">per month</p>
                     <ul class="pricing-features">
                         <li data-en="Up to 500 students" data-id="Hingga 500 siswa">Up to 500 students</li>
@@ -780,7 +780,7 @@
                     <div class="pricing-badge" data-en="Most Popular" data-id="Paling Populer">Most Popular</div>
                     <div class="pricing-name" data-en="Standard" data-id="Standar">Standard</div>
                     <p class="pricing-description" data-en="For growing institutions" data-id="Untuk institusi yang berkembang">For growing institutions</p>
-                    <div class="pricing-price">$299</div>
+                    <div class="pricing-price">Rp 1,000K</div>
                     <p class="pricing-period" data-en="per month" data-id="per bulan">per month</p>
                     <ul class="pricing-features">
                         <li data-en="Up to 2,000 students" data-id="Hingga 2.000 siswa">Up to 2,000 students</li>
@@ -797,7 +797,7 @@
                     <div class="pricing-badge" data-en="Enterprise" data-id="Perusahaan">Enterprise</div>
                     <div class="pricing-name" data-en="Premium" data-id="Premium">Premium</div>
                     <p class="pricing-description" data-en="For large universities" data-id="Untuk universitas besar">For large universities</p>
-                    <div class="pricing-price">$799</div>
+                    <div class="pricing-price">Rp 5,000K</div>
                     <p class="pricing-period" data-en="per month" data-id="per bulan">per month</p>
                     <ul class="pricing-features">
                         <li data-en="Unlimited students" data-id="Siswa tanpa batas">Unlimited students</li>
