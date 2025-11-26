@@ -3,49 +3,140 @@
 @section('title', 'Tambah Siswa')
 
 @section('content')
-<div class="card">
-    <div class="card-header bg-primary text-white">
-        <h5>Tambah Siswa</h5>
-    </div>
-    <div class="card-body">
-        <form action="{{ route('students.store') }}" method="POST">
-            @csrf
-
-            <div class="mb-3">
-                <label for="name" class="form-label">Nama</label>
-                <input type="text" name="name" id="name" class="form-control" required>
+    <!-- ========== tab components start ========== -->
+    <section class="tab-components">
+        <div class="container-fluid">
+            <!-- ========== title-wrapper start ========== -->
+            <div class="title-wrapper pt-30">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="title">
+                            <h2>Tambah Siswa</h2>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-md-6">
+                        <div class="breadcrumb-wrapper">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="{{ route('students.index') }}">Siswa</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tambah Siswa</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
             </div>
+            <!-- ========== title-wrapper end ========== -->
 
-            <div class="mb-3">
-                <label for="class" class="form-label">Kelas</label>
-                <input type="text" name="class" id="class" class="form-control" required>
-            </div>
+            <!-- ========== form-elements-wrapper start ========== -->
+            <div class="form-elements-wrapper">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <form action="{{ route('students.store') }}" method="POST">
+                            @csrf
 
-            <div class="mb-3">
-                <label for="major" class="form-label">Jurusan</label>
-                <input type="text" name="major" id="major" class="form-control">
-            </div>
+                            <!-- Student Name -->
+                            <div class="card-style mb-30">
+                                <div class="input-style-1">
+                                    <label for="name">Nama Siswa</label>
+                                    <input type="text" name="name" id="name" placeholder="Masukkan nama siswa"
+                                        value="{{ old('name') }}" required />
+                                    @error('name')
+                                        <span class="text-danger small">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- end card -->
 
-            <div class="mb-3">
-                <label for="nis" class="form-label">NIS</label>
-                <input type="text" name="nis" id="nis" class="form-control" required>
-            </div>
+                            <!-- NIS -->
+                            <div class="card-style mb-30">
+                                <div class="input-style-1">
+                                    <label for="nis">NIS</label>
+                                    <input type="text" name="nis" id="nis" placeholder="Masukkan NIS"
+                                        value="{{ old('nis') }}" required />
+                                    @error('nis')
+                                        <span class="text-danger small">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- end card -->
 
-            <div class="mb-3">
-                <label for="birth_date" class="form-label">Tanggal Lahir</label>
-                <input type="date" name="birth_date" id="birth_date" class="form-control">
-            </div>
+                            <!-- Class -->
+                            <div class="card-style mb-30">
+                                <div class="input-style-1">
+                                    <label for="class">Kelas</label>
+                                    <input type="text" name="class" id="class" placeholder="Masukkan kelas"
+                                        value="{{ old('class') }}" required />
+                                    @error('class')
+                                        <span class="text-danger small">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- end card -->
 
-            <div class="mb-3">
-                <label for="address" class="form-label">Alamat</label>
-                <textarea name="address" id="address" class="form-control" rows="3"></textarea>
-            </div>
+                            <!-- Major -->
+                            <div class="card-style mb-30">
+                                <div class="input-style-1">
+                                    <label for="major">Jurusan</label>
+                                    <input type="text" name="major" id="major" placeholder="Masukkan jurusan"
+                                        value="{{ old('major') }}" />
+                                    @error('major')
+                                        <span class="text-danger small">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- end card -->
 
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-success">Simpan</button>
-                <a href="{{ route('students.index') }}" class="btn btn-secondary">Kembali</a>
+                            <!-- Birth Date -->
+                            <div class="card-style mb-30">
+                                <div class="input-style-1">
+                                    <label for="birth_date">Tanggal Lahir</label>
+                                    <input type="date" name="birth_date" id="birth_date" value="{{ old('birth_date') }}" />
+                                    @error('birth_date')
+                                        <span class="text-danger small">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- end card -->
+
+                            <!-- Address -->
+                            <div class="card-style mb-30">
+                                <label for="address">Alamat</label>
+                                <textarea name="address" id="address" class="form-control" rows="4"
+                                    placeholder="Masukkan alamat">{{ old('address') }}</textarea>
+                                @error('address')
+                                    <span class="text-danger small">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <!-- end card -->
+
+                            <!-- Buttons -->
+                            <div class="card-style mb-30">
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="icon"><i class="lni lni-save"></i></span> Simpan
+                                    </button>
+                                    <a href="{{ route('students.index') }}" class="btn btn-secondary">
+                                        <span class="icon"><i class="lni lni-arrow-left"></i></span> Kembali
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- end card -->
+                        </form>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
             </div>
-        </form>
-    </div>
-</div>
+            <!-- ========== form-elements-wrapper end ========== -->
+        </div>
+        <!-- end container-fluid -->
+    </section>
+    <!-- ========== tab components end ========== -->
 @endsection

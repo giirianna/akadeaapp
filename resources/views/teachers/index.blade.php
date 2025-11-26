@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Pembayaran SPP')
+@section('title', 'Daftar Guru')
 
 @section('content')
     <!-- ========== table components start ========== -->
@@ -11,7 +11,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="title">
-                            <h2>Daftar Pembayaran SPP</h2>
+                            <h2>Daftar Guru</h2>
                         </div>
                     </div>
                     <!-- end col -->
@@ -23,7 +23,7 @@
                                         <a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Pembayaran SPP
+                                        Guru
                                     </li>
                                 </ol>
                             </nav>
@@ -42,20 +42,20 @@
                         <div class="card-style mb-30">
                             <div class="d-flex justify-content-between align-items-center mb-30">
                                 <div>
-                                    <h6>Data Pembayaran SPP</h6>
-                                    <p class="text-sm">Daftar lengkap pembayaran SPP siswa</p>
+                                    <h6>Data Guru</h6>
+                                    <p class="text-sm">Daftar lengkap guru yang terdaftar dalam sistem</p>
                                 </div>
-                                <a href="{{ route('spp.create') }}" class="btn btn-primary">
-                                    <span class="icon"><i class="lni lni-plus"></i></span> Tambah Pembayaran
+                                <a href="{{ route('teachers.create') }}" class="btn btn-primary">
+                                    <span class="icon"><i class="lni lni-plus"></i></span> Tambah Guru
                                 </a>
                             </div>
 
-                            @if($spps->isEmpty())
+                            @if($teachers->isEmpty())
                                 <div class="alert alert-info" role="alert">
                                     <div class="d-flex align-items-center">
                                         <i class="lni lni-info-circle me-2"></i>
-                                        <span>Belum ada data pembayaran SPP. <a href="{{ route('spp.create') }}">Silakan
-                                                tambahkan data baru</a></span>
+                                        <span>Belum ada data guru. <a href="{{ route('teachers.create') }}">Silakan tambahkan
+                                                data baru</a></span>
                                     </div>
                                 </div>
                             @else
@@ -67,16 +67,13 @@
                                                     <h6>#</h6>
                                                 </th>
                                                 <th class="text-start">
-                                                    <h6>Nama Siswa</h6>
+                                                    <h6>Nama Lengkap</h6>
                                                 </th>
                                                 <th class="text-center">
-                                                    <h6>Kelas</h6>
+                                                    <h6>NIP / Nomor Guru</h6>
                                                 </th>
                                                 <th class="text-center">
-                                                    <h6>Bulan</h6>
-                                                </th>
-                                                <th class="text-right">
-                                                    <h6>Jumlah Tagihan</h6>
+                                                    <h6>Mapel / Peran</h6>
                                                 </th>
                                                 <th class="text-center">
                                                     <h6>Status</h6>
@@ -88,49 +85,33 @@
                                             <!-- end table row-->
                                         </thead>
                                         <tbody>
-                                            @foreach($spps as $spp)
+                                            @foreach($teachers as $teacher)
                                                 <tr>
                                                     <td class="text-center">
-                                                        <p>{{ ($spps->currentPage() - 1) * $spps->perPage() + $loop->iteration }}
-                                                        </p>
+                                                        <p>{{ ($teachers->currentPage() - 1) * $teachers->perPage() + $loop->iteration }}</p>
                                                     </td>
                                                     <td class="text-start min-width">
-                                                        <p>{{ $spp->student_name }}</p>
+                                                        <p>{{ $teacher->full_name }}</p>
                                                     </td>
                                                     <td class="text-center min-width">
-                                                        <p>{{ $spp->class }}</p>
+                                                        <p><strong>{{ $teacher->teacher_number }}</strong></p>
                                                     </td>
                                                     <td class="text-center min-width">
-                                                        <p>{{ $spp->month }}</p>
-                                                    </td>
-                                                    <td class="text-right min-width">
-                                                        <p><strong>Rp {{ number_format($spp->amount, 0, ',', '.') }}</strong></p>
+                                                        <p>{{ $teacher->teacher_role }}</p>
                                                     </td>
                                                     <td class="text-center min-width">
-                                                        @php
-                                                            $statusClass = match ($spp->status) {
-                                                                'lunas' => 'success',
-                                                                'sebagian' => 'warning',
-                                                                default => 'danger'
-                                                            };
-                                                        @endphp
-                                                        <span class="badge bg-{{ $statusClass }}">
-                                                            {{ ucfirst($spp->status) }}
-                                                        </span>
+                                                        <p>{{ $teacher->employment_status ?? '-' }}</p>
                                                     </td>
                                                     <td class="text-center">
                                                         <div class="action d-flex gap-2 justify-content-center">
-                                                            <a href="{{ route('spp.show', $spp) }}" class="text-info"
-                                                                title="Detail">
+                                                            <a href="{{ route('teachers.show', $teacher) }}" class="text-info" title="Detail">
                                                                 <i class="lni lni-eye"></i>
                                                             </a>
-                                                            <a href="{{ route('spp.edit', $spp) }}" class="text-warning"
-                                                                title="Edit">
+                                                            <a href="{{ route('teachers.edit', $teacher) }}" class="text-warning" title="Edit">
                                                                 <i class="lni lni-pencil"></i>
                                                             </a>
-                                                            <form action="{{ route('spp.destroy', $spp) }}" method="POST"
-                                                                style="display:inline;"
-                                                                onsubmit="return confirm('Yakin ingin menghapus pembayaran ini?');">
+                                                            <form action="{{ route('teachers.destroy', $teacher) }}" method="POST" style="display:inline;"
+                                                                onsubmit="return confirm('Yakin ingin menghapus data guru ini?');">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="text-danger" title="Hapus"
@@ -150,9 +131,9 @@
 
                                 <!-- Pagination -->
                                 <div class="d-flex justify-content-between align-items-center mt-20">
-                                    <p class="text-sm">Total: {{ $spps->total() }} data</p>
+                                    <p class="text-sm">Total: {{ $teachers->total() }} data</p>
                                     <div class="pagination-wrapper">
-                                        {{ $spps->links() }}
+                                        {{ $teachers->links() }}
                                     </div>
                                 </div>
                             @endif

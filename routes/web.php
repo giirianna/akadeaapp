@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\studentController;
 use App\Http\Controllers\sppController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,5 +26,6 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('students', StudentController::class);
 Route::resource('spp', SppController::class);
+Route::resource('teachers', TeacherController::class);
 
 require __DIR__.'/auth.php';

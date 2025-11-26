@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Pembayaran SPP')
+@section('title', 'Detail Guru')
 
 @section('content')
     <!-- ========== detail-wrapper start ========== -->
@@ -11,7 +11,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="title">
-                            <h2>Detail Pembayaran SPP</h2>
+                            <h2>Detail Guru</h2>
                         </div>
                     </div>
                     <!-- end col -->
@@ -23,9 +23,9 @@
                                         <a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('spp.index') }}">Pembayaran SPP</a>
+                                        <a href="{{ route('teachers.index') }}">Guru</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Detail Pembayaran</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Detail Guru</li>
                                 </ol>
                             </nav>
                         </div>
@@ -41,130 +41,127 @@
                 <div class="col-lg-8">
                     <div class="card-style">
                         <div class="detail-content">
-                            <div class="detail-row mb-30 pb-30 border-bottom">
-                                <div class="detail-label">
-                                    <h6>Nama Siswa</h6>
+                            @if($teacher->teacher_photo)
+                                <div class="detail-row mb-30 pb-30 border-bottom text-center">
+                                    <div class="detail-value">
+                                        <img src="{{ asset('storage/' . $teacher->teacher_photo) }}" alt="Foto Guru" style="max-width: 150px; border-radius: 8px;">
+                                    </div>
                                 </div>
-                                <div class="detail-value">
-                                    <p>{{ $spp->student_name }}</p>
-                                </div>
-                            </div>
-                            <!-- end detail row -->
+                            @endif
 
                             <div class="detail-row mb-30 pb-30 border-bottom">
                                 <div class="detail-label">
-                                    <h6>Kelas</h6>
+                                    <h6>Nama Lengkap</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p>{{ $spp->class }}</p>
+                                    <p>{{ $teacher->full_name }}</p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
 
                             <div class="detail-row mb-30 pb-30 border-bottom">
                                 <div class="detail-label">
-                                    <h6>Jurusan</h6>
+                                    <h6>Nomor Guru</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p>{{ $spp->major ?? '-' }}</p>
+                                    <p><strong>{{ $teacher->teacher_number }}</strong></p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
 
                             <div class="detail-row mb-30 pb-30 border-bottom">
                                 <div class="detail-label">
-                                    <h6>Bulan</h6>
+                                    <h6>Peran / Mata Pelajaran</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p>{{ $spp->month }}</p>
+                                    <p>{{ $teacher->teacher_role }}</p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
 
                             <div class="detail-row mb-30 pb-30 border-bottom">
                                 <div class="detail-label">
-                                    <h6>Tanggal Jatuh Tempo</h6>
+                                    <h6>Status Kepegawaian</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p>{{ $spp->due_date->format('d-m-Y') }}</p>
+                                    <p>{{ $teacher->employment_status ?? '-' }}</p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
 
                             <div class="detail-row mb-30 pb-30 border-bottom">
                                 <div class="detail-label">
-                                    <h6>Jumlah Tagihan</h6>
+                                    <h6>Pendidikan Terakhir</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p><strong>Rp {{ number_format($spp->amount, 0, ',', '.') }}</strong></p>
+                                    <p>{{ $teacher->highest_education ?? '-' }}</p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
 
                             <div class="detail-row mb-30 pb-30 border-bottom">
                                 <div class="detail-label">
-                                    <h6>Jumlah Dibayar</h6>
+                                    <h6>Pengalaman Mengajar (tahun)</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p>Rp {{ number_format($spp->amount_paid, 0, ',', '.') }}</p>
+                                    <p>{{ $teacher->years_of_experience ?? 0 }}</p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
 
                             <div class="detail-row mb-30 pb-30 border-bottom">
                                 <div class="detail-label">
-                                    <h6>Tanggal Bayar</h6>
+                                    <h6>Jenis Kelamin</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p>{{ $spp->payment_date ? $spp->payment_date->format('d-m-Y') : '-' }}</p>
+                                    <p>{{ $teacher->gender }}</p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
 
                             <div class="detail-row mb-30 pb-30 border-bottom">
                                 <div class="detail-label">
-                                    <h6>Status</h6>
+                                    <h6>Agama</h6>
                                 </div>
                                 <div class="detail-value">
-                                    @php
-                                        $statusClass = match ($spp->status) {
-                                            'lunas' => 'success',
-                                            'sebagian' => 'warning',
-                                            default => 'danger'
-                                        };
-                                    @endphp
-                                    <span class="badge bg-{{ $statusClass }}">
-                                        {{ ucfirst($spp->status) }}
-                                    </span>
+                                    <p>{{ $teacher->religion ?? '-' }}</p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
 
                             <div class="detail-row mb-30 pb-30 border-bottom">
                                 <div class="detail-label">
-                                    <h6>Metode Pembayaran</h6>
+                                    <h6>Golongan Darah</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p>{{ $spp->payment_method ?? '-' }}</p>
+                                    <p>{{ $teacher->blood_type ?? '-' }}</p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
+
+                            <div class="detail-row mb-30 pb-30 border-bottom">
+                                <div class="detail-label">
+                                    <h6>Tanggal Lahir</h6>
+                                </div>
+                                <div class="detail-value">
+                                    <p>{{ optional($teacher->birth_date)->format('d-m-Y') ?? '-' }}</p>
+                                </div>
+                            </div>
 
                             <div class="detail-row mb-30">
                                 <div class="detail-label">
-                                    <h6>Catatan</h6>
+                                    <h6>Alamat</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p>{{ $spp->remarks ?? '-' }}</p>
+                                    <p>{{ $teacher->address ?? '-' }}</p>
                                 </div>
                             </div>
-                            <!-- end detail row -->
+
+                            <div class="detail-row mb-30">
+                                <div class="detail-label">
+                                    <h6>No. Telepon</h6>
+                                </div>
+                                <div class="detail-value">
+                                    <p>{{ $teacher->phone_number ?? '-' }}</p>
+                                </div>
+                            </div>
 
                             <div class="d-flex gap-2 mt-30 pt-30 border-top">
-                                <a href="{{ route('spp.edit', $spp) }}" class="btn btn-primary">
+                                <a href="{{ route('teachers.edit', $teacher) }}" class="btn btn-primary">
                                     <span class="icon"><i class="lni lni-pencil"></i></span> Edit
                                 </a>
-                                <a href="{{ route('spp.index') }}" class="btn btn-secondary">
+                                <a href="{{ route('teachers.index') }}" class="btn btn-secondary">
                                     <span class="icon"><i class="lni lni-arrow-left"></i></span> Kembali
                                 </a>
                             </div>
