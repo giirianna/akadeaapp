@@ -83,6 +83,32 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item nav-item-has-children">
+                    <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_3"
+                        aria-controls="ddmenu_3" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10 1.66667C5.39746 1.66667 1.66667 5.39746 1.66667 10C1.66667 14.6025 5.39746 18.3333 10 18.3333C14.6025 18.3333 18.3333 14.6025 18.3333 10C18.3333 5.39746 14.6025 1.66667 10 1.66667ZM10 3.33333C13.6819 3.33333 16.6667 6.31814 16.6667 10C16.6667 13.6819 13.6819 16.6667 10 16.6667C6.31814 16.6667 3.33333 13.6819 3.33333 10C3.33333 6.31814 6.31814 3.33333 10 3.33333Z" />
+                                <path
+                                    d="M10 5C9.08333 5 8.33333 5.75 8.33333 6.66667V10C8.33333 10.9167 9.08333 11.6667 10 11.6667H12.5C13.0523 11.6667 13.5 11.2189 13.5 10.6667C13.5 10.1144 13.0523 9.66667 12.5 9.66667H10V6.66667C10 5.75 9.25 5 10 5Z" />
+                            </svg>
+                        </span>
+                        <span class="text">Management</span>
+                    </a>
+                    <ul id="ddmenu_3" class="collapse dropdown-nav">
+                        <li>
+                            <a href="{{ route('students.index') }}"> Students </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('spp.index') }}"> SPP Payments </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('teachers.index') }}"> Teachers </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <div class="promo-box">
