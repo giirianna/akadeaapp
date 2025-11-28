@@ -50,4 +50,36 @@
     overlay.classList.remove("active");
     mainWrapper.classList.remove("active");
   });
+
+  /* ========= Dark Mode Toggle ======== */
+  const themeToggleButton = document.querySelector('#theme-toggle');
+  const htmlElement = document.documentElement;
+  const body = document.body;
+  const darkModeKey = 'akadeaAppDarkMode';
+
+  // Check for saved theme preference or default to light mode
+  const isDarkMode = localStorage.getItem(darkModeKey) === 'true';
+  
+  // Apply saved theme on page load
+  if (isDarkMode) {
+    body.classList.add('darkTheme');
+    htmlElement.setAttribute('data-theme', 'dark');
+  }
+
+  // Toggle dark mode
+  if (themeToggleButton) {
+    themeToggleButton.addEventListener('click', () => {
+      const isCurrentlyDark = body.classList.contains('darkTheme');
+      
+      if (isCurrentlyDark) {
+        body.classList.remove('darkTheme');
+        htmlElement.setAttribute('data-theme', 'light');
+        localStorage.setItem(darkModeKey, 'false');
+      } else {
+        body.classList.add('darkTheme');
+        htmlElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem(darkModeKey, 'true');
+      }
+    });
+  }
 })();

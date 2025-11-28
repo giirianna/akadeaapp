@@ -2849,6 +2849,61 @@ h6,
 .header .header-right .notification-box .dropdown-menu.dropdown-menu-end {
   transform: translate3d(0px, 60px, 0px);
 }
+
+/* ========== Dark Mode Toggle Styles ========== */
+.dark-mode-box {
+  display: flex;
+  align-items: center;
+}
+
+.dark-mode-toggle {
+  background: transparent;
+  border: none;
+  color: #1a2142;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+  background: #f3f3f3;
+}
+
+.dark-mode-toggle svg {
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.dark-mode-toggle .sun-icon {
+  opacity: 1;
+}
+
+.dark-mode-toggle .moon-icon {
+  position: absolute;
+  opacity: 0;
+}
+
+body.darkTheme .dark-mode-toggle {
+  color: #fff;
+}
+
+body.darkTheme .dark-mode-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.darkTheme .dark-mode-toggle .sun-icon {
+  opacity: 0;
+}
+
+body.darkTheme .dark-mode-toggle .moon-icon {
+  opacity: 1;
+}
 .header .header-right .header-message-box .dropdown-menu.dropdown-menu-end {
   transform: translate3d(0px, 60px, 0px);
 }
