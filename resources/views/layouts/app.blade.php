@@ -79,6 +79,9 @@
                             <a href="{{ route('teachers.index') }}"> Teachers </a>
                         </li>
                         <li>
+                            <a href="{{ route('subjects.index') }}"> Subjects </a>
+                        </li>
+                        <li>
                             <a href="{{ route('roles.index') }}"> Role Management </a>
                         </li>
                     </ul>
