@@ -5,6 +5,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SppController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('students', StudentController::class);
 Route::resource('spp', SppController::class);
 Route::resource('teachers', TeacherController::class);
+Route::resource('subjects', SubjectController::class);
 
 // Role Management Routes
 Route::middleware('auth')->group(function () {
