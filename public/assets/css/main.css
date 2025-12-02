@@ -6010,3 +6010,216 @@ body.darkTheme .dark-mode-toggle .moon-icon {
     transform: rotate(360deg);
   }
 }
+/* ========== Comprehensive Dark Mode Styles ========== */
+body.darkTheme {
+  background-color: #1a1d2e;
+  color: #e4e7eb;
+}
+
+/* Sidebar Dark Mode */
+body.darkTheme .sidebar-nav-wrapper {
+  background-color: #1f2937;
+  border-right: 1px solid #374151;
+}
+
+body.darkTheme .sidebar-nav a {
+  color: #9ca3af;
+}
+
+body.darkTheme .sidebar-nav a:hover {
+  color: #fff;
+}
+
+body.darkTheme .sidebar-nav .nav-item.active a,
+body.darkTheme .sidebar-nav a.active {
+  color: #fff;
+  background-color: rgba(54, 92, 245, 0.1);
+}
+
+/* Header Dark Mode */
+body.darkTheme .header {
+  background-color: #1f2937;
+  border-bottom: 1px solid #374151;
+}
+
+body.darkTheme .header-search form input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #e4e7eb;
+}
+
+body.darkTheme .header-search form button {
+  color: #9ca3af;
+}
+
+body.darkTheme .header-right button {
+  background-color: #374151;
+  border-color: #374151;
+  color: #e4e7eb;
+}
+
+/* Cards Dark Mode */
+body.darkTheme .card-style {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+body.darkTheme .card-style h6,
+body.darkTheme .card-style h5,
+body.darkTheme .card-style h4,
+body.darkTheme .card-style h3,
+body.darkTheme .card-style h2 {
+  color: #e4e7eb;
+}
+
+body.darkTheme .card-style p {
+  color: #9ca3af;
+}
+
+/* Table Dark Mode */
+body.darkTheme .table {
+  color: #e4e7eb;
+}
+
+body.darkTheme .table thead th {
+  background-color: #374151;
+  color: #e4e7eb;
+  border-color: #4b5563;
+}
+
+body.darkTheme .table tbody tr {
+  border-color: #374151;
+}
+
+body.darkTheme .table tbody tr:hover {
+  background-color: #374151;
+}
+
+/* Forms Dark Mode */
+body.darkTheme .input-style-1 input,
+body.darkTheme .input-style-1 textarea,
+body.darkTheme .select-style-1 select,
+body.darkTheme .form-control {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #e4e7eb;
+}
+
+body.darkTheme .input-style-1 input:focus,
+body.darkTheme .input-style-1 textarea:focus,
+body.darkTheme .select-style-1 select:focus,
+body.darkTheme .form-control:focus {
+  background-color: #374151;
+  border-color: #365CF5;
+  color: #e4e7eb;
+}
+
+body.darkTheme .input-style-1 label,
+body.darkTheme .select-style-1 label {
+  color: #e4e7eb;
+}
+
+/* Breadcrumb Dark Mode */
+body.darkTheme .breadcrumb {
+  background-color: transparent;
+}
+
+body.darkTheme .breadcrumb-item a {
+  color: #9ca3af;
+}
+
+body.darkTheme .breadcrumb-item.active {
+  color: #e4e7eb;
+}
+
+/* Dropdown Dark Mode */
+body.darkTheme .dropdown-menu {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+body.darkTheme .dropdown-menu li a {
+  color: #9ca3af;
+}
+
+body.darkTheme .dropdown-menu li a:hover {
+  background-color: #374151;
+  color: #fff;
+}
+
+/* Alert Dark Mode */
+body.darkTheme .alert-info {
+  background-color: #1e3a5f;
+  border-color: #2563eb;
+  color: #93c5fd;
+}
+
+body.darkTheme .alert-success {
+  background-color: #1e4d3d;
+  border-color: #10b981;
+  color: #86efac;
+}
+
+/* Title Dark Mode */
+body.darkTheme .title h2 {
+  color: #e4e7eb;
+}
+
+body.darkTheme .text-sm {
+  color: #9ca3af;
+}
+
+/* Main Wrapper Dark Mode */
+body.darkTheme .main-wrapper {
+  background-color: #1a1d2e;
+}
+
+/* Profile Box Dark Mode */
+body.darkTheme .profile-box .profile-info .info p {
+  color: #9ca3af;
+}
+
+body.darkTheme .profile-box .profile-info .info h6 {
+  color: #e4e7eb;
+}
+
+/* ========== Enhanced Sidebar Dark Mode Text Colors ========== */
+body.darkTheme .sidebar-nav .nav-item a {
+  color: #d1d5db !important;
+}
+
+body.darkTheme .sidebar-nav .nav-item a:hover {
+  color: #ffffff !important;
+}
+
+body.darkTheme .sidebar-nav .nav-item a .text {
+  color: #d1d5db;
+}
+
+body.darkTheme .sidebar-nav .nav-item a:hover .text {
+  color: #ffffff;
+}
+
+body.darkTheme .sidebar-nav .dropdown-nav li a {
+  color: #d1d5db !important;
+}
+
+body.darkTheme .sidebar-nav .dropdown-nav li a:hover {
+  color: #ffffff !important;
+  background-color: rgba(54, 92, 245, 0.15);
+}
+
+body.darkTheme .navbar-logo a {
+  color: #ffffff;
+}
+
+/* Active menu item in dark mode */
+body.darkTheme .sidebar-nav .nav-item a.active,
+body.darkTheme .sidebar-nav .nav-item.active > a {
+  color: #ffffff !important;
+  background-color: rgba(54, 92, 245, 0.2);
+}
+
+body.darkTheme .sidebar-nav .nav-item a.active .text {
+  color: #ffffff;
+}
