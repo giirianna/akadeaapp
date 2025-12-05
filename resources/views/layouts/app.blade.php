@@ -16,6 +16,7 @@
         type="text/css" />
     <link rel="stylesheet" href="{{ asset('assets/css/fullcalendar.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    @stack('styles')
 </head>
 
 <body>
@@ -48,38 +49,9 @@
                         </span>
                         <span class="text">Dashboard</span>
                     </a>
-                    <ul id="ddmenu_1" class="collapse show dropdown-nav">
+                    <ul id="ddmenu_1" class="collapse {{ request()->routeIs('dashboard') ? 'show' : '' }} dropdown-nav">
                         <li>
-                            <a href="{{ route('dashboard') }}" class="active"> Home </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item nav-item-has-children">
-                    <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_2"
-                        aria-controls="ddmenu_2" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="icon">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.8097 1.66667C11.8315 1.66667 11.8533 1.6671 11.875 1.66796V4.16667C11.875 5.43232 12.901 6.45834 14.1667 6.45834H16.6654C16.6663 6.48007 16.6667 6.50186 16.6667 6.5237V16.6667C16.6667 17.5872 15.9205 18.3333 15 18.3333H5.00001C4.07954 18.3333 3.33334 17.5872 3.33334 16.6667V3.33334C3.33334 2.41286 4.07954 1.66667 5.00001 1.66667H11.8097Z" />
-                                <path
-                                    d="M6.66668 7.70834C6.3215 7.70834 6.04168 7.98816 6.04168 8.33334C6.04168 8.67851 6.3215 8.95834 6.66668 8.95834H10C10.3452 8.95834 10.625 8.67851 10.625 8.33334C10.625 7.98816 10.3452 7.70834 10 7.70834H6.66668Z" />
-                                <path
-                                    d="M6.04168 11.6667C6.04168 12.0118 6.3215 12.2917 6.66668 12.2917H13.3333C13.6785 12.2917 13.9583 12.0118 13.9583 11.6667C13.9583 11.3215 13.6785 11.0417 13.3333 11.0417H6.66668C6.3215 11.0417 6.04168 11.3215 6.04168 11.6667Z" />
-                                <path
-                                    d="M6.66668 14.375C6.3215 14.375 6.04168 14.6548 6.04168 15C6.04168 15.3452 6.3215 15.625 6.66668 15.625H13.3333C13.6785 15.625 13.9583 15.3452 13.9583 15C13.9583 14.6548 13.6785 14.375 13.3333 14.375H6.66668Z" />
-                                <path
-                                    d="M13.125 2.29167L16.0417 5.20834H14.1667C13.5913 5.20834 13.125 4.74197 13.125 4.16667V2.29167Z" />
-                            </svg>
-                        </span>
-                        <span class="text">Pages</span>
-                    </a>
-                    <ul id="ddmenu_2" class="collapse dropdown-nav">
-                        <li>
-                            <a href="#"> Settings </a>
-                        </li>
-                        <li>
-                            <a href="#"> Blank Page </a>
+                            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"> Home </a>
                         </li>
                     </ul>
                 </li>
@@ -107,17 +79,16 @@
                         <li>
                             <a href="{{ route('teachers.index') }}"> Teachers </a>
                         </li>
+                        <li>
+                            <a href="{{ route('subjects.index') }}"> Subjects </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('roles.index') }}"> Role Management </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
         </nav>
-        <div class="promo-box">
-            <div class="promo-icon">
-                <img class="mx-auto" src="{{ asset('assets/images/logo/logo-icon-big.svg') }}" alt="Logo">
-            </div>
-            <h3>Welcome to {{ config('app.name', 'Laravel') }}</h3>
-            <p>Manage your dashboard and access all features here.</p>
-        </div>
     </aside>
     <div class="overlay"></div>
     <!-- ======== sidebar-nav end =========== -->
@@ -145,6 +116,26 @@
                     </div>
                     <div class="col-lg-7 col-md-7 col-6">
                         <div class="header-right">
+                            <!-- dark mode switcher start -->
+                            <div class="dark-mode-box ml-15 d-flex align-items-center">
+                                <button id="theme-toggle" class="dark-mode-toggle" type="button" title="Toggle Dark Mode">
+                                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="5"></circle>
+                                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                    </svg>
+                                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <!-- dark mode switcher end -->
                             <!-- notification start -->
                             <div class="notification-box ml-15 d-none d-md-flex">
                                 <button class="dropdown-toggle" type="button" id="notification"
@@ -258,6 +249,7 @@
     <script src="{{ asset('assets/js/world-merc.js') }}"></script>
     <script src="{{ asset('assets/js/polyfill.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\User;
 
 class Teacher extends Model
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,11 +32,24 @@ class Teacher extends Model
         'teacher_photo',
     ];
 
+    protected $casts = [
+        'birth_date' => 'date',
+        'years_of_experience' => 'integer',
+    ];
+
     /**
      * Get the user that owns the teacher.
      */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the subjects taught by this teacher.
+     */
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class, 'teacher_id');
     }
 }

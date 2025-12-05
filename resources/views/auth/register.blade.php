@@ -14,6 +14,43 @@
     <link rel="stylesheet" href="{{ asset('assets/css/materialdesignicons.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/fullcalendar.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <style>
+        .main-wrapper {
+            margin-left: 0 !important;
+            padding: 0 !important;
+        }
+        .signin-section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+        }
+        .signin-section .container-fluid {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            max-width: 100%;
+            width: 100%;
+            display: flex;
+            align-items: stretch;
+        }
+        .auth-row {
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+            height: 100%;
+        }
+        .auth-cover-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .signin-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
     <!-- ======== Preloader =========== -->
@@ -26,59 +63,31 @@
     <main class="main-wrapper">
         <!-- ========== signin-section start ========== -->
         <section class="signin-section">
-            <div class="container-fluid">
-                <!-- ========== title-wrapper start ========== -->
-                <div class="title-wrapper pt-30">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="title">
-                                <h2>Sign Up</h2>
+            <div class="container-fluid" style="display: flex; flex-direction: column; min-height: 100vh; padding-left: 20px; padding-right: 20px;">
+                <div style="flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; padding: 0;">
+                    <div class="row g-0 auth-row" style="width: 100%; height: 100%; margin: 0;">
+                        <div class="col-lg-5" style="min-width: 0;">
+                            <div class="auth-cover-wrapper bg-primary-100">
+                                <div class="auth-cover">
+                                    <div class="title text-center">
+                                        <h1 class="text-primary mb-10">Get Started</h1>
+                                        <p class="text-medium">
+                                            Create an account to get started
+                                            <br class="d-sm-block" />
+                                            and join our community.
+                                        </p>
+                                    </div>
+                                    <div class="cover-image">
+                                        <img src="{{ asset('assets/images/auth/signin-image.svg') }}" alt="" />
+                                    </div>
+                                    <div class="shape-image">
+                                        <img src="{{ asset('assets/images/auth/shape.svg') }}" alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- end col -->
-                        <div class="col-md-6">
-                            <div class="breadcrumb-wrapper">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                            <a href="{{ route('register') }}">Home</a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                            Sign Up
-                                        </li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                        <!-- end col -->
-                    </div>
-                    <!-- end row -->
-                </div>
-                <!-- ========== title-wrapper end ========== -->
-
-                <div class="row g-0 auth-row">
-                    <div class="col-lg-6">
-                        <div class="auth-cover-wrapper bg-primary-100">
-                            <div class="auth-cover">
-                                <div class="title text-center">
-                                    <h1 class="text-primary mb-10">Get Started</h1>
-                                    <p class="text-medium">
-                                        Create an account to get started
-                                        <br class="d-sm-block" />
-                                        and join our community.
-                                    </p>
-                                </div>
-                                <div class="cover-image">
-                                    <img src="{{ asset('assets/images/auth/signin-image.svg') }}" alt="" />
-                                </div>
-                                <div class="shape-image">
-                                    <img src="{{ asset('assets/images/auth/shape.svg') }}" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end col -->
-                    <div class="col-lg-6">
+                        <div class="col-lg-5" style="min-width: 0;">
                         <div class="signup-wrapper">
                             <div class="form-wrapper">
                                 <h6 class="mb-15">Sign Up Form</h6>
@@ -207,6 +216,7 @@
                     <!-- end col -->
                 </div>
                 <!-- end row -->
+                </div>
             </div>
         </section>
         <!-- ========== signin-section end ========== -->

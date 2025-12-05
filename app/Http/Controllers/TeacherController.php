@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TeacherController extends Controller
 {
@@ -13,8 +14,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $teachers = Teacher::with('user')->paginate(10);
-
+        $teachers = Teacher::with(['user', 'subjects'])->paginate(10);
         return view('teachers.index', compact('teachers'));
     }
 
@@ -62,7 +62,7 @@ class TeacherController extends Controller
 
         Teacher::create($validated);
 
-        return redirect()->route('teachers.index')->with('success', 'Teacher created successfully.');
+        return redirect()->route('teachers.index')->with('success', 'Guru berhasil ditambahkan.');
     }
 
     /**
@@ -70,6 +70,8 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
+        // Load relasi subjects dan user
+        $teacher->load(['subjects', 'user']);
         return view('teachers.show', compact('teacher'));
     }
 
@@ -103,14 +105,23 @@ class TeacherController extends Controller
             'teacher_photo'  => ['nullable', 'image', 'max:2048'],
         ]);
 
+        // Convert selected subjects array to comma-separated string
+        if (isset($validated['teacher_role']) && is_array($validated['teacher_role'])) {
+            $validated['teacher_role'] = implode(',', $validated['teacher_role']);
+        }
+
         if ($request->hasFile('teacher_photo')) {
+            // Delete old photo if exists
+            if ($teacher->teacher_photo) {
+                Storage::disk('public')->delete($teacher->teacher_photo);
+            }
             $path = $request->file('teacher_photo')->store('teacher_photos', 'public');
             $validated['teacher_photo'] = $path;
         }
 
         $teacher->update($validated);
 
-        return redirect()->route('teachers.index')->with('success', 'Teacher updated successfully.');
+        return redirect()->route('teachers.index')->with('success', 'Guru berhasil diperbarui.');
     }
 
     /**
@@ -118,8 +129,13 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
+        // Delete photo if exists
+        if ($teacher->teacher_photo) {
+            Storage::disk('public')->delete($teacher->teacher_photo);
+        }
+
         $teacher->delete();
 
-        return redirect()->route('teachers.index')->with('success', 'Teacher deleted successfully.');
+       return redirect()->route('teachers.index')->with('success', 'Guru berhasil dihapus.');
     }
 }

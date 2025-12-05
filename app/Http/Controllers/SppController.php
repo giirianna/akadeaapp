@@ -44,7 +44,7 @@ class SppController extends Controller
 
     public function show(SppPayment $spp)
     {
-        $spp->load('student'); // Ambil data siswa
+        $spp->load('student');
         return view('spp.show', compact('spp'));
     }
 
