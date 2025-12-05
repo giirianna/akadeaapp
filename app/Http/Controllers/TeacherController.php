@@ -4,18 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Teacher;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-
-class TeacherController extends Controller
-{
-    public function index()
-    {
-        $teachers = Teacher::with('subjects')->paginate(10);
-        return view('teachers.index', compact('teachers'));
-    }
-
-=======
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TeacherController extends Controller
 {
@@ -24,42 +14,18 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $teachers = Teacher::with('user')->paginate(10);
-
+        $teachers = Teacher::with(['user', 'subjects'])->paginate(10);
         return view('teachers.index', compact('teachers'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
->>>>>>> 003c79269805b833399a5fc59703b21e24fe9c41
     public function create()
     {
         return view('teachers.create');
     }
 
-<<<<<<< HEAD
-    public function store(Request $request)
-    { 
-        $validated = $request->validate([
-            'teacher_number' => 'required|string|unique:teachers',
-            'teacher_role' => 'nullable|string',
-            'full_name' => 'required|string',
-            'religion' => 'nullable|string',
-            'gender' => 'nullable|in:male,female',
-            'blood_type' => 'nullable|string',
-            'birth_date' => 'nullable|date',
-            'address' => 'nullable|string',
-            'phone_number' => 'nullable|string',
-            'employment_status' => 'nullable|string',
-            'highest_education' => 'nullable|string',
-            'years_of_experience' => 'nullable|integer',
-            'photo' => 'nullable|image|max:2048',
-        ]);
-
-        if ($request->hasFile('photo')) {
-            $validated['photo'] = $request->file('photo')->store('teachers', 'public');
-=======
     /**
      * Store a newly created resource in storage.
      */
@@ -92,24 +58,11 @@ class TeacherController extends Controller
         if ($request->hasFile('teacher_photo')) {
             $path = $request->file('teacher_photo')->store('teacher_photos', 'public');
             $validated['teacher_photo'] = $path;
->>>>>>> 003c79269805b833399a5fc59703b21e24fe9c41
         }
 
         Teacher::create($validated);
 
-<<<<<<< HEAD
         return redirect()->route('teachers.index')->with('success', 'Guru berhasil ditambahkan.');
-    }
-
-    public function show(Teacher $teacher)
-    {
-        // Load relasi subjects agar bisa tampilkan mata pelajaran yang diajar
-        $teacher->load('subjects');
-        return view('teachers.show', compact('teacher'));
-    }
-
-=======
-        return redirect()->route('teachers.index')->with('success', 'Teacher created successfully.');
     }
 
     /**
@@ -117,43 +70,19 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
+        // Load relasi subjects dan user
+        $teacher->load(['subjects', 'user']);
         return view('teachers.show', compact('teacher'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
->>>>>>> 003c79269805b833399a5fc59703b21e24fe9c41
     public function edit(Teacher $teacher)
     {
         return view('teachers.edit', compact('teacher'));
     }
 
-<<<<<<< HEAD
-    public function update(Request $request, Teacher $teacher)
-    {
-        $validated = $request->validate([
-            'teacher_number' => 'required|string|unique:teachers,teacher_number,' . $teacher->id,
-            'teacher_role' => 'nullable|string',
-            'full_name' => 'required|string',
-            'religion' => 'nullable|string',
-            'gender' => 'nullable|in:male,female',
-            'blood_type' => 'nullable|string',
-            'birth_date' => 'nullable|date',
-            'address' => 'nullable|string',
-            'phone_number' => 'nullable|string',
-            'employment_status' => 'nullable|string',
-            'highest_education' => 'nullable|string',
-            'years_of_experience' => 'nullable|integer',
-            'photo' => 'nullable|image|max:2048',
-        ]);
-
-        if ($request->hasFile('photo')) {
-            if ($teacher->photo) {
-                \Storage::disk('public')->delete($teacher->photo);
-            }
-            $validated['photo'] = $request->file('photo')->store('teachers', 'public');
-=======
     /**
      * Update the specified resource in storage.
      */
@@ -176,30 +105,23 @@ class TeacherController extends Controller
             'teacher_photo'  => ['nullable', 'image', 'max:2048'],
         ]);
 
+        // Convert selected subjects array to comma-separated string
+        if (isset($validated['teacher_role']) && is_array($validated['teacher_role'])) {
+            $validated['teacher_role'] = implode(',', $validated['teacher_role']);
+        }
+
         if ($request->hasFile('teacher_photo')) {
+            // Delete old photo if exists
+            if ($teacher->teacher_photo) {
+                Storage::disk('public')->delete($teacher->teacher_photo);
+            }
             $path = $request->file('teacher_photo')->store('teacher_photos', 'public');
             $validated['teacher_photo'] = $path;
->>>>>>> 003c79269805b833399a5fc59703b21e24fe9c41
         }
 
         $teacher->update($validated);
 
-<<<<<<< HEAD
         return redirect()->route('teachers.index')->with('success', 'Guru berhasil diperbarui.');
-    }
-
-    public function destroy(Teacher $teacher)
-    {
-        if ($teacher->photo) {
-            \Storage::disk('public')->delete($teacher->photo);
-        }
-        $teacher->delete();
-
-        return redirect()->route('teachers.index')->with('success', 'Guru berhasil dihapus.');
-    }
-}
-=======
-        return redirect()->route('teachers.index')->with('success', 'Teacher updated successfully.');
     }
 
     /**
@@ -207,9 +129,13 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
+        // Delete photo if exists
+        if ($teacher->teacher_photo) {
+            Storage::disk('public')->delete($teacher->teacher_photo);
+        }
+
         $teacher->delete();
 
-        return redirect()->route('teachers.index')->with('success', 'Teacher deleted successfully.');
+       return redirect()->route('teachers.index')->with('success', 'Guru berhasil dihapus.');
     }
 }
->>>>>>> 003c79269805b833399a5fc59703b21e24fe9c41
