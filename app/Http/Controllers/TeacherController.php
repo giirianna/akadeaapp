@@ -55,7 +55,7 @@ class TeacherController extends Controller
             $validated['teacher_role'] = implode(',', $validated['teacher_role']);
         }
 
-        // ✅ Sesuaikan dengan nama kolom di database: 'photo'
+        
         if ($request->hasFile('teacher_photo')) {
             $path = $request->file('teacher_photo')->store('teacher_photos', 'public');
             $validated['photo'] = $path; // ← Ganti jadi 'photo'
@@ -64,7 +64,7 @@ class TeacherController extends Controller
 
         Teacher::create($validated);
 
-        // 🔥 TAMBAHKAN INI — hanya 3 baris
+    
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 'Guru berhasil ditambahkan.']);
         }
@@ -116,7 +116,7 @@ class TeacherController extends Controller
             $validated['teacher_role'] = implode(',', $validated['teacher_role']);
         }
 
-        // ✅ Sesuaikan dengan nama kolom di database: 'photo'
+       
         if ($request->hasFile('teacher_photo')) {
             // Delete old photo if exists
             if ($teacher->photo) { // ← akses via $teacher->photo
@@ -128,7 +128,7 @@ class TeacherController extends Controller
 
         $teacher->update($validated);
 
-        // 🔥 TAMBAHKAN INI — hanya 3 baris
+       
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 'Guru berhasil diperbarui.']);
         }
@@ -141,7 +141,7 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        // ✅ Akses foto via kolom 'photo'
+        
         if ($teacher->photo) {
             Storage::disk('public')->delete($teacher->photo);
         }
