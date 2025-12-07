@@ -10,8 +10,10 @@ class SppController extends Controller
 {
     public function index()
     {
-        $spps = SppPayment::with('student')->orderBy('created_at', 'desc')->paginate(10);
-        return view('spp.index', compact('spps'));
+    $spps = SppPayment::with('student')->orderBy('created_at', 'desc')->paginate(10);
+    $students = Student::orderBy('name')->get(); // ✅ Ambil semua siswa
+
+    return view('spp.index', compact('spps', 'students')); // ✅ Kirim ke view
     }
 
     public function create()
@@ -20,27 +22,6 @@ class SppController extends Controller
         return view('spp.create', compact('students'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'student_id' => 'required|exists:students,id',
-            'student_name' => 'required|string|max:255',
-            'class' => 'required|string|max:255',
-            'major' => 'nullable|string|max:255',
-            'month' => 'required|string|max:255',
-            'due_date' => 'required|date',
-            'amount' => 'required|numeric|min:0',
-            'amount_paid' => 'nullable|numeric|min:0',
-            'payment_date' => 'nullable|date',
-            'status' => 'required|in:belum_lunas,lunas,sebagian',
-            'payment_method' => 'nullable|string|max:255',
-            'remarks' => 'nullable|string',
-        ]);
-
-        SppPayment::create($request->all());
-
-        return redirect()->route('spp.index')->with('success', 'Pembayaran SPP berhasil ditambahkan.');
-    }
 
     public function show(SppPayment $spp)
     {
@@ -54,32 +35,25 @@ class SppController extends Controller
         return view('spp.edit', compact('spp', 'students'));
     }
 
-    public function update(Request $request, SppPayment $spp)
-    {
-        $request->validate([
-            'student_id' => 'required|exists:students,id',
-            'student_name' => 'required|string|max:255',
-            'class' => 'required|string|max:255',
-            'major' => 'nullable|string|max:255',
-            'month' => 'required|string|max:255',
-            'due_date' => 'required|date',
-            'amount' => 'required|numeric|min:0',
-            'amount_paid' => 'nullable|numeric|min:0',
-            'payment_date' => 'nullable|date',
-            'status' => 'required|in:belum_lunas,lunas,sebagian',
-            'payment_method' => 'nullable|string|max:255',
-            'remarks' => 'nullable|string',
-        ]);
+    public function store(Request $request)
+{
+    // ... validasi
 
-        $spp->update($request->all());
+    $spp = SppPayment::create($request->all());
+    return response()->json(['success' => true, 'spp' => $spp]);
+}
 
-        return redirect()->route('spp.index')->with('success', 'Pembayaran SPP berhasil diperbarui.');
-    }
+public function update(Request $request, SppPayment $spp)
+{
+    // ... validasi
 
-    public function destroy(SppPayment $spp)
-    {
-        $spp->delete();
+    $spp->update($request->all());
+    return response()->json(['success' => true, 'spp' => $spp]);
+}
 
-        return redirect()->route('spp.index')->with('success', 'Pembayaran SPP berhasil dihapus.');
-    }
+public function destroy(SppPayment $spp)
+{
+    $spp->delete();
+    return response()->json(['success' => true]);
+}
 }

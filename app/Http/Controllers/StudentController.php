@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class StudentController extends Controller
 {
@@ -13,57 +14,46 @@ class StudentController extends Controller
         return view('students.index', compact('students'));
     }
 
-    public function create()
-    {
-        return view('students.create');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'nis' => 'required|unique:students',
             'class' => 'required|string|max:255',
             'major' => 'nullable|string|max:255',
-            'nis' => 'required|unique:students,nis',
             'birth_date' => 'nullable|date',
             'address' => 'nullable|string',
         ]);
 
-        Student::create($request->all());
+        // Hanya izinkan field yang diperlukan
+        Student::create($request->only([
+            'name', 'nis', 'class', 'major', 'birth_date', 'address'
+        ]));
 
-        return redirect()->route('students.index')->with('success', 'Siswa berhasil ditambahkan.');
-    }
-
-    public function show(Student $student)
-    {
-        return view('students.show', compact('student'));
-    }
-
-    public function edit(Student $student)
-    {
-        return view('students.edit', compact('student'));
+        return redirect()->route('students.index')->with('success', 'Data siswa berhasil disimpan.');
     }
 
     public function update(Request $request, Student $student)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'nis' => 'required|unique:students,nis,' . $student->id,
             'class' => 'required|string|max:255',
             'major' => 'nullable|string|max:255',
-            'nis' => 'required|unique:students,nis,' . $student->id,
             'birth_date' => 'nullable|date',
             'address' => 'nullable|string',
         ]);
 
-        $student->update($request->all());
+        $student->update($request->only([
+            'name', 'nis', 'class', 'major', 'birth_date', 'address'
+        ]));
 
-        return redirect()->route('students.index')->with('success', 'Siswa berhasil diperbarui.');
+        return redirect()->route('students.index')->with('success', 'Data siswa berhasil diperbarui.');
     }
 
     public function destroy(Student $student)
     {
-        $student->delete();
-
-        return redirect()->route('students.index')->with('success', 'Siswa berhasil dihapus.');
+    $student->delete();
+    return response()->json(['success' => true]);
     }
 }
