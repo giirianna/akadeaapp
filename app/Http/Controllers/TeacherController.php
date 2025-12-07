@@ -133,7 +133,7 @@ class TeacherController extends Controller
         if ($teacher->teacher_photo) {
             Storage::disk('public')->delete($teacher->teacher_photo);
         }
-        
+
         $teacher->delete();
 
         return redirect()->route('teachers.index')->with('success', 'Guru berhasil dihapus.');

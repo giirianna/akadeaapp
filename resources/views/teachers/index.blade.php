@@ -139,5 +139,5 @@
             <!-- ========== tables-wrapper end ========== -->
         </div>
     </section>
-    <!-- ========== table components end ========== -->
+    <!-- ========== table components end ========== -->
 @endsection
