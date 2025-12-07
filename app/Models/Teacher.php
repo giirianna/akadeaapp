@@ -29,7 +29,7 @@ class Teacher extends Model
         'employment_status',
         'highest_education',
         'years_of_experience',
-        'teacher_photo',
+        'photo',
     ];
 
     protected $casts = [

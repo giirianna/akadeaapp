@@ -1,20 +1,19 @@
-@extends('layouts.app')
+@if (!request()->ajax())
+    @extends('layouts.app')
+    @section('title', 'Edit Teacher')
+    @section('content')
+@endif
 
-@section('title', 'Edit Guru')
-
-@section('content')
-    <!-- ========== tab components start ========== -->
-    <section class="tab-components">
-        <div class="container-fluid">
-            <!-- ========== title-wrapper start ========== -->
+<section class="tab-components">
+    <div class="container-fluid">
+        @if (!request()->ajax())
             <div class="title-wrapper pt-30">
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="title">
-                            <h2>Edit Guru</h2>
+                            <h2>Edit Teacher</h2>
                         </div>
                     </div>
-                    <!-- end col -->
                     <div class="col-md-6">
                         <div class="breadcrumb-wrapper">
                             <nav aria-label="breadcrumb">
@@ -23,310 +22,387 @@
                                         <a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('teachers.index') }}">Guru</a>
+                                        <a href="{{ route('teachers.index') }}">Teachers</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Edit Guru</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Edit Teacher
+                                    </li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
-                    <!-- end col -->
                 </div>
-                <!-- end row -->
             </div>
-            <!-- ========== title-wrapper end ========== -->
+        @endif
 
-            <!-- ========== form-elements-wrapper start ========== -->
-            <div class="form-elements-wrapper">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <form action="{{ route('teachers.update', $teacher) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
+        <div class="form-elements-wrapper">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <form
+                        action="{{ route('teachers.update', $teacher) }}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                    >
+                        @csrf
+                        @method('PUT')
 
-                            <!-- Full Name -->
-                            <div class="card-style mb-30">
-                                <div class="input-style-1">
-                                    <label for="full_name">Nama Lengkap</label>
-                                    <input type="text" name="full_name" id="full_name" placeholder="Masukkan nama lengkap"
-                                        value="{{ old('full_name', $teacher->full_name) }}" required />
-                                    @error('full_name')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- end card -->
+                        <!-- Personal Information -->
+                        <div class="card-style mb-4 rounded-3 shadow-sm border-0" style="background: #ffffff;">
+                            <h5 class="mb-4 pb-2 border-bottom" style="color: #4a5568;">
+                                <i class="lni lni-user me-2 text-primary"></i> Personal Information
+                            </h5>
 
-                            <!-- Teacher Number -->
-                            <div class="card-style mb-30">
-                                <div class="input-style-1">
-                                    <label for="teacher_number">Nomor Guru / NIP</label>
-                                    <input type="text" name="teacher_number" id="teacher_number" placeholder="Masukkan nomor guru"
-                                        value="{{ old('teacher_number', $teacher->teacher_number) }}" required />
-                                    @error('teacher_number')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- end card -->
-
-                            <!-- Role / Subjects (multiple checkboxes) -->
-                            <div class="card-style mb-30">
-                                <label class="mb-2 d-block">Mata Pelajaran</label>
-                                @php
-                                    $storedSubjects = $teacher->teacher_role ? explode(',', $teacher->teacher_role) : [];
-                                    $selectedSubjects = old('teacher_role', $storedSubjects);
-                                    if (!is_array($selectedSubjects)) {
-                                        $selectedSubjects = [$selectedSubjects];
-                                    }
-                                @endphp
-                                <div class="row g-2">
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_religion"
-                                                value="Religious Education & Character Education" {{ in_array('Religious Education & Character Education', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_religion">Pendidikan Agama & Budi Pekerti</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_ppkn"
-                                                value="PPKn" {{ in_array('PPKn', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_ppkn">PPKn (Pancasila & Kewarganegaraan)</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_indonesian"
-                                                value="Indonesian" {{ in_array('Indonesian', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_indonesian">Bahasa Indonesia</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_english"
-                                                value="English" {{ in_array('English', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_english">Bahasa Inggris</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_math"
-                                                value="Mathematics" {{ in_array('Mathematics', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_math">Matematika</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_pjok"
-                                                value="PJOK" {{ in_array('PJOK', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_pjok">PJOK</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_history"
-                                                value="Indonesian History" {{ in_array('Indonesian History', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_history">Sejarah Indonesia</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_ict"
-                                                value="Informatics / ICT" {{ in_array('Informatics / ICT', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_ict">Informatika / TIK</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_arts"
-                                                value="Arts and Culture" {{ in_array('Arts and Culture', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_arts">Seni Budaya</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="teacher_role[]" id="subject_crafts"
-                                                value="Crafts / Sociology" {{ in_array('Crafts / Sociology', $selectedSubjects) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="subject_crafts">Keterampilan / Sosiologi (Peminatan)</label>
-                                        </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="input-style-1">
+                                        <label for="full_name" class="form-label fw-medium">Full Name</label>
+                                        <input
+                                            type="text"
+                                            name="full_name"
+                                            id="full_name"
+                                            placeholder="Enter full name"
+                                            value="{{ old('full_name', $teacher->full_name) }}"
+                                            required
+                                            class="form-control"
+                                        />
+                                        @error('full_name')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
-                                @error('teacher_role')
-                                    <span class="text-danger small">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <!-- end card -->
 
-                            <!-- Employment Status -->
-                            <div class="card-style mb-30">
-                                <div class="select-style-1">
-                                    <label for="employment_status">Status Kepegawaian</label>
-                                    <div class="select-position">
-                                        <select name="employment_status" id="employment_status">
-                                            <option value="">-- Pilih Status --</option>
-                                            <option value="honorary" {{ old('employment_status', $teacher->employment_status) == 'honorary' ? 'selected' : '' }}>Honorer</option>
-                                            <option value="permanent" {{ old('employment_status', $teacher->employment_status) == 'permanent' ? 'selected' : '' }}>Tetap</option>
-                                        </select>
+                                <div class="col-md-6">
+                                    <div class="input-style-1">
+                                        <label for="teacher_number" class="form-label fw-medium">Teacher ID / NIP</label>
+                                        <input
+                                            type="text"
+                                            name="teacher_number"
+                                            id="teacher_number"
+                                            placeholder="Enter teacher ID"
+                                            value="{{ old('teacher_number', $teacher->teacher_number) }}"
+                                            required
+                                            class="form-control"
+                                        />
+                                        @error('teacher_number')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    @error('employment_status')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
                                 </div>
                             </div>
-                            <!-- end card -->
-
-                            <!-- Highest Education -->
-                            <div class="card-style mb-30">
-                                <div class="select-style-1">
-                                    <label for="highest_education">Pendidikan Terakhir</label>
-                                    <div class="select-position">
-                                        <select name="highest_education" id="highest_education">
-                                            <option value="">-- Pilih Pendidikan --</option>
-                                            <option value="bachelor" {{ old('highest_education', $teacher->highest_education) == 'bachelor' ? 'selected' : '' }}>S1 (Sarjana)</option>
-                                            <option value="master" {{ old('highest_education', $teacher->highest_education) == 'master' ? 'selected' : '' }}>S2 (Magister)</option>
-                                            <option value="doctoral" {{ old('highest_education', $teacher->highest_education) == 'doctoral' ? 'selected' : '' }}>S3 (Doktor)</option>
-                                        </select>
-                                    </div>
-                                    @error('highest_education')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- end card -->
-
-                            <!-- Years of Experience -->
-                            <div class="card-style mb-30">
-                                <div class="input-style-1">
-                                    <label for="years_of_experience">Pengalaman Mengajar (tahun)</label>
-                                    <input type="number" name="years_of_experience" id="years_of_experience" min="0"
-                                        value="{{ old('years_of_experience', $teacher->years_of_experience) }}" />
-                                    @error('years_of_experience')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- end card -->
-
-                            <!-- Gender -->
-                            <div class="card-style mb-30">
-                                <div class="select-style-1">
-                                    <label for="gender">Jenis Kelamin</label>
-                                    <div class="select-position">
-                                        <select name="gender" id="gender" required>
-                                            <option value="">-- Pilih Jenis Kelamin --</option>
-                                            <option value="male" {{ old('gender', $teacher->gender) == 'male' ? 'selected' : '' }}>Laki-laki</option>
-                                            <option value="female" {{ old('gender', $teacher->gender) == 'female' ? 'selected' : '' }}>Perempuan</option>
-                                        </select>
-                                    </div>
-                                    @error('gender')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- end card -->
-
-                            <!-- Religion -->
-                            <div class="card-style mb-30">
-                                <div class="select-style-1">
-                                    <label for="religion">Agama</label>
-                                    <div class="select-position">
-                                        <select name="religion" id="religion">
-                                            <option value="">-- Pilih Agama --</option>
-                                            <option value="Islam" {{ old('religion', $teacher->religion) == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                            <option value="Christian" {{ old('religion', $teacher->religion) == 'Christian' ? 'selected' : '' }}>Kristen</option>
-                                            <option value="Catholic" {{ old('religion', $teacher->religion) == 'Catholic' ? 'selected' : '' }}>Katolik</option>
-                                            <option value="Buddhist" {{ old('religion', $teacher->religion) == 'Buddhist' ? 'selected' : '' }}>Buddha</option>
-                                            <option value="Protestant" {{ old('religion', $teacher->religion) == 'Protestant' ? 'selected' : '' }}>Protestan</option>
-                                            <option value="Jewish" {{ old('religion', $teacher->religion) == 'Jewish' ? 'selected' : '' }}>Yahudi</option>
-                                            <option value="Atheist" {{ old('religion', $teacher->religion) == 'Atheist' ? 'selected' : '' }}>Atheis</option>
-                                        </select>
-                                    </div>
-                                    @error('religion')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- end card -->
-
-                            <!-- Blood Type -->
-                            <div class="card-style mb-30">
-                                <div class="select-style-1">
-                                    <label for="blood_type">Golongan Darah</label>
-                                    <div class="select-position">
-                                        <select name="blood_type" id="blood_type">
-                                            <option value="">-- Pilih Golongan Darah --</option>
-                                            <option value="A" {{ old('blood_type', $teacher->blood_type) == 'A' ? 'selected' : '' }}>A</option>
-                                            <option value="B" {{ old('blood_type', $teacher->blood_type) == 'B' ? 'selected' : '' }}>B</option>
-                                            <option value="AB" {{ old('blood_type', $teacher->blood_type) == 'AB' ? 'selected' : '' }}>AB</option>
-                                            <option value="O" {{ old('blood_type', $teacher->blood_type) == 'O' ? 'selected' : '' }}>O</option>
-                                        </select>
-                                    </div>
-                                    @error('blood_type')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- end card -->
-
-                            <!-- Birth Date -->
-                            <div class="card-style mb-30">
-                                <div class="input-style-1">
-                                    <label for="birth_date">Tanggal Lahir</label>
-                                    <input type="date" name="birth_date" id="birth_date"
-                                        value="{{ old('birth_date', $teacher->birth_date) }}" />
-                                    @error('birth_date')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- end card -->
-
-                            <!-- Address -->
-                            <div class="card-style mb-30">
-                                <label for="address">Alamat</label>
-                                <textarea name="address" id="address" class="form-control" rows="4" placeholder="Masukkan alamat">{{ old('address', $teacher->address) }}</textarea>
-                                @error('address')
-                                    <span class="text-danger small">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <!-- end card -->
-
-                            <!-- Phone Number -->
-                            <div class="card-style mb-30">
-                                <div class="input-style-1">
-                                    <label for="phone_number">No. Telepon</label>
-                                    <input type="text" name="phone_number" id="phone_number" placeholder="Masukkan nomor telepon"
-                                        value="{{ old('phone_number', $teacher->phone_number) }}" />
-                                    @error('phone_number')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <!-- end card -->
 
                             <!-- Photo -->
-                            <div class="card-style mb-30">
-                                <div class="input-style-1">
-                                    <label for="teacher_photo">Foto Guru</label>
-                                    <input type="file" name="teacher_photo" id="teacher_photo" accept="image/*" />
-                                    @if($teacher->teacher_photo)
-                                        <div class="mt-2">
-                                            <img src="{{ asset('storage/' . $teacher->teacher_photo) }}" alt="Foto Guru" style="max-width: 120px; border-radius: 8px;">
-                                        </div>
-                                    @endif
-                                    @error('teacher_photo')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-medium">Teacher Photo</label>
+                                <input
+                                    type="file"
+                                    name="teacher_photo"
+                                    id="teacher_photo"
+                                    accept="image/*"
+                                    class="form-control"
+                                />
+                                @if ($teacher->photo)
+                                    <div class="mt-2">
+                                        <img
+                                            src="{{ asset('storage/' . $teacher->photo) }}"
+                                            alt="Teacher Photo"
+                                            class="img-thumbnail rounded"
+                                            style="max-width: 120px; height: auto; border: 2px solid #e2e8f0;"
+                                        >
+                                    </div>
+                                @endif
+                                @error('teacher_photo')
+                                    <span class="text-danger small">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <!-- end card -->
+                        </div>
 
-                            <!-- Buttons -->
-                            <div class="card-style mb-30">
-                                <div class="d-flex gap-2">
-                                    <button type="submit" class="btn btn-primary">
-                                        <span class="icon"><i class="lni lni-save"></i></span> Update
-                                    </button>
-                                    <a href="{{ route('teachers.index') }}" class="btn btn-secondary">
-                                        <span class="icon"><i class="lni lni-arrow-left"></i></span> Kembali
-                                    </a>
+                        <!-- Professional Information -->
+                        <div class="card-style mb-4 rounded-3 shadow-sm border-0" style="background: #ffffff;">
+                            <h5 class="mb-4 pb-2 border-bottom" style="color: #4a5568;">
+                                <i class="lni lni-briefcase me-2 text-primary"></i> Professional Information
+                            </h5>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="input-style-1">
+                                        <label for="employment_status" class="form-label fw-medium">Employment Status</label>
+                                        <select name="employment_status" id="employment_status" class="form-select">
+                                            <option value="">-- Select Status --</option>
+                                            <option value="honorary" {{ old('employment_status', $teacher->employment_status) == 'honorary' ? 'selected' : '' }}>
+                                                Honorary
+                                            </option>
+                                            <option value="permanent" {{ old('employment_status', $teacher->employment_status) == 'permanent' ? 'selected' : '' }}>
+                                                Permanent
+                                            </option>
+                                        </select>
+                                        @error('employment_status')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="input-style-1">
+                                        <label for="highest_education" class="form-label fw-medium">Highest Education</label>
+                                        <select name="highest_education" id="highest_education" class="form-select">
+                                            <option value="">-- Select Education Level --</option>
+                                            <option value="bachelor" {{ old('highest_education', $teacher->highest_education) == 'bachelor' ? 'selected' : '' }}>
+                                                Bachelor's Degree (S1)
+                                            </option>
+                                            <option value="master" {{ old('highest_education', $teacher->highest_education) == 'master' ? 'selected' : '' }}>
+                                                Master's Degree (S2)
+                                            </option>
+                                            <option value="doctoral" {{ old('highest_education', $teacher->highest_education) == 'doctoral' ? 'selected' : '' }}>
+                                                Doctoral Degree (S3)
+                                            </option>
+                                        </select>
+                                        @error('highest_education')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                            <!-- end card -->
-                        </form>
-                    </div>
-                    <!-- end col -->
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="input-style-1">
+                                        <label for="years_of_experience" class="form-label fw-medium">Years of Experience</label>
+                                        <input
+                                            type="number"
+                                            name="years_of_experience"
+                                            id="years_of_experience"
+                                            min="0"
+                                            value="{{ old('years_of_experience', $teacher->years_of_experience) }}"
+                                            class="form-control"
+                                        />
+                                        @error('years_of_experience')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="input-style-1">
+                                        <label for="gender" class="form-label fw-medium">Gender</label>
+                                        <select name="gender" id="gender" required class="form-select">
+                                            <option value="">-- Select Gender --</option>
+                                            <option value="male" {{ old('gender', $teacher->gender) == 'male' ? 'selected' : '' }}>
+                                                Male
+                                            </option>
+                                            <option value="female" {{ old('gender', $teacher->gender) == 'female' ? 'selected' : '' }}>
+                                                Female
+                                            </option>
+                                        </select>
+                                        @error('gender')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Personal Details -->
+                        <div class="card-style mb-4 rounded-3 shadow-sm border-0" style="background: #ffffff;">
+                            <h5 class="mb-4 pb-2 border-bottom" style="color: #4a5568;">
+                                <i class="lni lni-calendar me-2 text-primary"></i> Personal Details
+                            </h5>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="input-style-1">
+                                        <label for="birth_date" class="form-label fw-medium">Date of Birth</label>
+                                        <input
+                                            type="date"
+                                            name="birth_date"
+                                            id="birth_date"
+                                            value="{{ old('birth_date', $teacher->birth_date) }}"
+                                            class="form-control"
+                                        />
+                                        @error('birth_date')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="input-style-1">
+                                        <label for="religion" class="form-label fw-medium">Religion</label>
+                                        <select name="religion" id="religion" class="form-select">
+                                            <option value="">-- Select Religion --</option>
+                                            <option value="Islam" {{ old('religion', $teacher->religion) == 'Islam' ? 'selected' : '' }}>
+                                                Islam
+                                            </option>
+                                            <option value="Christian" {{ old('religion', $teacher->religion) == 'Christian' ? 'selected' : '' }}>
+                                                Christian
+                                            </option>
+                                            <option value="Catholic" {{ old('religion', $teacher->religion) == 'Catholic' ? 'selected' : '' }}>
+                                                Catholic
+                                            </option>
+                                            <option value="Buddhist" {{ old('religion', $teacher->religion) == 'Buddhist' ? 'selected' : '' }}>
+                                                Buddhist
+                                            </option>
+                                            <option value="Protestant" {{ old('religion', $teacher->religion) == 'Protestant' ? 'selected' : '' }}>
+                                                Protestant
+                                            </option>
+                                            <option value="Jewish" {{ old('religion', $teacher->religion) == 'Jewish' ? 'selected' : '' }}>
+                                                Jewish
+                                            </option>
+                                            <option value="Atheist" {{ old('religion', $teacher->religion) == 'Atheist' ? 'selected' : '' }}>
+                                                Atheist
+                                            </option>
+                                        </select>
+                                        @error('religion')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="input-style-1">
+                                        <label for="blood_type" class="form-label fw-medium">Blood Type</label>
+                                        <select name="blood_type" id="blood_type" class="form-select">
+                                            <option value="">-- Select Blood Type --</option>
+                                            <option value="A" {{ old('blood_type', $teacher->blood_type) == 'A' ? 'selected' : '' }}>
+                                                A
+                                            </option>
+                                            <option value="B" {{ old('blood_type', $teacher->blood_type) == 'B' ? 'selected' : '' }}>
+                                                B
+                                            </option>
+                                            <option value="AB" {{ old('blood_type', $teacher->blood_type) == 'AB' ? 'selected' : '' }}>
+                                                AB
+                                            </option>
+                                            <option value="O" {{ old('blood_type', $teacher->blood_type) == 'O' ? 'selected' : '' }}>
+                                                O
+                                            </option>
+                                        </select>
+                                        @error('blood_type')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="input-style-1">
+                                        <label for="address" class="form-label fw-medium">Address</label>
+                                        <textarea
+                                            name="address"
+                                            id="address"
+                                            class="form-control"
+                                            rows="2"
+                                            placeholder="Enter address"
+                                        >{{ old('address', $teacher->address) }}</textarea>
+                                        @error('address')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="input-style-1">
+                                        <label for="phone_number" class="form-label fw-medium">Phone Number</label>
+                                        <input
+                                            type="text"
+                                            name="phone_number"
+                                            id="phone_number"
+                                            placeholder="Enter phone number"
+                                            value="{{ old('phone_number', $teacher->phone_number) }}"
+                                            class="form-control"
+                                        />
+                                        @error('phone_number')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Subjects -->
+                        <div class="card-style mb-4 rounded-3 shadow-sm border-0" style="background: #ffffff;">
+                            <h5 class="mb-4 pb-2 border-bottom" style="color: #4a5568;">
+                                <i class="lni lni-book me-2 text-primary"></i> Subjects
+                            </h5>
+
+                            @php
+                                $storedSubjects = $teacher->teacher_role ? explode(',', $teacher->teacher_role) : [];
+                                $selectedSubjects = old('teacher_role', $storedSubjects);
+                                $selectedSubjects = is_array($selectedSubjects) ? $selectedSubjects : [$selectedSubjects];
+                            @endphp
+
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    @foreach([
+                                        ['value' => 'Religious Education & Character Education', 'label' => 'Religious Education & Character Education'],
+                                        ['value' => 'PPKn', 'label' => 'PPKn (Pancasila & Citizenship)'],
+                                        ['value' => 'Indonesian', 'label' => 'Indonesian Language'],
+                                        ['value' => 'English', 'label' => 'English Language'],
+                                        ['value' => 'Mathematics', 'label' => 'Mathematics']
+                                    ] as $subject)
+                                        <div class="form-check mb-2">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                name="teacher_role[]"
+                                                id="subject_{{ Str::slug($subject['value']) }}"
+                                                value="{{ $subject['value'] }}"
+                                                {{ in_array($subject['value'], $selectedSubjects) ? 'checked' : '' }}
+                                            >
+                                            <label class="form-check-label" for="subject_{{ Str::slug($subject['value']) }}">
+                                                {{ $subject['label'] }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="col-md-6">
+                                    @foreach([
+                                        ['value' => 'PJOK', 'label' => 'Physical Education (PJOK)'],
+                                        ['value' => 'Indonesian History', 'label' => 'Indonesian History'],
+                                        ['value' => 'Informatics / ICT', 'label' => 'Informatics / ICT'],
+                                        ['value' => 'Arts and Culture', 'label' => 'Arts and Culture'],
+                                        ['value' => 'Crafts / Sociology', 'label' => 'Crafts / Sociology (Elective)']
+                                    ] as $subject)
+                                        <div class="form-check mb-2">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                name="teacher_role[]"
+                                                id="subject_{{ Str::slug($subject['value']) }}"
+                                                value="{{ $subject['value'] }}"
+                                                {{ in_array($subject['value'], $selectedSubjects) ? 'checked' : '' }}
+                                            >
+                                            <label class="form-check-label" for="subject_{{ Str::slug($subject['value']) }}">
+                                                {{ $subject['label'] }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            @error('teacher_role')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex gap-2 justify-content-end">
+                            <button type="submit" class="btn btn-success px-4 py-2 shadow-sm">
+                                <i class="lni lni-save me-1"></i> Update
+                            </button>
+                            @if (!request()->ajax())
+                                <a href="{{ route('teachers.index') }}" class="btn btn-outline-secondary px-4 py-2">
+                                    <i class="lni lni-arrow-left me-1"></i> Back
+                                </a>
+                            @endif
+                        </div>
+                    </form>
                 </div>
-                <!-- end row -->
             </div>
-            <!-- ========== form-elements-wrapper end ========== -->
         </div>
-        <!-- end container-fluid -->
-    </section>
-    <!-- ========== tab components end ========== -->
-@endsection
+    </div>
+</section>
+
+@if (!request()->ajax())
+    @endsection
+@endif
