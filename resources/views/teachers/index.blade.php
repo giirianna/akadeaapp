@@ -10,7 +10,7 @@
             <div class="title-wrapper pt-30">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <div class="title">
+                        <div class="title"> 
                             <h2>Daftar Guru</h2>
                         </div>
                     </div>

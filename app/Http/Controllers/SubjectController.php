@@ -126,6 +126,11 @@ class SubjectController extends Controller
             'Multimedia',
         ];
 
+        // If AJAX request, return partial view for modal
+        if (request()->ajax()) {
+            return view('subjects.partials.create', compact('teachers', 'majors'));
+        }
+
         return view('subjects.create', compact('teachers', 'majors'));
     }
 
@@ -148,7 +153,16 @@ class SubjectController extends Controller
         $teacher = Teacher::find($request->teacher_id);
         $validated['teacher_name'] = $teacher ? $teacher->full_name : null;
 
-        Subject::create($validated);
+        $subject = Subject::create($validated);
+
+        // If AJAX request, return JSON response
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Mata pelajaran berhasil ditambahkan.',
+                'subject' => $subject
+            ]);
+        }
 
         return redirect()->route('subjects.index')->with('success', 'Mata pelajaran berhasil ditambahkan.');
     }

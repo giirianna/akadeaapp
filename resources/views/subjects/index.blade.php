@@ -36,9 +36,9 @@
                 <div class="card-style mb-30">
                     <div class="d-flex justify-content-between align-items-center mb-20">
                         <h6 class="mb-0">Daftar Mata Pelajaran</h6>
-                        <a href="{{ route('subjects.create') }}" class="main-btn primary-btn btn-hover">
-                            Tambah Mata Pelajaran
-                        </a>
+                        <button type="button" class="main-btn primary-btn btn-hover" id="btnAddSubject">
+                            <i class="lni lni-plus"></i> Tambah Mata Pelajaran
+                        </button>
                     </div>
 
                     <!-- Filters -->
@@ -162,9 +162,154 @@
     </div>
 </div>
 
+<!-- Create Subject Modal -->
+<div class="modal fade" id="createSubjectModal" tabindex="-1" aria-labelledby="createSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createSubjectModalLabel">
+                    <i class="lni lni-plus"></i> Tambah Mata Pelajaran
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="createSubjectContent">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Popup Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-body text-center py-5">
+                <div class="success-checkmark mb-4">
+                    <div class="check-icon">
+                        <span class="icon-line line-tip"></span>
+                        <span class="icon-line line-long"></span>
+                        <div class="icon-circle"></div>
+                        <div class="icon-fix"></div>
+                    </div>
+                </div>
+                <h4 class="text-success mb-3" id="successModalTitle">Berhasil!</h4>
+                <p class="text-muted mb-4" id="successModalMessage">Data berhasil disimpan.</p>
+                <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @push('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+<style>
+    /* Success Checkmark Animation */
+    .success-checkmark {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+    }
+    .success-checkmark .check-icon {
+        width: 80px;
+        height: 80px;
+        position: relative;
+        border-radius: 50%;
+        box-sizing: content-box;
+        border: 4px solid #4CAF50;
+    }
+    .success-checkmark .check-icon::before {
+        top: 3px;
+        left: -2px;
+        width: 30px;
+        transform-origin: 100% 50%;
+        border-radius: 100px 0 0 100px;
+    }
+    .success-checkmark .check-icon::after {
+        top: 0;
+        left: 30px;
+        width: 60px;
+        transform-origin: 0 50%;
+        border-radius: 0 100px 100px 0;
+        animation: rotate-circle 4.25s ease-in;
+    }
+    .success-checkmark .check-icon::before, .success-checkmark .check-icon::after {
+        content: '';
+        height: 100px;
+        position: absolute;
+        background: #FFFFFF;
+        transform: rotate(-45deg);
+    }
+    .success-checkmark .check-icon .icon-line {
+        height: 5px;
+        background-color: #4CAF50;
+        display: block;
+        border-radius: 2px;
+        position: absolute;
+        z-index: 10;
+    }
+    .success-checkmark .check-icon .icon-line.line-tip {
+        top: 46px;
+        left: 14px;
+        width: 25px;
+        transform: rotate(45deg);
+        animation: icon-line-tip 0.75s;
+    }
+    .success-checkmark .check-icon .icon-line.line-long {
+        top: 38px;
+        right: 8px;
+        width: 47px;
+        transform: rotate(-45deg);
+        animation: icon-line-long 0.75s;
+    }
+    .success-checkmark .check-icon .icon-circle {
+        top: -4px;
+        left: -4px;
+        z-index: 10;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        position: absolute;
+        box-sizing: content-box;
+        border: 4px solid rgba(76, 175, 80, 0.5);
+    }
+    .success-checkmark .check-icon .icon-fix {
+        top: 8px;
+        width: 5px;
+        left: 26px;
+        z-index: 1;
+        height: 85px;
+        position: absolute;
+        transform: rotate(-45deg);
+        background-color: #FFFFFF;
+    }
+    @keyframes rotate-circle {
+        0% { transform: rotate(-45deg); }
+        5% { transform: rotate(-45deg); }
+        12% { transform: rotate(-405deg); }
+        100% { transform: rotate(-405deg); }
+    }
+    @keyframes icon-line-tip {
+        0% { width: 0; left: 1px; top: 19px; }
+        54% { width: 0; left: 1px; top: 19px; }
+        70% { width: 50px; left: -8px; top: 37px; }
+        84% { width: 17px; left: 21px; top: 48px; }
+        100% { width: 25px; left: 14px; top: 46px; }
+    }
+    @keyframes icon-line-long {
+        0% { width: 0; right: 46px; top: 54px; }
+        65% { width: 0; right: 46px; top: 54px; }
+        84% { width: 55px; right: 0px; top: 35px; }
+        100% { width: 47px; right: 8px; top: 38px; }
+    }
+    #successModal .modal-content {
+        border-radius: 15px;
+    }
+</style>
 @endpush
 
 @push('scripts')
@@ -263,6 +408,77 @@ $(document).ready(function() {
         table.ajax.reload();
     });
 
+    // Show success popup function
+    function showSuccessPopup(title, message) {
+        $('#successModalTitle').text(title || 'Berhasil!');
+        $('#successModalMessage').text(message || 'Data berhasil disimpan.');
+        $('#successModal').modal('show');
+    }
+
+    // Create Subject Modal - Open
+    $('#btnAddSubject').on('click', function() {
+        $('#createSubjectModal').modal('show');
+        $('#createSubjectContent').html('<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>');
+        
+        $.ajax({
+            url: '{{ route("subjects.create") }}',
+            type: 'GET',
+            success: function(response) {
+                $('#createSubjectContent').html(response);
+            },
+            error: function() {
+                $('#createSubjectContent').html('<div class="alert alert-danger">Gagal memuat form.</div>');
+            }
+        });
+    });
+
+    // Handle Create Form Submission
+    $(document).on('submit', '#createSubjectForm', function(e) {
+        e.preventDefault();
+        
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = new FormData(this);
+        var submitBtn = form.find('button[type="submit"]');
+        
+        // Disable submit button to prevent double submission
+        submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status"></span> Menyimpan...');
+        
+        // Remove any existing error alerts
+        form.find('.alert-danger').remove();
+        
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                $('#createSubjectModal').modal('hide');
+                table.ajax.reload();
+                showSuccessPopup('Berhasil!', 'Mata pelajaran berhasil ditambahkan.');
+                
+                // Reset form
+                form[0].reset();
+            },
+            error: function(xhr) {
+                submitBtn.prop('disabled', false).html('Simpan');
+                
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorHtml = '<div class="alert alert-danger"><ul class="mb-0">';
+                    $.each(errors, function(key, value) {
+                        errorHtml += '<li>' + value[0] + '</li>';
+                    });
+                    errorHtml += '</ul></div>';
+                    form.prepend(errorHtml);
+                } else {
+                    form.prepend('<div class="alert alert-danger">Gagal menyimpan data. Silakan coba lagi.</div>');
+                }
+            }
+        });
+    });
+
     // Show Subject Modal
     $(document).on('click', '.show-subject', function(e) {
         e.preventDefault();
@@ -310,6 +526,13 @@ $(document).ready(function() {
         var form = $(this);
         var url = form.attr('action');
         var formData = new FormData(this);
+        var submitBtn = form.find('button[type="submit"]');
+        
+        // Disable submit button to prevent double submission
+        submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status"></span> Menyimpan...');
+        
+        // Remove any existing error alerts
+        form.find('.alert-danger').remove();
         
         $.ajax({
             url: url,
@@ -320,16 +543,22 @@ $(document).ready(function() {
             success: function(response) {
                 $('#editSubjectModal').modal('hide');
                 table.ajax.reload();
-                alert('Mata pelajaran berhasil diperbarui!');
+                showSuccessPopup('Berhasil!', 'Mata pelajaran berhasil diperbarui.');
             },
             error: function(xhr) {
-                var errors = xhr.responseJSON.errors;
-                var errorHtml = '<div class="alert alert-danger"><ul class="mb-0">';
-                $.each(errors, function(key, value) {
-                    errorHtml += '<li>' + value[0] + '</li>';
-                });
-                errorHtml += '</ul></div>';
-                $('#editSubjectContent').prepend(errorHtml);
+                submitBtn.prop('disabled', false).html('Simpan Perubahan');
+                
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorHtml = '<div class="alert alert-danger"><ul class="mb-0">';
+                    $.each(errors, function(key, value) {
+                        errorHtml += '<li>' + value[0] + '</li>';
+                    });
+                    errorHtml += '</ul></div>';
+                    form.prepend(errorHtml);
+                } else {
+                    form.prepend('<div class="alert alert-danger">Gagal menyimpan data. Silakan coba lagi.</div>');
+                }
             }
         });
     });
@@ -349,6 +578,9 @@ $(document).ready(function() {
     // Confirm Delete
     $('#confirmDeleteBtn').on('click', function() {
         if (deleteUrl) {
+            var deleteBtn = $(this);
+            deleteBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status"></span> Menghapus...');
+            
             $.ajax({
                 url: deleteUrl,
                 type: 'POST',
@@ -357,24 +589,13 @@ $(document).ready(function() {
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    deleteBtn.prop('disabled', false).html('<i class="lni lni-trash-can"></i> Hapus');
                     $('#deleteSubjectModal').modal('hide');
                     table.ajax.reload();
-                    
-                    // Show success message
-                    var successAlert = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                                      '<strong>Berhasil!</strong> Mata pelajaran berhasil dihapus.' +
-                                      '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
-                                      '</div>';
-                    $('.container-fluid').prepend(successAlert);
-                    
-                    // Auto-hide alert after 3 seconds
-                    setTimeout(function() {
-                        $('.alert-success').fadeOut('slow', function() {
-                            $(this).remove();
-                        });
-                    }, 3000);
+                    showSuccessPopup('Berhasil!', 'Mata pelajaran berhasil dihapus.');
                 },
                 error: function() {
+                    deleteBtn.prop('disabled', false).html('<i class="lni lni-trash-can"></i> Hapus');
                     $('#deleteSubjectModal').modal('hide');
                     alert('Gagal menghapus mata pelajaran.');
                 }
