@@ -31,6 +31,14 @@ Route::resource('spp', SppController::class);
 Route::resource('teachers', TeacherController::class);
 Route::resource('subjects', SubjectController::class);
 
+// Language Switcher
+Route::post('/language/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('language.switch');
+
 // Role Management Routes
 Route::middleware('auth')->group(function () {
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');

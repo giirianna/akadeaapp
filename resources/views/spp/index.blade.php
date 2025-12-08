@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Daftar Pembayaran SPP')
+@section('title', __('app.spp_list'))
 
 @section('content')
 <!-- ========== table components start ========== -->
@@ -10,7 +10,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="title">
-                        <h2>Daftar Pembayaran SPP</h2>
+                        <h2>{{ __('app.spp_list') }}</h2>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -18,9 +18,9 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}">{{ __('app.dashboard') }}</a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">Pembayaran SPP</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ __('app.spp_payments') }}</li>
                             </ol>
                         </nav>
                     </div>
@@ -36,11 +36,11 @@
                     <div class="card-style mb-30">
                         <div class="d-flex justify-content-between align-items-center mb-30">
                             <div>
-                                <h6>Data Pembayaran SPP</h6>
-                                <p class="text-sm">Daftar lengkap pembayaran SPP siswa</p>
+                                <h6>{{ __('app.spp_list') }}</h6>
+                                <p class="text-sm">{{ __('app.spp_list_description') }}</p>
                             </div>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sppModal">
-                                <span class="icon"><i class="lni lni-plus"></i></span> Tambah Pembayaran
+                                <span class="icon"><i class="lni lni-plus"></i></span> {{ __('app.add_spp') }}
                             </button>
                         </div>
 
@@ -48,7 +48,7 @@
                             <div class="alert alert-info" role="alert">
                                 <div class="d-flex align-items-center">
                                     <i class="lni lni-info-circle me-2"></i>
-                                    <span>Belum ada data pembayaran SPP.</span>
+                                    <span>{{ __('app.no_spp_data') }}</span>
                                 </div>
                             </div>
                         @else
@@ -57,12 +57,12 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center" style="width: 50px;"><h6>#</h6></th>
-                                            <th class="text-start"><h6>Nama Siswa</h6></th>
-                                            <th class="text-center"><h6>Kelas</h6></th>
-                                            <th class="text-center"><h6>Bulan</h6></th>
-                                            <th class="text-right"><h6>Jumlah Tagihan</h6></th>
-                                            <th class="text-center"><h6>Status</h6></th>
-                                            <th class="text-center"><h6>Aksi</h6></th>
+                                            <th class="text-start"><h6>{{ __('app.student_name') ?? 'Nama Siswa' }}</h6></th>
+                                            <th class="text-center"><h6>{{ __('app.class') }}</h6></th>
+                                            <th class="text-center"><h6>{{ __('app.month') ?? 'Bulan' }}</h6></th>
+                                            <th class="text-right"><h6>{{ __('app.bill_amount') ?? 'Jumlah Tagihan' }}</h6></th>
+                                            <th class="text-center"><h6>{{ __('app.status') }}</h6></th>
+                                            <th class="text-center"><h6>{{ __('app.actions') }}</h6></th>
                                         </tr>
                                     </thead>
                                     <tbody>

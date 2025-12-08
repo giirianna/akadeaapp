@@ -16,6 +16,55 @@
         type="text/css" />
     <link rel="stylesheet" href="{{ asset('assets/css/fullcalendar.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <style>
+        /* Language Switcher Toggle Styling */
+        .language-switcher-toggle {
+            display: flex;
+            background: var(--gray-2);
+            border-radius: 8px;
+            padding: 4px;
+            gap: 4px;
+        }
+        
+        .language-switcher-toggle .lang-btn {
+            background: transparent;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .language-switcher-toggle .lang-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .language-switcher-toggle .lang-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Dark mode support */
+        .dark .language-switcher-toggle {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .dark .language-switcher-toggle .lang-btn {
+            color: var(--gray-4);
+        }
+        
+        .dark .language-switcher-toggle .lang-btn.active {
+            background: var(--dark-2);
+            color: white;
+        }
+    </style>
     @stack('styles')
 </head>
 
@@ -47,11 +96,11 @@
                                     d="M17.0833 10C17.7737 10 18.3432 9.43708 18.2408 8.75433C17.7005 5.14918 14.8508 2.29947 11.2457 1.75912C10.5629 1.6568 10 2.2263 10 2.91665V9.16666C10 9.62691 10.3731 10 10.8333 10H17.0833Z" />
                             </svg>
                         </span>
-                        <span class="text">Dashboard</span>
+                        <span class="text">{{ __('app.dashboard') }}</span>
                     </a>
                     <ul id="ddmenu_1" class="collapse {{ request()->routeIs('dashboard') ? 'show' : '' }} dropdown-nav">
                         <li>
-                            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"> Home </a>
+                            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"> {{ __('app.home') }} </a>
                         </li>
                     </ul>
                 </li>
@@ -67,23 +116,23 @@
                                     d="M10 5C9.08333 5 8.33333 5.75 8.33333 6.66667V10C8.33333 10.9167 9.08333 11.6667 10 11.6667H12.5C13.0523 11.6667 13.5 11.2189 13.5 10.6667C13.5 10.1144 13.0523 9.66667 12.5 9.66667H10V6.66667C10 5.75 9.25 5 10 5Z" />
                             </svg>
                         </span>
-                        <span class="text">Management</span>
+                        <span class="text">{{ __('app.management') }}</span>
                     </a>
                     <ul id="ddmenu_3" class="collapse dropdown-nav">
                         <li>
-                            <a href="{{ route('students.index') }}"> Students </a>
+                            <a href="{{ route('students.index') }}"> {{ __('app.students') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('spp.index') }}"> SPP Payments </a>
+                            <a href="{{ route('spp.index') }}"> {{ __('app.spp_payments') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('teachers.index') }}"> Teachers </a>
+                            <a href="{{ route('teachers.index') }}"> {{ __('app.teachers') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('subjects.index') }}"> Subjects </a>
+                            <a href="{{ route('subjects.index') }}"> {{ __('app.subjects') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('roles.index') }}"> Role Management </a>
+                            <a href="{{ route('roles.index') }}"> {{ __('app.role_management') }} </a>
                         </li>
                     </ul>
                 </li>
@@ -103,12 +152,12 @@
                         <div class="header-left d-flex align-items-center">
                             <div class="menu-toggle-btn mr-15">
                                 <button id="menu-toggle" class="main-btn primary-btn btn-hover">
-                                    <i class="lni lni-chevron-left me-2"></i> Menu
+                                    <i class="lni lni-chevron-left me-2"></i> {{ __('app.menu') ?? 'Menu' }}
                                 </button>
                             </div>
                             <div class="header-search d-none d-md-flex">
                                 <form action="#">
-                                    <input type="text" placeholder="Search..." />
+                                    <input type="text" placeholder="{{ __('app.search') }}..." />
                                     <button><i class="lni lni-search-alt"></i></button>
                                 </form>
                             </div>
@@ -136,6 +185,18 @@
                                 </button>
                             </div>
                             <!-- dark mode switcher end -->
+                            <!-- language switcher start -->
+                            <div class="language-box ml-15 d-flex align-items-center">
+                                <div class="language-switcher-toggle">
+                                    <button class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}" onclick="switchLanguage('en')" title="English">
+                                        🇬🇧 EN
+                                    </button>
+                                    <button class="lang-btn {{ app()->getLocale() == 'id' ? 'active' : '' }}" onclick="switchLanguage('id')" title="Indonesia">
+                                        🇮🇩 ID
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- language switcher end -->
                             <!-- notification start -->
                             <div class="notification-box ml-15 d-none d-md-flex">
                                 <button class="dropdown-toggle" type="button" id="notification"
@@ -179,7 +240,7 @@
                                             </div>
                                             <div>
                                                 <h6 class="fw-500">{{ auth()->user()->name ?? 'User' }}</h6>
-                                                <p>Admin</p>
+                                                <p>{{ __('app.admin') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -201,12 +262,12 @@
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{{ route('profile.edit') }}">
-                                            <i class="lni lni-user"></i> View Profile
+                                            <i class="lni lni-user"></i> {{ __('app.view_profile') }}
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#0">
-                                            <i class="lni lni-alarm"></i> Notifications
+                                            <i class="lni lni-alarm"></i> {{ __('app.notifications') }}
                                         </a>
                                     </li>
                                     <li class="divider"></li>
@@ -215,7 +276,7 @@
                                             @csrf
                                             <a href="{{ route('logout') }}"
                                                 onclick="event.preventDefault(); this.closest('form').submit();">
-                                                <i class="lni lni-exit"></i> Logout
+                                                <i class="lni lni-exit"></i> {{ __('app.logout') }}
                                             </a>
                                         </form>
                                     </li>
@@ -249,6 +310,25 @@
     <script src="{{ asset('assets/js/world-merc.js') }}"></script>
     <script src="{{ asset('assets/js/polyfill.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        // Language Switcher Function
+        function switchLanguage(locale) {
+            // Create form and submit
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/language/' + locale;
+            
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+            
+            form.appendChild(csrfInput);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
     @stack('scripts')
 </body>
 

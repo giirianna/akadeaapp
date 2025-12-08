@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Mata Pelajaran')
+@section('title', __('app.subject_list'))
 
 @section('content')
 <section class="table-components">
@@ -10,7 +10,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="title">
-                        <h2>Mata Pelajaran</h2>
+                        <h2>{{ __('app.subjects') }}</h2>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -18,10 +18,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}">{{ __('app.dashboard') }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Mata Pelajaran
+                                    {{ __('app.subjects') }}
                                 </li>
                             </ol>
                         </nav>
@@ -35,9 +35,9 @@
             <div class="col-lg-12">
                 <div class="card-style mb-30">
                     <div class="d-flex justify-content-between align-items-center mb-20">
-                        <h6 class="mb-0">Daftar Mata Pelajaran</h6>
+                        <h6 class="mb-0">{{ __('app.subject_list') }}</h6>
                         <a href="{{ route('subjects.create') }}" class="main-btn primary-btn btn-hover">
-                            Tambah Mata Pelajaran
+                            {{ __('app.add_subject') }}
                         </a>
                     </div>
 
@@ -80,13 +80,13 @@
                         <table id="subjects-table" class="table">
                             <thead>
                                 <tr>
-                                    <th><h6>Kode</h6></th>
-                                    <th><h6>Nama Mata Pelajaran</h6></th>
-                                    <th><h6>Guru Pengajar</h6></th>
-                                    <th><h6>Kelas</h6></th>
-                                    <th><h6>Jurusan</h6></th>
-                                    <th><h6>Status</h6></th>
-                                    <th><h6>Aksi</h6></th>
+                                    <th><h6>{{ __('app.subject_code') }}</h6></th>
+                                    <th><h6>{{ __('app.subject_name') }}</h6></th>
+                                    <th><h6>{{ __('app.teacher') ?? 'Guru Pengajar' }}</h6></th>
+                                    <th><h6>{{ __('app.class') }}</h6></th>
+                                    <th><h6>{{ __('app.major') }}</h6></th>
+                                    <th><h6>{{ __('app.status') }}</h6></th>
+                                    <th><h6>{{ __('app.actions') }}</h6></th>
                                 </tr>
                             </thead>
                             <tbody>

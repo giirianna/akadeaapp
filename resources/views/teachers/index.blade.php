@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Guru')
+@section('title', __('app.teacher_list'))
 
 @section('content')
 <section class="table-components">
@@ -9,7 +9,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="title">
-                        <h2>Daftar Guru</h2>
+                        <h2>{{ __('app.teacher_list') }}</h2>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -17,10 +17,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}">{{ __('app.dashboard') }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Guru
+                                    {{ __('app.teachers') }}
                                 </li>
                             </ol>
                         </nav>
@@ -35,16 +35,16 @@
                     <div class="card-style mb-30">
                         <div class="d-flex justify-content-between align-items-center mb-30">
                             <div>
-                                <h6>Data Guru</h6>
-                                <p class="text-sm">Daftar lengkap guru yang terdaftar dalam sistem</p>
+                                <h6>{{ __('app.teacher_list') }}</h6>
+                                <p class="text-sm">{{ __('app.teacher_list_description') ?? 'Daftar lengkap guru yang terdaftar dalam sistem' }}</p>
                             </div>
                             <button
                                 type="button"
                                 class="main-btn primary-btn btn-hover btn-modal"
                                 data-url="{{ route('teachers.create') }}"
-                                data-title="Tambah Guru"
+                                data-title="{{ __('app.add_teacher') }}"
                             >
-                                <i class="lni lni-plus"></i> Tambah Guru
+                                <i class="lni lni-plus"></i> {{ __('app.add_teacher') }}
                             </button>
                         </div>
 
@@ -53,14 +53,14 @@
                                 <div class="d-flex align-items-center">
                                     <i class="lni lni-info-circle me-2"></i>
                                     <span>
-                                        Belum ada data guru.
+                                        {{ __('app.no_teacher_data') ?? 'Belum ada data guru.' }}
                                         <button
                                             type="button"
                                             class="btn btn-link p-0 text-primary btn-modal"
                                             data-url="{{ route('teachers.create') }}"
-                                            data-title="Tambah Guru"
+                                            data-title="{{ __('app.add_teacher') }}"
                                         >
-                                            Silakan tambahkan data baru
+                                            {{ __('app.please_add_new_data') ?? 'Silakan tambahkan data baru' }}
                                         </button>
                                     </span>
                                 </div>
@@ -70,12 +70,12 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="text-center"><h6>Photo</h6></th>
-                                            <th class="text-start"><h6>Full Name</h6></th>
-                                            <th class="text-center"><h6>Teacher ID / NIP</h6></th>
-                                            <th class="text-center"><h6>Subjects</h6></th>
-                                            <th class="text-center"><h6>Status</h6></th>
-                                            <th class="text-center"><h6>Actions</h6></th>
+                                            <th class="text-center"><h6>{{ __('app.photo') }}</h6></th>
+                                            <th class="text-start"><h6>{{ __('app.full_name') }}</h6></th>
+                                            <th class="text-center"><h6>{{ __('app.teacher_number') }}</h6></th>
+                                            <th class="text-center"><h6>{{ __('app.teacher_role') }}</h6></th>
+                                            <th class="text-center"><h6>{{ __('app.status') }}</h6></th>
+                                            <th class="text-center"><h6>{{ __('app.actions') }}</h6></th>
                                         </tr>
                                     </thead>
                                     <tbody>

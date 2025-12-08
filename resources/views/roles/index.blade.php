@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Role Management')
+@section('title', __('app.role_management'))
 
 @section('content')
 <!-- ========== table components start ========== -->
@@ -11,7 +11,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="title">
-                        <h2>Role Management</h2>
+                        <h2>{{ __('app.role_management') }}</h2>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -19,10 +19,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}">{{ __('app.dashboard') }}</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Role Management
+                                    {{ __('app.role_management') }}
                                 </li>
                             </ol>
                         </nav>
@@ -39,8 +39,8 @@
                     <div class="card-style mb-30">
                         <div class="d-flex justify-content-between align-items-center mb-20">
                             <div>
-                                <h6>User Roles</h6>
-                                <p class="text-sm">Manage user roles and permissions</p>
+                                <h6>{{ __('app.user_roles') ?? 'User Roles' }}</h6>
+                                <p class="text-sm">{{ __('app.manage_user_roles') ?? 'Manage user roles and permissions' }}</p>
                             </div>
                         </div>
 
@@ -64,10 +64,10 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 50px;"><h6>#</h6></th>
-                                        <th class="text-start"><h6>Name</h6></th>
-                                        <th class="text-start"><h6>Email</h6></th>
-                                        <th class="text-center"><h6>Current Role</h6></th>
-                                        <th class="text-center"><h6>Actions</h6></th>
+                                        <th class="text-start"><h6>{{ __('app.name') }}</h6></th>
+                                        <th class="text-start"><h6>{{ __('app.email') }}</h6></th>
+                                        <th class="text-center"><h6>{{ __('app.current_role') ?? 'Current Role' }}</h6></th>
+                                        <th class="text-center"><h6>{{ __('app.actions') }}</h6></th>
                                     </tr>
                                 </thead>
                                 <tbody>
