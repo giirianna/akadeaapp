@@ -1,6 +1,6 @@
 @if (!request()->ajax())
     @extends('layouts.app')
-    @section('title', 'Edit Teacher')
+    @section('title', __('app.edit_teacher'))
     @section('content')
 @endif
 
@@ -11,7 +11,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="title">
-                            <h2>Edit Teacher</h2>
+                            <h2>{{ __('app.edit_teacher') }}</h2>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -19,13 +19,13 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                                        <a href="{{ route('dashboard') }}">{{ __('app.dashboard') }}</a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('teachers.index') }}">Teachers</a>
+                                        <a href="{{ route('teachers.index') }}">{{ __('app.teachers') }}</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Edit Teacher
+                                        {{ __('app.edit_teacher') }}
                                     </li>
                                 </ol>
                             </nav>
@@ -46,21 +46,21 @@
                         @csrf
                         @method('PUT')
 
-                        <!-- Personal Information -->
+                        <!-- {{ __('app.personal_information') }} -->
                         <div class="card-style mb-4 rounded-3 shadow-sm border-0" style="background: #ffffff;">
                             <h5 class="mb-4 pb-2 border-bottom" style="color: #4a5568;">
-                                <i class="lni lni-user me-2 text-primary"></i> Personal Information
+                                <i class="lni lni-user me-2 text-primary"></i> {{ __('app.personal_information') }}
                             </h5>
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <div class="input-style-1">
-                                        <label for="full_name" class="form-label fw-medium">Full Name</label>
+                                        <label for="full_name" class="form-label fw-medium">{{ __('app.full_name') }}</label>
                                         <input
                                             type="text"
                                             name="full_name"
                                             id="full_name"
-                                            placeholder="Enter full name"
+                                            placeholder="{{ __('app.enter_full_name') }}"
                                             value="{{ old('full_name', $teacher->full_name) }}"
                                             required
                                             class="form-control"
@@ -73,12 +73,12 @@
 
                                 <div class="col-md-6">
                                     <div class="input-style-1">
-                                        <label for="teacher_number" class="form-label fw-medium">Teacher ID / NIP</label>
+                                        <label for="teacher_number" class="form-label fw-medium">{{ __('app.teacher_number') }}</label>
                                         <input
                                             type="text"
                                             name="teacher_number"
                                             id="teacher_number"
-                                            placeholder="Enter teacher ID"
+                                            placeholder="{{ __('app.enter_teacher_id') }}"
                                             value="{{ old('teacher_number', $teacher->teacher_number) }}"
                                             required
                                             class="form-control"
@@ -92,7 +92,7 @@
 
                             <!-- Photo -->
                             <div class="mb-4">
-                                <label class="form-label fw-medium">Teacher Photo</label>
+                                <label class="form-label fw-medium">{{ __('app.teacher_photo') }}</label>
                                 <input
                                     type="file"
                                     name="teacher_photo"
@@ -104,7 +104,7 @@
                                     <div class="mt-2">
                                         <img
                                             src="{{ asset('storage/' . $teacher->photo) }}"
-                                            alt="Teacher Photo"
+                                            alt="{{ __('app.teacher_photo') }}"
                                             class="img-thumbnail rounded"
                                             style="max-width: 120px; height: auto; border: 2px solid #e2e8f0;"
                                         >
@@ -116,18 +116,18 @@
                             </div>
                         </div>
 
-                        <!-- Professional Information -->
+                        <!-- {{ __('app.professional_information') }} -->
                         <div class="card-style mb-4 rounded-3 shadow-sm border-0" style="background: #ffffff;">
                             <h5 class="mb-4 pb-2 border-bottom" style="color: #4a5568;">
-                                <i class="lni lni-briefcase me-2 text-primary"></i> Professional Information
+                                <i class="lni lni-briefcase me-2 text-primary"></i> {{ __('app.professional_information') }}
                             </h5>
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <div class="input-style-1">
-                                        <label for="employment_status" class="form-label fw-medium">Employment Status</label>
+                                        <label for="employment_status" class="form-label fw-medium">{{ __('app.employment_status') }}</label>
                                         <select name="employment_status" id="employment_status" class="form-select">
-                                            <option value="">-- Select Status --</option>
+                                            <option value="">-- {{ __('app.select_status') }} --</option>
                                             <option value="honorary" {{ old('employment_status', $teacher->employment_status) == 'honorary' ? 'selected' : '' }}>
                                                 Honorary
                                             </option>
@@ -143,17 +143,17 @@
 
                                 <div class="col-md-6">
                                     <div class="input-style-1">
-                                        <label for="highest_education" class="form-label fw-medium">Highest Education</label>
+                                        <label for="highest_education" class="form-label fw-medium">{{ __('app.highest_education') }}</label>
                                         <select name="highest_education" id="highest_education" class="form-select">
-                                            <option value="">-- Select Education Level --</option>
+                                            <option value="">-- {{ __('app.select_education_level') }} --</option>
                                             <option value="bachelor" {{ old('highest_education', $teacher->highest_education) == 'bachelor' ? 'selected' : '' }}>
-                                                Bachelor's Degree (S1)
+                                                {{ __('app.bachelors_degree') }}
                                             </option>
                                             <option value="master" {{ old('highest_education', $teacher->highest_education) == 'master' ? 'selected' : '' }}>
-                                                Master's Degree (S2)
+                                                {{ __('app.masters_degree') }}
                                             </option>
                                             <option value="doctoral" {{ old('highest_education', $teacher->highest_education) == 'doctoral' ? 'selected' : '' }}>
-                                                Doctoral Degree (S3)
+                                                {{ __('app.doctoral_degree') }}
                                             </option>
                                         </select>
                                         @error('highest_education')
@@ -166,7 +166,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <div class="input-style-1">
-                                        <label for="years_of_experience" class="form-label fw-medium">Years of Experience</label>
+                                        <label for="years_of_experience" class="form-label fw-medium">{{ __('app.years_of_experience') }}</label>
                                         <input
                                             type="number"
                                             name="years_of_experience"
@@ -183,9 +183,9 @@
 
                                 <div class="col-md-6">
                                     <div class="input-style-1">
-                                        <label for="gender" class="form-label fw-medium">Gender</label>
+                                        <label for="gender" class="form-label fw-medium"{{ __('app.gender') }}</label>
                                         <select name="gender" id="gender" required class="form-select">
-                                            <option value="">-- Select Gender --</option>
+                                            <option value="">-- {{ __('app.select_gender') }} --</option>
                                             <option value="male" {{ old('gender', $teacher->gender) == 'male' ? 'selected' : '' }}>
                                                 Male
                                             </option>
@@ -201,16 +201,16 @@
                             </div>
                         </div>
 
-                        <!-- Personal Details -->
+                        <!-- {{ __('app.personal_details') }} -->
                         <div class="card-style mb-4 rounded-3 shadow-sm border-0" style="background: #ffffff;">
                             <h5 class="mb-4 pb-2 border-bottom" style="color: #4a5568;">
-                                <i class="lni lni-calendar me-2 text-primary"></i> Personal Details
+                                <i class="lni lni-calendar me-2 text-primary"></i> {{ __('app.personal_details') }}
                             </h5>
 
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <div class="input-style-1">
-                                        <label for="birth_date" class="form-label fw-medium">Date of Birth</label>
+                                        <label for="birth_date" class="form-label fw-medium">{{ __('app.date_of_birth') }}</label>
                                         <input
                                             type="date"
                                             name="birth_date"
@@ -226,9 +226,9 @@
 
                                 <div class="col-md-4">
                                     <div class="input-style-1">
-                                        <label for="religion" class="form-label fw-medium">Religion</label>
+                                        <label for="religion" class="form-label fw-medium"{{ __('app.religion') }}</label>
                                         <select name="religion" id="religion" class="form-select">
-                                            <option value="">-- Select Religion --</option>
+                                            <option value="">-- {{ __('app.select_religion') }} --</option>
                                             <option value="Islam" {{ old('religion', $teacher->religion) == 'Islam' ? 'selected' : '' }}>
                                                 Islam
                                             </option>
@@ -259,9 +259,9 @@
 
                                 <div class="col-md-4">
                                     <div class="input-style-1">
-                                        <label for="blood_type" class="form-label fw-medium">Blood Type</label>
+                                        <label for="blood_type" class="form-label fw-medium">{{ __('app.blood_type') }}</label>
                                         <select name="blood_type" id="blood_type" class="form-select">
-                                            <option value="">-- Select Blood Type --</option>
+                                            <option value="">-- Select {{ __('app.blood_type') }} --</option>
                                             <option value="A" {{ old('blood_type', $teacher->blood_type) == 'A' ? 'selected' : '' }}>
                                                 A
                                             </option>
@@ -285,13 +285,13 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="input-style-1">
-                                        <label for="address" class="form-label fw-medium">Address</label>
+                                        <label for="address" class="form-label fw-medium"{{ __('app.address') }}</label>
                                         <textarea
                                             name="address"
                                             id="address"
                                             class="form-control"
                                             rows="2"
-                                            placeholder="Enter address"
+                                            placeholder="{{ __('app.enter_address') }}"
                                         >{{ old('address', $teacher->address) }}</textarea>
                                         @error('address')
                                             <span class="text-danger small">{{ $message }}</span>
@@ -301,12 +301,12 @@
 
                                 <div class="col-md-6 mb-3">
                                     <div class="input-style-1">
-                                        <label for="phone_number" class="form-label fw-medium">Phone Number</label>
+                                        <label for="phone_number" class="form-label fw-medium">{{ __('app.phone_number') }}</label>
                                         <input
                                             type="text"
                                             name="phone_number"
                                             id="phone_number"
-                                            placeholder="Enter phone number"
+                                            placeholder="{{ __('app.enter_phone_number') }}"
                                             value="{{ old('phone_number', $teacher->phone_number) }}"
                                             class="form-control"
                                         />

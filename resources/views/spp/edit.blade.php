@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Pembayaran SPP')
+@section('title', __('app.edit_spp'))
 
 @section('content')
 <!-- ========== tab components start ========== -->
@@ -11,7 +11,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="title">
-                        <h2>Edit Pembayaran SPP</h2>
+                        <h2>{{ __('app.edit_spp') }}</h2>
                     </div>
                 </div>
                 <!-- end col -->
@@ -20,12 +20,12 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}">{{ __('app.dashboard') }}</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('spp.index') }}">Pembayaran SPP</a>
+                                    <a href="{{ route('spp.index') }}">{{ __('app.spp_payments') }}</a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">Edit Pembayaran</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ __('app.edit_spp') }}</li>
                             </ol>
                         </nav>
                     </div>
@@ -47,10 +47,10 @@
                         <!-- Student Selection -->
                         <div class="card-style mb-30">
                             <div class="select-style-1">
-                                <label for="student_id">Pilih Siswa</label>
+                                <label for="student_id">{{ __('app.select_student') }}</label>
                                 <div class="select-position">
                                     <select name="student_id" id="student_id" required>
-                                        <option value="">-- Pilih Siswa --</option>
+                                        <option value="">-- {{ __('app.select_student') }} --</option>
                                         @foreach($students as $student)
                                             <option value="{{ $student->id }}" data-name="{{ $student->name }}" data-class="{{ $student->class }}" data-major="{{ $student->major }}"
                                                 {{ $student->id == $spp->student_id ? 'selected' : '' }}>
@@ -69,7 +69,7 @@
                         <!-- Student Name (Auto-filled) -->
                         <div class="card-style mb-30">
                             <div class="input-style-1">
-                                <label for="student_name">Nama Siswa</label>
+                                <label for="student_name">{{ __('app.student_name') }}</label>
                                 <input type="text" name="student_name" id="student_name" value="{{ $spp->student_name }}" readonly />
                                 @error('student_name')
                                     <span class="text-danger small">{{ $message }}</span>
@@ -81,7 +81,7 @@
                         <!-- Class (Auto-filled) -->
                         <div class="card-style mb-30">
                             <div class="input-style-1">
-                                <label for="class">Kelas</label>
+                                <label for="class">{{ __('app.class') }}</label>
                                 <input type="text" name="class" id="class" value="{{ $spp->class }}" readonly />
                                 @error('class')
                                     <span class="text-danger small">{{ $message }}</span>
@@ -93,7 +93,7 @@
                         <!-- Major (Auto-filled) -->
                         <div class="card-style mb-30">
                             <div class="input-style-1">
-                                <label for="major">Jurusan</label>
+                                <label for="major">{{ __('app.major') }}</label>
                                 <input type="text" name="major" id="major" value="{{ $spp->major }}" readonly />
                                 @error('major')
                                     <span class="text-danger small">{{ $message }}</span>
@@ -105,7 +105,7 @@
                         <!-- Month -->
                         <div class="card-style mb-30">
                             <div class="input-style-1">
-                                <label for="month">Bulan</label>
+                                <label for="month">{{ __('app.month') }}</label>
                                 <input type="text" name="month" id="month" value="{{ $spp->month }}" required />
                                 @error('month')
                                     <span class="text-danger small">{{ $message }}</span>
@@ -117,7 +117,7 @@
                         <!-- Due Date -->
                         <div class="card-style mb-30">
                             <div class="input-style-1">
-                                <label for="due_date">Tanggal Jatuh Tempo</label>
+                                <label for="due_date">{{ __('app.due_date') }}</label>
                                 <input type="date" name="due_date" id="due_date" value="{{ $spp->due_date->format('Y-m-d') }}" required />
                                 @error('due_date')
                                     <span class="text-danger small">{{ $message }}</span>
@@ -129,7 +129,7 @@
                         <!-- Amount Billed -->
                         <div class="card-style mb-30">
                             <div class="input-style-1">
-                                <label for="amount">Jumlah Tagihan (Rp)</label>
+                                <label for="amount">{{ __('app.amount_billed') }} (Rp)</label>
                                 <input type="number" step="0.01" name="amount" id="amount" value="{{ $spp->amount }}" required min="0" />
                                 @error('amount')
                                     <span class="text-danger small">{{ $message }}</span>
@@ -141,7 +141,7 @@
                         <!-- Amount Paid -->
                         <div class="card-style mb-30">
                             <div class="input-style-1">
-                                <label for="amount_paid">Jumlah Dibayar (Rp)</label>
+                                <label for="amount_paid">{{ __('app.amount_paid') }} (Rp)</label>
                                 <input type="number" step="0.01" name="amount_paid" id="amount_paid" value="{{ $spp->amount_paid }}" min="0" />
                                 @error('amount_paid')
                                     <span class="text-danger small">{{ $message }}</span>
@@ -153,7 +153,7 @@
                         <!-- Payment Date -->
                         <div class="card-style mb-30">
                             <div class="input-style-1">
-                                <label for="payment_date">Tanggal Bayar</label>
+                                <label for="payment_date">{{ __('app.payment_date') }}</label>
                                 <input type="date" name="payment_date" id="payment_date" value="{{ $spp->payment_date ? $spp->payment_date->format('Y-m-d') : '' }}" />
                                 @error('payment_date')
                                     <span class="text-danger small">{{ $message }}</span>
@@ -165,12 +165,12 @@
                         <!-- Status -->
                         <div class="card-style mb-30">
                             <div class="select-style-1">
-                                <label for="status">Status</label>
+                                <label for="status">{{ __('app.status') }}</label>
                                 <div class="select-position">
                                     <select name="status" id="status" required>
-                                        <option value="belum_lunas" {{ $spp->status == 'belum_lunas' ? 'selected' : '' }}>Belum Lunas</option>
-                                        <option value="sebagian" {{ $spp->status == 'sebagian' ? 'selected' : '' }}>Sebagian</option>
-                                        <option value="lunas" {{ $spp->status == 'lunas' ? 'selected' : '' }}>Lunas</option>
+                                        <option value="belum_lunas" {{ $spp->status == 'belum_lunas' ? 'selected' : '' }}>{{ __('app.unpaid_status') }}</option>
+                                        <option value="sebagian" {{ $spp->status == 'sebagian' ? 'selected' : '' }}>{{ __('app.partial') }}</option>
+                                        <option value="lunas" {{ $spp->status == 'lunas' ? 'selected' : '' }}>{{ __('app.paid_status') }}</option>
                                     </select>
                                 </div>
                                 @error('status')
@@ -183,7 +183,7 @@
                         <!-- Payment Method -->
                         <div class="card-style mb-30">
                             <div class="input-style-1">
-                                <label for="payment_method">Metode Pembayaran</label>
+                                <label for="payment_method">{{ __('app.payment_method') }}</label>
                                 <input type="text" name="payment_method" id="payment_method" value="{{ $spp->payment_method }}" />
                                 @error('payment_method')
                                     <span class="text-danger small">{{ $message }}</span>
@@ -194,7 +194,7 @@
 
                         <!-- Remarks -->
                         <div class="card-style mb-30">
-                            <label for="remarks">Catatan</label>
+                            <label for="remarks">{{ __('app.remarks') }}</label>
                             <textarea name="remarks" id="remarks" class="form-control" rows="4">{{ $spp->remarks }}</textarea>
                             @error('remarks')
                                 <span class="text-danger small">{{ $message }}</span>
@@ -206,10 +206,10 @@
                         <div class="card-style mb-30">
                             <div class="d-flex gap-2">
                                 <button type="submit" class="btn btn-primary">
-                                    <span class="icon"><i class="lni lni-save"></i></span> Update
+                                    <span class="icon"><i class="lni lni-save"></i></span> {{ __('app.update') }}
                                 </button>
                                 <a href="{{ route('spp.index') }}" class="btn btn-secondary">
-                                    <span class="icon"><i class="lni lni-arrow-left"></i></span> Kembali
+                                    <span class="icon"><i class="lni lni-arrow-left"></i></span> {{ __('app.back') }}
                                 </a>
                             </div>
                         </div>

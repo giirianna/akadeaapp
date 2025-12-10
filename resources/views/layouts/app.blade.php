@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/faviconfix.jpeg') }}" type="image/jpeg" />
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- ========== All CSS files linkup ========= -->
@@ -78,15 +78,14 @@
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
         <div class="navbar-logo">
-            <a href="{{ route('dashboard') }}">
-                <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="logo" />
+            <a href="{{ route('dashboard') }}" style="text-decoration: none;">
+                <span style="font-size: 1.25rem; font-weight: 700; color: #2563eb; letter-spacing: -0.5px;">Akadea</span>
             </a>
         </div>
         <nav class="sidebar-nav">
             <ul>
-                <li class="nav-item nav-item-has-children">
-                    <a href="{{ route('dashboard') }}" data-bs-toggle="collapse" data-bs-target="#ddmenu_1"
-                        aria-controls="ddmenu_1" aria-expanded="false" aria-label="Toggle navigation">
+                <li class="nav-item">
+                    <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <span class="icon">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -98,11 +97,6 @@
                         </span>
                         <span class="text">{{ __('app.dashboard') }}</span>
                     </a>
-                    <ul id="ddmenu_1" class="collapse {{ request()->routeIs('dashboard') ? 'show' : '' }} dropdown-nav">
-                        <li>
-                            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"> {{ __('app.home') }} </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item nav-item-has-children">
                     <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_3"
@@ -131,6 +125,23 @@
                         <li>
                             <a href="{{ route('subjects.index') }}"> {{ __('app.subjects') }} </a>
                         </li>
+                    </ul>
+                </li>
+                <li class="nav-item nav-item-has-children">
+                    <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_4"
+                        aria-controls="ddmenu_4" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.4333 10.0001C17.4333 10.3501 17.15 10.6334 16.8 10.6334H11.9C11.55 10.6334 11.2667 10.3501 11.2667 10.0001C11.2667 9.65008 11.55 9.36675 11.9 9.36675H16.8C17.15 9.36675 17.4333 9.65008 17.4333 10.0001Z" />
+                                <path d="M8.73333 10.0001C8.73333 10.3501 8.45 10.6334 8.1 10.6334H3.2C2.85 10.6334 2.56667 10.3501 2.56667 10.0001C2.56667 9.65008 2.85 9.36675 3.2 9.36675H8.1C8.45 9.36675 8.73333 9.65008 8.73333 10.0001Z" />
+                                <path d="M10 12.5667C11.4167 12.5667 12.5667 11.4167 12.5667 10C12.5667 8.58333 11.4167 7.43333 10 7.43333C8.58333 7.43333 7.43333 8.58333 7.43333 10C7.43333 11.4167 8.58333 12.5667 10 12.5667Z" />
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667ZM3.33333 10C3.33333 6.31811 6.31811 3.33333 10 3.33333C13.6819 3.33333 16.6667 6.31811 16.6667 10C16.6667 13.6819 13.6819 16.6667 10 16.6667C6.31811 16.6667 3.33333 13.6819 3.33333 10Z" />
+                            </svg>
+                        </span>
+                        <span class="text">{{ __('app.settings') }}</span>
+                    </a>
+                    <ul id="ddmenu_4" class="collapse dropdown-nav">
                         <li>
                             <a href="{{ route('roles.index') }}"> {{ __('app.role_management') }} </a>
                         </li>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Siswa')
+@section('title', __('app.edit_student'))
 
 @section('content')
     <!-- ========== tab components start ========== -->
@@ -11,7 +11,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="title">
-                            <h2>Edit Siswa</h2>
+                            <h2>{{ __('app.edit_student') }}</h2>
                         </div>
                     </div>
                     <!-- end col -->
@@ -20,12 +20,12 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                                        <a href="{{ route('dashboard') }}">{{ __('app.dashboard') }}</a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('students.index') }}">Siswa</a>
+                                        <a href="{{ route('students.index') }}">{{ __('app.students') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Edit Siswa</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('app.edit_student') }}</li>
                                 </ol>
                             </nav>
                         </div>
@@ -47,8 +47,8 @@
                             <!-- Student Name -->
                             <div class="card-style mb-30">
                                 <div class="input-style-1">
-                                    <label for="name">Nama Siswa</label>
-                                    <input type="text" name="name" id="name" placeholder="Masukkan nama siswa"
+                                    <label for="name">{{ __('app.student_name') }}</label>
+                                    <input type="text" name="name" id="name" placeholder="{{ __('app.enter_student_name') }}"
                                         value="{{ $student->name }}" required />
                                     @error('name')
                                         <span class="text-danger small">{{ $message }}</span>
@@ -60,8 +60,8 @@
                             <!-- NIS -->
                             <div class="card-style mb-30">
                                 <div class="input-style-1">
-                                    <label for="nis">NIS</label>
-                                    <input type="text" name="nis" id="nis" placeholder="Masukkan NIS"
+                                    <label for="nis">{{ __('app.nis') }}</label>
+                                    <input type="text" name="nis" id="nis" placeholder="{{ __('app.enter_nis') }}"
                                         value="{{ $student->nis }}" required />
                                     @error('nis')
                                         <span class="text-danger small">{{ $message }}</span>
@@ -73,8 +73,8 @@
                             <!-- Class -->
                             <div class="card-style mb-30">
                                 <div class="input-style-1">
-                                    <label for="class">Kelas</label>
-                                    <input type="text" name="class" id="class" placeholder="Masukkan kelas"
+                                    <label for="class">{{ __('app.class') }}</label>
+                                    <input type="text" name="class" id="class" placeholder="{{ __('app.enter_class') }}"
                                         value="{{ $student->class }}" required />
                                     @error('class')
                                         <span class="text-danger small">{{ $message }}</span>
@@ -86,8 +86,8 @@
                             <!-- Major -->
                             <div class="card-style mb-30">
                                 <div class="input-style-1">
-                                    <label for="major">Jurusan</label>
-                                    <input type="text" name="major" id="major" placeholder="Masukkan jurusan"
+                                    <label for="major">{{ __('app.major') }}</label>
+                                    <input type="text" name="major" id="major" placeholder="{{ __('app.enter_major') }}"
                                         value="{{ $student->major }}" />
                                     @error('major')
                                         <span class="text-danger small">{{ $message }}</span>
@@ -99,7 +99,7 @@
                             <!-- Birth Date -->
                             <div class="card-style mb-30">
                                 <div class="input-style-1">
-                                    <label for="birth_date">Tanggal Lahir</label>
+                                    <label for="birth_date">{{ __('app.birth_date') }}</label>
                                     <input type="date" name="birth_date" id="birth_date"
                                         value="{{ $student->birth_date ? $student->birth_date->format('Y-m-d') : '' }}" />
                                     @error('birth_date')
@@ -111,9 +111,9 @@
 
                             <!-- Address -->
                             <div class="card-style mb-30">
-                                <label for="address">Alamat</label>
+                                <label for="address">{{ __('app.address') }}</label>
                                 <textarea name="address" id="address" class="form-control" rows="4"
-                                    placeholder="Masukkan alamat">{{ $student->address }}</textarea>
+                                    placeholder="{{ __('app.enter_address') }}">{{ $student->address }}</textarea>
                                 @error('address')
                                     <span class="text-danger small">{{ $message }}</span>
                                 @enderror
@@ -124,10 +124,10 @@
                             <div class="card-style mb-30">
                                 <div class="d-flex gap-2">
                                     <button type="submit" class="btn btn-primary">
-                                        <span class="icon"><i class="lni lni-save"></i></span> Update
+                                        <span class="icon"><i class="lni lni-save"></i></span> {{ __('app.update') }}
                                     </button>
                                     <a href="{{ route('students.index') }}" class="btn btn-secondary">
-                                        <span class="icon"><i class="lni lni-arrow-left"></i></span> Kembali
+                                        <span class="icon"><i class="lni lni-arrow-left"></i></span> {{ __('app.back') }}
                                     </a>
                                 </div>
                             </div>

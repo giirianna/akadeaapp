@@ -6,7 +6,7 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="title">
-                    <h2>Home</h2>
+                    <h2>{{ __('app.dashboard') }}</h2>
                 </div>
             </div>
             <!-- end col -->
@@ -15,10 +15,10 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('dashboard') }}">Home</a>
+                                <a href="{{ route('dashboard') }}">{{ __('app.dashboard') }}</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Dashboard
+                                {{ __('app.home') }}
                             </li>
                         </ol>
                     </nav>
