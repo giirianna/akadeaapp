@@ -85,9 +85,9 @@
                                             <tr>
                                                 <td class="text-center px-3">
                                                     <div class="d-flex justify-content-center align-items-center" style="height: 60px;">
-                                                        @if ($teacher->photo)
+                                                        @if ($teacher->teacher_photo)
                                                             <img
-                                                                src="{{ asset('storage/' . $teacher->photo) }}"
+                                                                src="{{ asset('storage/' . $teacher->teacher_photo) }}"
                                                                 alt="{{ $teacher->full_name }}"
                                                                 class="rounded-circle"
                                                                 style="width: 40px; height: 40px; object-fit: cover;"
@@ -109,11 +109,10 @@
                                                     <p><strong>{{ $teacher->teacher_number }}</strong></p>
                                                 </td>
                                                 <td class="text-center px-3">
-                                                    @if ($teacher->teacher_role)
-                                                        @php
-                                                            $subjects = array_filter(explode(',', $teacher->teacher_role));
-                                                        @endphp
-                                                        <p class="mb-0">{{ implode(', ', $subjects) }}</p>
+                                                    @if ($teacher->subjects->count() > 0)
+                                                        <p class="mb-0">
+                                                            {{ $teacher->subjects->pluck('subject_name')->unique()->implode(', ') }}
+                                                        </p>
                                                     @else
                                                         <span class="text-muted">—</span>
                                                     @endif

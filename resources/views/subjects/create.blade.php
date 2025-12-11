@@ -2,6 +2,62 @@
 
 @section('title', 'Tambah Mata Pelajaran')
 
+@push('styles')
+<style>
+    /* Multi-select Dropdown Styles */
+    .multiselect-dropdown {
+        position: relative;
+    }
+    .multiselect-dropdown .multiselect-btn {
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+    .multiselect-dropdown .multiselect-btn::after {
+        margin-left: auto;
+    }
+    .multiselect-dropdown .dropdown-menu {
+        max-height: 250px;
+        overflow-y: auto;
+        min-width: 100%;
+        padding: 8px;
+    }
+    .multiselect-dropdown .dropdown-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: background-color 0.2s;
+    }
+    .multiselect-dropdown .dropdown-item:hover {
+        background-color: #f8f9fa;
+    }
+    .multiselect-dropdown .dropdown-item label {
+        cursor: pointer;
+        margin: 0;
+        width: 100%;
+    }
+    .multiselect-dropdown .form-check-input {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+    }
+    .multiselect-dropdown .form-check-input:checked {
+        background-color: #4a6cf7;
+        border-color: #4a6cf7;
+    }
+</style>
+@endpush
+
 @section('content')
 <section class="form-components">
     <div class="container-fluid">
@@ -37,23 +93,6 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="input-style-1">
-                                    <label for="teacher_id">Guru Pengajar <span class="text-danger">*</span></label>
-                                    <select name="teacher_id" id="teacher_id" class="form-control" required>
-                                        <option value="">Pilih Guru</option>
-                                        @foreach ($teachers as $teacher)
-                                            <option value="{{ $teacher->id }}" {{ old('teacher_id') == $teacher->id ? 'selected' : '' }}>
-                                                {{ $teacher->full_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('teacher_id')
-                                        <div class="text-danger mt-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="input-style-1">
                                     <label for="subject_code">Kode Mata Pelajaran <span class="text-danger">*</span></label>
                                     <input type="text" name="subject_code" id="subject_code" value="{{ old('subject_code') }}" placeholder="Contoh: MP-001" required>
                                     @error('subject_code')
@@ -72,32 +111,50 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="input-style-1">
-                                    <label for="class_level">Kelas <span class="text-danger">*</span></label>
-                                    <select name="class_level" id="class_level" class="form-control" required>
-                                        <option value="">Pilih Kelas</option>
-                                        <option value="X" {{ old('class_level') == 'X' ? 'selected' : '' }}>X</option>
-                                        <option value="XI" {{ old('class_level') == 'XI' ? 'selected' : '' }}>XI</option>
-                                        <option value="XII" {{ old('class_level') == 'XII' ? 'selected' : '' }}>XII</option>
-                                    </select>
+                                    <label>Kelas <span class="text-danger">*</span></label>
+                                    <div class="multiselect-dropdown">
+                                        <button type="button" class="multiselect-btn" id="classLevelDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                                            -- Pilih Kelas --
+                                        </button>
+                                        <ul class="dropdown-menu p-2 w-100" id="classLevelDropdown">
+                                            @foreach($classLevels as $level)
+                                            <li>
+                                                <label class="dropdown-item d-flex align-items-center gap-2 rounded">
+                                                    <input type="checkbox" name="class_level[]" value="{{ $level }}" class="form-check-input m-0 class-level-checkbox" {{ is_array(old('class_level')) && in_array($level, old('class_level')) ? 'checked' : '' }}>
+                                                    <span>Kelas {{ $level }}</span>
+                                                </label>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <small class="text-muted">Pilih satu atau lebih kelas</small>
                                     @error('class_level')
                                         <div class="text-danger mt-1">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="input-style-1">
-                                    <label for="major">Jurusan <span class="text-danger">*</span></label>
-                                    <select name="major" id="major" class="form-control" required>
-                                        <option value="">Pilih Jurusan</option>
-                                        @foreach ($majors as $major)
-                                            <option value="{{ $major }}" {{ old('major') == $major ? 'selected' : '' }}>
-                                                {{ $major }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <label>Jurusan <span class="text-danger">*</span></label>
+                                    <div class="multiselect-dropdown">
+                                        <button type="button" class="multiselect-btn" id="majorDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                                            -- Pilih Jurusan --
+                                        </button>
+                                        <ul class="dropdown-menu p-2 w-100" id="majorDropdown">
+                                            @foreach($majors as $major)
+                                            <li>
+                                                <label class="dropdown-item d-flex align-items-center gap-2 rounded">
+                                                    <input type="checkbox" name="major[]" value="{{ $major }}" class="form-check-input m-0 major-checkbox" {{ is_array(old('major')) && in_array($major, old('major')) ? 'checked' : '' }}>
+                                                    <span>{{ $major }}</span>
+                                                </label>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <small class="text-muted">Pilih satu atau lebih jurusan</small>
                                     @error('major')
                                         <div class="text-danger mt-1">{{ $message }}</div>
                                     @enderror
@@ -139,3 +196,48 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Update button text when checkboxes change
+    function updateMultiselectButton(checkboxSelector, buttonId, defaultText) {
+        const checkboxes = document.querySelectorAll(checkboxSelector);
+        const button = document.getElementById(buttonId);
+        
+        // Initial update
+        const initialChecked = document.querySelectorAll(checkboxSelector + ':checked');
+        if (initialChecked.length > 0) {
+            if (initialChecked.length === 1) {
+                button.textContent = initialChecked[0].nextElementSibling.textContent.trim();
+            } else {
+                button.textContent = initialChecked.length + ' dipilih';
+            }
+        }
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checked = document.querySelectorAll(checkboxSelector + ':checked');
+                if (checked.length === 0) {
+                    button.textContent = defaultText;
+                } else if (checked.length === 1) {
+                    button.textContent = checked[0].nextElementSibling.textContent.trim();
+                } else {
+                    button.textContent = checked.length + ' dipilih';
+                }
+            });
+        });
+    }
+    
+    updateMultiselectButton('.class-level-checkbox', 'classLevelDropdownBtn', '-- Pilih Kelas --');
+    updateMultiselectButton('.major-checkbox', 'majorDropdownBtn', '-- Pilih Jurusan --');
+    
+    // Prevent dropdown from closing when clicking on items
+    document.querySelectorAll('.multiselect-dropdown .dropdown-menu').forEach(menu => {
+        menu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+});
+</script>
+@endpush

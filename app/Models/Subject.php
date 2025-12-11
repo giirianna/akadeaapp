@@ -20,6 +20,18 @@ class Subject extends Model
         'status'
     ];
 
+    /**
+     * Get teachers assigned to this subject via pivot table (many-to-many).
+     */
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'teacher_subject')->withTimestamps();
+    }
+
+    /**
+     * Get the single teacher that owns this subject (legacy relationship).
+     * @deprecated Use teachers() relationship instead
+     */
     public function teacher()
     {
         return $this->belongsTo(Teacher::class, 'teacher_id');

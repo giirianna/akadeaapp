@@ -309,6 +309,55 @@
     #successModal .modal-content {
         border-radius: 15px;
     }
+    
+    /* Multi-select Dropdown Styles */
+    .multiselect-dropdown {
+        position: relative;
+    }
+    .multiselect-dropdown .multiselect-btn {
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .multiselect-dropdown .multiselect-btn::after {
+        margin-left: auto;
+    }
+    .multiselect-dropdown .dropdown-menu {
+        max-height: 250px;
+        overflow-y: auto;
+        min-width: 100%;
+        padding: 8px;
+    }
+    .multiselect-dropdown .dropdown-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: background-color 0.2s;
+    }
+    .multiselect-dropdown .dropdown-item:hover {
+        background-color: #f8f9fa;
+    }
+    .multiselect-dropdown .dropdown-item label {
+        cursor: pointer;
+        margin: 0;
+        width: 100%;
+    }
+    .multiselect-dropdown .form-check-input {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+    }
+    .multiselect-dropdown .form-check-input:checked {
+        background-color: #4a6cf7;
+        border-color: #4a6cf7;
+    }
 </style>
 @endpush
 
@@ -456,10 +505,12 @@ $(document).ready(function() {
             success: function(response) {
                 $('#createSubjectModal').modal('hide');
                 table.ajax.reload();
-                showSuccessPopup('Berhasil!', 'Mata pelajaran berhasil ditambahkan.');
+                showSuccessPopup('Berhasil!', response.message || 'Mata pelajaran berhasil ditambahkan.');
                 
-                // Reset form
+                // Reset form and multiselect buttons
                 form[0].reset();
+                $('#classLevelDropdownBtn').text('-- Pilih Kelas --');
+                $('#majorDropdownBtn').text('-- Pilih Jurusan --');
             },
             error: function(xhr) {
                 submitBtn.prop('disabled', false).html('Simpan');

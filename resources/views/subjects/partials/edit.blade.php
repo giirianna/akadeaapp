@@ -4,24 +4,20 @@
     
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label for="teacher_id" class="form-label">{{ __('app.teaching_teacher') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
-            <select name="teacher_id" id="teacher_id" class="form-select" required>
-                <option value="">-- {{ __('app.select_teacher') }} --</option>
-                @foreach($teachers as $teacher)
-                    <option value="{{ $teacher->id }}" {{ old('teacher_id', $subject->teacher_id) == $teacher->id ? 'selected' : '' }}>
-                        {{ $teacher->full_name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('teacher_id')
+            <label for="subject_code" class="form-label">{{ __('app.subject_code') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
+            <input type="text" name="subject_code" id="subject_code" class="form-control" value="{{ old('subject_code', $subject->subject_code) }}" required>
+            @error('subject_code')
                 <div class="text-danger small mt-1">{{ $message }}</div>
             @enderror
         </div>
 
         <div class="col-md-6 mb-3">
-            <label for="subject_code" class="form-label">{{ __('app.subject_code') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
-            <input type="text" name="subject_code" id="subject_code" class="form-control" value="{{ old('subject_code', $subject->subject_code) }}" required>
-            @error('subject_code')
+            <label for="status" class="form-label">{{ __('app.status') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
+            <select name="status" id="status" class="form-select" required>
+                <option value="active" {{ old('status', $subject->status) == 'active' ? 'selected' : '' }}>{{ __('app.active') }}</option>
+                <option value="inactive" {{ old('status', $subject->status) == 'inactive' ? 'selected' : '' }}>{{ __('app.inactive') }}</option>
+            </select>
+            @error('status')
                 <div class="text-danger small mt-1">{{ $message }}</div>
             @enderror
         </div>
@@ -38,9 +34,9 @@
             <label for="class_level" class="form-label">{{ __('app.class_level') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
             <select name="class_level" id="class_level" class="form-select" required>
                 <option value="">-- {{ __('app.select_class') }} --</option>
-                <option value="X" {{ old('class_level', $subject->class_level) == 'X' ? 'selected' : '' }}>X</option>
-                <option value="XI" {{ old('class_level', $subject->class_level) == 'XI' ? 'selected' : '' }}>XI</option>
-                <option value="XII" {{ old('class_level', $subject->class_level) == 'XII' ? 'selected' : '' }}>XII</option>
+                @foreach($classLevels as $level)
+                    <option value="{{ $level }}" {{ old('class_level', $subject->class_level) == $level ? 'selected' : '' }}>Kelas {{ $level }}</option>
+                @endforeach
             </select>
             @error('class_level')
                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -64,17 +60,6 @@
             <label for="description" class="form-label">{{ __('app.description') }}</label>
             <textarea name="description" id="description" class="form-control" rows="3">{{ old('description', $subject->description) }}</textarea>
             @error('description')
-                <div class="text-danger small mt-1">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="col-md-6 mb-3">
-            <label for="status" class="form-label">{{ __('app.status') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
-            <select name="status" id="status" class="form-select" required>
-                <option value="active" {{ old('status', $subject->status) == 'active' ? 'selected' : '' }}>{{ __('app.active') }}</option>
-                <option value="inactive" {{ old('status', $subject->status) == 'inactive' ? 'selected' : '' }}>{{ __('app.inactive') }}</option>
-            </select>
-            @error('status')
                 <div class="text-danger small mt-1">{{ $message }}</div>
             @enderror
         </div>

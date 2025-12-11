@@ -40,9 +40,9 @@
                 <div class="col-lg-10">
                     <!-- Profile Card -->
                     <div class="card-style mb-4 rounded-3 shadow-sm border-0 text-center" style="background: #ffffff;">
-                        @if ($teacher->photo)
+                        @if ($teacher->teacher_photo)
                             <img
-                                src="{{ asset('storage/' . $teacher->photo) }}"
+                                src="{{ asset('storage/' . $teacher->teacher_photo) }}"
                                 alt="Teacher Photo"
                                 class="img-fluid rounded-circle mx-auto"
                                 style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #e2e8f0;"
@@ -215,7 +215,15 @@
                                     </div>
                                     <div>
                                         <label class="fw-medium text-muted d-block">Subjects Taught</label>
-                                        <p class="mb-0">{{ $teacher->teacher_role ?? '-' }}</p>
+                                        @if ($teacher->subjects->count() > 0)
+                                            <ul class="mb-0 ps-3">
+                                                @foreach ($teacher->subjects as $subject)
+                                                    <li>{{ $subject->subject_name }} (Kelas {{ $subject->class_level }})</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <p class="mb-0 text-muted">—</p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

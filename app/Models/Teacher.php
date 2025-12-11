@@ -29,7 +29,7 @@ class Teacher extends Model
         'employment_status',
         'highest_education',
         'years_of_experience',
-        'photo',
+        'teacher_photo',
     ];
 
     protected $casts = [
@@ -50,6 +50,6 @@ class Teacher extends Model
      */
     public function subjects()
     {
-        return $this->hasMany(Subject::class, 'teacher_id');
+        return $this->belongsToMany(Subject::class, 'teacher_subject')->withTimestamps();
     }
 }

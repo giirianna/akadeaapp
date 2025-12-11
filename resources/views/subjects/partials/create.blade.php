@@ -3,48 +3,8 @@
     
     <div class="row">
         <div class="col-md-6 mb-3">
-            <label for="create_teacher_id" class="form-label">{{ __('app.teaching_teacher') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
-            <select name="teacher_id" id="create_teacher_id" class="form-select" required>
-                <option value="">-- {{ __('app.select_teacher') }} --</option>
-                @foreach($teachers as $teacher)
-                    <option value="{{ $teacher->id }}">{{ $teacher->full_name }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="col-md-6 mb-3">
             <label for="create_subject_code" class="form-label">{{ __('app.subject_code') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
             <input type="text" name="subject_code" id="create_subject_code" class="form-control" placeholder="{{ __('app.example') }}: MP-001" required>
-        </div>
-
-        <div class="col-md-12 mb-3">
-            <label for="create_subject_name" class="form-label">{{ __('app.subject_name') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
-            <input type="text" name="subject_name" id="create_subject_name" class="form-control" placeholder="{{ __('app.mathematics') }}, {{ __('app.indonesian_language') }}, dll" required>
-        </div>
-
-        <div class="col-md-6 mb-3">
-            <label for="create_class_level" class="form-label">{{ __('app.class_level') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
-            <select name="class_level" id="create_class_level" class="form-select" required>
-                <option value="">-- {{ __('app.select_class') }} --</option>
-                <option value="X">X</option>
-                <option value="XI">XI</option>
-                <option value="XII">XII</option>
-            </select>
-        </div>
-
-        <div class="col-md-6 mb-3">
-            <label for="create_major" class="form-label">{{ __('app.major') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
-            <select name="major" id="create_major" class="form-select" required>
-                <option value="">-- {{ __('app.select_major') }} --</option>
-                @foreach($majors as $major)
-                    <option value="{{ $major }}">{{ $major }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="col-md-12 mb-3">
-            <label for="create_description" class="form-label">{{ __('app.description') }}</label>
-            <textarea name="description" id="create_description" class="form-control" rows="3" placeholder="{{ __('app.optional') }}"></textarea>
         </div>
 
         <div class="col-md-6 mb-3">
@@ -54,6 +14,56 @@
                 <option value="inactive">{{ __('app.inactive') }}</option>
             </select>
         </div>
+
+        <div class="col-md-12 mb-3">
+            <label for="create_subject_name" class="form-label">{{ __('app.subject_name') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
+            <input type="text" name="subject_name" id="create_subject_name" class="form-control" placeholder="{{ __('app.mathematics') }}, {{ __('app.indonesian_language') }}, dll" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">{{ __('app.class_level') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
+            <div class="multiselect-dropdown">
+                <button type="button" class="form-select text-start multiselect-btn" id="classLevelDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                    -- {{ __('app.select_class') }} --
+                </button>
+                <ul class="dropdown-menu p-2 w-100" id="classLevelDropdown">
+                    @foreach($classLevels as $level)
+                    <li>
+                        <label class="dropdown-item d-flex align-items-center gap-2 rounded">
+                            <input type="checkbox" name="class_level[]" value="{{ $level }}" class="form-check-input m-0 class-level-checkbox">
+                            <span>Kelas {{ $level }}</span>
+                        </label>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            <small class="text-muted">Pilih satu atau lebih kelas</small>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">{{ __('app.major') }} <span class="text-danger">{{ __('app.required_indicator') }}</span></label>
+            <div class="multiselect-dropdown">
+                <button type="button" class="form-select text-start multiselect-btn" id="majorDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                    -- {{ __('app.select_major') }} --
+                </button>
+                <ul class="dropdown-menu p-2 w-100" id="majorDropdown">
+                    @foreach($majors as $major)
+                    <li>
+                        <label class="dropdown-item d-flex align-items-center gap-2 rounded">
+                            <input type="checkbox" name="major[]" value="{{ $major }}" class="form-check-input m-0 major-checkbox">
+                            <span>{{ $major }}</span>
+                        </label>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            <small class="text-muted">Pilih satu atau lebih jurusan</small>
+        </div>
+
+        <div class="col-md-12 mb-3">
+            <label for="create_description" class="form-label">{{ __('app.description') }}</label>
+            <textarea name="description" id="create_description" class="form-control" rows="3" placeholder="{{ __('app.optional') }}"></textarea>
+        </div>
     </div>
 
     <div class="d-flex justify-content-end gap-2 mt-3">
@@ -61,3 +71,36 @@
         <button type="submit" class="btn btn-primary">{{ __('app.save') }}</button>
     </div>
 </form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Update button text when checkboxes change
+    function updateMultiselectButton(checkboxSelector, buttonId, defaultText) {
+        const checkboxes = document.querySelectorAll(checkboxSelector);
+        const button = document.getElementById(buttonId);
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checked = document.querySelectorAll(checkboxSelector + ':checked');
+                if (checked.length === 0) {
+                    button.textContent = defaultText;
+                } else if (checked.length === 1) {
+                    button.textContent = checked[0].nextElementSibling.textContent.trim();
+                } else {
+                    button.textContent = checked.length + ' dipilih';
+                }
+            });
+        });
+    }
+    
+    updateMultiselectButton('.class-level-checkbox', 'classLevelDropdownBtn', '-- Pilih Kelas --');
+    updateMultiselectButton('.major-checkbox', 'majorDropdownBtn', '-- Pilih Jurusan --');
+    
+    // Prevent dropdown from closing when clicking on items
+    document.querySelectorAll('.multiselect-dropdown .dropdown-menu').forEach(menu => {
+        menu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+});
+</script>

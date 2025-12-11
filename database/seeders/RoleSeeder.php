@@ -18,6 +18,7 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'basic']);
         Role::create(['name' => 'admin']);
         Role::create(['name' => 'super_admin']);
+        Role::create(['name' => 'teacher']);
 
         // Optionally assign super_admin to the first user
         $firstUser = User::first();

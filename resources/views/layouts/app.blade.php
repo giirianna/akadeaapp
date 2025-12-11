@@ -119,12 +119,6 @@
                         <li>
                             <a href="{{ route('spp.index') }}"> {{ __('app.spp_payments') }} </a>
                         </li>
-                        <li>
-                            <a href="{{ route('teachers.index') }}"> {{ __('app.teachers') }} </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('subjects.index') }}"> {{ __('app.subjects') }} </a>
-                        </li>
                     </ul>
                 </li>
                 <li class="nav-item nav-item-has-children">
@@ -144,6 +138,12 @@
                     <ul id="ddmenu_4" class="collapse dropdown-nav">
                         <li>
                             <a href="{{ route('roles.index') }}"> {{ __('app.role_management') }} </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('teachers.index') }}"> {{ __('app.teachers') }} </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('subjects.index') }}"> {{ __('app.subjects') }} </a>
                         </li>
                     </ul>
                 </li>

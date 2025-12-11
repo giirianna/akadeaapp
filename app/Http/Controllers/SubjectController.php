@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SubjectController extends Controller
 {
@@ -26,7 +27,7 @@ class SubjectController extends Controller
      */
     public function getData()
     {
-        $query = Subject::with('teacher');
+        $query = Subject::with('teachers');
 
         // Apply filters
         if (request()->has('class_level') && request('class_level') != '') {
@@ -47,9 +48,11 @@ class SubjectController extends Controller
             $query->where(function($q) use ($search) {
                 $q->where('subject_code', 'like', "%{$search}%")
                   ->orWhere('subject_name', 'like', "%{$search}%")
-                  ->orWhere('teacher_name', 'like', "%{$search}%")
                   ->orWhere('class_level', 'like', "%{$search}%")
-                  ->orWhere('major', 'like', "%{$search}%");
+                  ->orWhere('major', 'like', "%{$search}%")
+                  ->orWhereHas('teachers', function($tq) use ($search) {
+                      $tq->where('full_name', 'like', "%{$search}%");
+                  });
             });
         }
 
@@ -76,10 +79,13 @@ class SubjectController extends Controller
         // Format data for DataTables
         $data = [];
         foreach ($subjects as $subject) {
+            // Get teacher names from pivot relation
+            $teacherNames = $subject->teachers->pluck('full_name')->join(', ');
+            
             $data[] = [
                 'subject_code' => $subject->subject_code,
                 'subject_name' => $subject->subject_name,
-                'teacher_name' => $subject->teacher_name ?? '—',
+                'teacher_name' => $teacherNames ?: '—',
                 'class_level' => $subject->class_level,
                 'major' => $subject->major,
                 'status' => $subject->status === 'active' 
@@ -113,8 +119,6 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        $teachers = Teacher::select('id', 'full_name')->orderBy('full_name')->get();
-
         $majors = [
             'Semua Jurusan',
             'Rekayasa Perangkat Lunak',
@@ -126,12 +130,14 @@ class SubjectController extends Controller
             'Multimedia',
         ];
 
+        $classLevels = ['X', 'XI', 'XII'];
+
         // If AJAX request, return partial view for modal
         if (request()->ajax()) {
-            return view('subjects.partials.create', compact('teachers', 'majors'));
+            return view('subjects.partials.create', compact('majors', 'classLevels'));
         }
 
-        return view('subjects.create', compact('teachers', 'majors'));
+        return view('subjects.create', compact('majors', 'classLevels'));
     }
 
     /**
@@ -140,31 +146,57 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'teacher_id'    => 'required|exists:teachers,id',
-            'subject_code'  => 'required|string|max:20|unique:subjects',
+            'subject_code'  => 'required|string|max:20',
             'subject_name'  => 'required|string|max:100',
-            'class_level'   => 'required|in:X,XI,XII',
-            'major'         => 'required|string',
+            'class_level'   => 'required|array|min:1',
+            'class_level.*' => 'in:X,XI,XII',
+            'major'         => 'required|array|min:1',
+            'major.*'       => 'string',
             'description'   => 'nullable|string',
             'status'        => 'required|in:active,inactive',
         ]);
 
-        // Ambil nama guru dari teacher_id
-        $teacher = Teacher::find($request->teacher_id);
-        $validated['teacher_name'] = $teacher ? $teacher->full_name : null;
+        $createdCount = 0;
+        $baseCode = $validated['subject_code'];
+        
+        foreach ($validated['class_level'] as $classLevel) {
+            foreach ($validated['major'] as $major) {
+                // Generate unique code with suffix
+                $majorAbbrev = Str::upper(Str::substr(preg_replace('/[^A-Za-z]/', '', $major), 0, 3));
+                $uniqueCode = $baseCode . '-' . $classLevel . '-' . $majorAbbrev;
+                
+                // Check if this combination already exists, if so add a number suffix
+                $existingCount = Subject::where('subject_code', 'like', $uniqueCode . '%')->count();
+                if ($existingCount > 0) {
+                    $uniqueCode = $uniqueCode . '-' . ($existingCount + 1);
+                }
+                
+                Subject::create([
+                    'subject_code' => $uniqueCode,
+                    'subject_name' => $validated['subject_name'],
+                    'class_level' => $classLevel,
+                    'major' => $major,
+                    'description' => $validated['description'] ?? null,
+                    'status' => $validated['status'],
+                    'teacher_id' => null,
+                    'teacher_name' => null,
+                ]);
+                $createdCount++;
+            }
+        }
 
-        $subject = Subject::create($validated);
+        $message = "Berhasil menambahkan {$createdCount} mata pelajaran.";
 
         // If AJAX request, return JSON response
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Mata pelajaran berhasil ditambahkan.',
-                'subject' => $subject
+                'message' => $message,
+                'count' => $createdCount
             ]);
         }
 
-        return redirect()->route('subjects.index')->with('success', 'Mata pelajaran berhasil ditambahkan.');
+        return redirect()->route('subjects.index')->with('success', $message);
     }
 
     /**
@@ -185,8 +217,6 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        $teachers = Teacher::select('id', 'full_name')->orderBy('full_name')->get();
-
         $majors = [
             'Semua Jurusan',
             'Rekayasa Perangkat Lunak',
@@ -198,12 +228,14 @@ class SubjectController extends Controller
             'Multimedia',
         ];
 
+        $classLevels = ['X', 'XI', 'XII'];
+
         // If AJAX request, return partial view for modal
         if (request()->ajax()) {
-            return view('subjects.partials.edit', compact('subject', 'teachers', 'majors'));
+            return view('subjects.partials.edit', compact('subject', 'majors', 'classLevels'));
         }
 
-        return view('subjects.edit', compact('subject', 'teachers', 'majors'));
+        return view('subjects.edit', compact('subject', 'majors', 'classLevels'));
     }
 
     /**
@@ -212,7 +244,6 @@ class SubjectController extends Controller
     public function update(Request $request, Subject $subject)
     {
         $validated = $request->validate([
-            'teacher_id'    => 'required|exists:teachers,id',
             'subject_code'  => 'required|string|max:20|unique:subjects,subject_code,' . $subject->id,
             'subject_name'  => 'required|string|max:100',
             'class_level'   => 'required|in:X,XI,XII',
@@ -221,11 +252,15 @@ class SubjectController extends Controller
             'status'        => 'required|in:active,inactive',
         ]);
 
-        // Update teacher_name berdasarkan guru terpilih
-        $teacher = Teacher::find($request->teacher_id);
-        $validated['teacher_name'] = $teacher ? $teacher->full_name : null;
-
         $subject->update($validated);
+
+        // If AJAX request, return JSON response
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Mata pelajaran berhasil diperbarui.'
+            ]);
+        }
 
         return redirect()->route('subjects.index')->with('success', 'Mata pelajaran berhasil diperbarui.');
     }

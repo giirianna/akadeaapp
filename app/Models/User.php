@@ -46,4 +46,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the teacher profile associated with this user.
+     */
+    public function teacher()
+    {
+        return $this->hasOne(\App\Models\Teacher::class);
+    }
 }
