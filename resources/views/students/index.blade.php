@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('title', 'Daftar Siswa')
 
+{{-- 🔒 Hanya guru yang boleh akses --}}
+@if(auth()->user()->hasRole('siswa') || (auth()->user()->student_id ?? false))
+<script>
+    window.location.href = "{{ route('dashboard') }}";
+</script>
+@stop
+@endif
+
 @section('content')
 <!-- ========== table components start ========== -->
 <section class="table-components">
@@ -61,10 +69,11 @@
                                             <th class="text-center"><h6>NIS</h6></th>
                                             <th class="text-center"><h6>Kelas</h6></th>
                                             <th class="text-center"><h6>Jurusan</h6></th>
+                                            <th class="text-center"><h6>Bulan Masuk</h6></th>
                                             <th class="text-center"><h6>Aksi</h6></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="studentsTableBody">
                                         @foreach($students as $student)
                                         <tr data-id="{{ $student->id }}">
                                             <td class="text-center">
@@ -82,6 +91,11 @@
                                             <td class="text-center min-width">
                                                 <p>{{ $student->major ?? '-' }}</p>
                                             </td>
+                                            <td class="text-center min-width">
+                                                <p>
+                                                    {{ \Carbon\Carbon::parse($student->enrollment_date)->format('d/m/Y') }}
+                                                </p>
+                                            </td>
                                             <td class="text-center">
                                                 <div class="action d-flex gap-2 justify-content-center">
                                                     <button type="button" class="text-info"
@@ -93,7 +107,8 @@
                                                             '{{ $student->class }}',
                                                             '{{ addslashes($student->major ?? '-') }}',
                                                             '{{ $student->birth_date ? \Carbon\Carbon::parse($student->birth_date)->format('d-m-Y') : '-' }}',
-                                                            '{{ addslashes($student->address ?? '-') }}'
+                                                            '{{ addslashes($student->address ?? '-') }}',
+                                                            '{{ \Carbon\Carbon::parse($student->enrollment_date)->format('d/m/Y') }}'
                                                         )"
                                                         title="Detail">
                                                         <i class="lni lni-eye"></i>
@@ -108,13 +123,14 @@
                                                             '{{ $student->class }}',
                                                             '{{ addslashes($student->major ?? '') }}',
                                                             '{{ $student->birth_date ?? '' }}',
-                                                            '{{ addslashes($student->address ?? '') }}'
+                                                            '{{ addslashes($student->address ?? '') }}',
+                                                            '{{ $student->enrollment_date ?? '' }}'
                                                         )"
                                                         title="Edit">
                                                         <i class="lni lni-pencil"></i>
                                                     </button>
-                                                    <button type="button" class="text-danger" 
-                                                        data-bs-toggle="modal" 
+                                                    <button type="button" class="text-danger"
+                                                        data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal"
                                                         onclick="setDeleteId({{ $student->id }}, '{{ addslashes($student->name) }}')"
                                                         title="Hapus">
@@ -150,9 +166,8 @@
                 <h5 class="modal-title" id="studentModalLabel">Tambah Siswa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="studentForm" method="POST">
+            <form id="studentForm">
                 @csrf
-                @method('POST')
                 <input type="hidden" name="id" id="studentId">
                 <div class="modal-body">
                     <div class="input-style-1 mb-3">
@@ -175,6 +190,10 @@
                         <label for="birth_date">Tanggal Lahir</label>
                         <input type="date" name="birth_date" id="birth_date" class="form-control">
                     </div>
+                    <div class="input-style-1 mb-3">
+                        <label for="enrollment_date">Bulan Masuk</label>
+                        <input type="date" name="enrollment_date" id="enrollment_date" class="form-control" required>
+                    </div>
                     <div class="mb-3">
                         <label for="address">Alamat</label>
                         <textarea name="address" id="address" class="form-control" rows="3"></textarea>
@@ -194,11 +213,11 @@
 </div>
 
 <!-- ========== MODAL: Detail Siswa ========== -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Detail Siswa</h5>
+                <h5 class="modal-title">Detail Siswa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -221,6 +240,10 @@
                 <div class="row mb-3">
                     <div class="col-md-4"><strong>Tanggal Lahir:</strong></div>
                     <div class="col-md-8" id="detail-birth_date"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4"><strong>Bulan Masuk:</strong></div>
+                    <div class="col-md-8" id="detail-enrollment_date"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-4"><strong>Alamat:</strong></div>
@@ -261,81 +284,165 @@
 <script>
     let deleteStudentId = null;
 
-    function setDeleteId(id, name) {
-        deleteStudentId = id;
-        document.getElementById('delete-student-name').textContent = name;
-    }
-
+    // Hapus
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
         if (!deleteStudentId) return;
-
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
         fetch(`/students/${deleteStudentId}`, {
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': csrfToken,
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json'
+                'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            // Tutup modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
             modal.hide();
-
-            // Hanya hapus baris jika sukses
             if (data.success) {
                 const row = document.querySelector(`tr[data-id="${deleteStudentId}"]`);
                 if (row) row.remove();
             }
-
-            // Reset ID
             deleteStudentId = null;
         })
-        .catch(error => {
-            console.error('Error:', error);
-            // ⚠️ TIDAK ADA ALERT — hanya tutup modal
+        .catch(() => {
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
             modal.hide();
             deleteStudentId = null;
         });
     });
 
-    function fillEditForm(id, name, nis, class_, major, birth_date, address) {
-        const form = document.getElementById('studentForm');
-        form.action = `/students/${id}`;
-        form.querySelector('[name="_method"]').value = 'PUT';
+    // Simpan & Edit (AJAX) — NO RELOAD
+    document.getElementById('studentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const studentId = formData.get('id');
+        const url = studentId ? `/students/${studentId}` : `/students`;
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+        // Untuk edit, Laravel butuh _method=PUT
+        if (studentId) {
+            formData.append('_method', 'PUT');
+        }
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('studentModal'));
+                modal.hide();
+
+                const student = data.student;
+
+                if (studentId) {
+                    // Update baris yang ada
+                    const row = document.querySelector(`tr[data-id="${studentId}"]`);
+                    if (row) {
+                        const enrollmentDisplay = new Date(student.enrollment_date).toLocaleDateString('id-ID');
+                        row.querySelector('.text-start p').textContent = student.name;
+                        row.querySelectorAll('.text-center p')[1].textContent = student.nis;
+                        row.querySelectorAll('.text-center p')[2].textContent = student.class;
+                        row.querySelectorAll('.text-center p')[3].textContent = student.major || '-';
+                        row.querySelectorAll('.text-center p')[4].textContent = enrollmentDisplay;
+                    }
+                } else {
+                    // Tambah baris baru
+                    const tableBody = document.getElementById('studentsTableBody');
+                    const newIndex = tableBody.children.length + 1;
+                    const enrollmentDisplay = new Date(student.enrollment_date).toLocaleDateString('id-ID');
+
+                    const newRow = document.createElement('tr');
+                    newRow.setAttribute('data-id', student.id);
+                    newRow.innerHTML = `
+                        <td class="text-center"><p>${newIndex}</p></td>
+                        <td class="text-start min-width"><p>${student.name}</p></td>
+                        <td class="text-center min-width"><p><strong>${student.nis}</strong></p></td>
+                        <td class="text-center min-width"><p>${student.class}</p></td>
+                        <td class="text-center min-width"><p>${student.major || '-'}</p></td>
+                        <td class="text-center min-width"><p>${enrollmentDisplay}</p></td>
+                        <td class="text-center">
+                            <div class="action d-flex gap-2 justify-content-center">
+                                <button type="button" class="text-info" data-bs-toggle="modal" data-bs-target="#detailModal"
+                                    onclick="showDetail('${addslashes(student.name)}', '${student.nis}', '${student.class}', 
+                                    '${addslashes(student.major || '-')}', 
+                                    '${student.birth_date ? new Date(student.birth_date).toLocaleDateString('id-ID') : '-'}',
+                                    '${addslashes(student.address || '-')}', '${enrollmentDisplay}')"
+                                    title="Detail">
+                                    <i class="lni lni-eye"></i>
+                                </button>
+                                <button type="button" class="text-warning" data-bs-toggle="modal" data-bs-target="#studentModal"
+                                    onclick="fillEditForm(${student.id}, '${addslashes(student.name)}', '${student.nis}', 
+                                    '${student.class}', '${addslashes(student.major || '')}', 
+                                    '${student.birth_date || ''}', '${addslashes(student.address || '')}', '${student.enrollment_date}')"
+                                    title="Edit">
+                                    <i class="lni lni-pencil"></i>
+                                </button>
+                                <button type="button" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    onclick="setDeleteId(${student.id}, '${addslashes(student.name)}')"
+                                    title="Hapus">
+                                    <i class="lni lni-trash-can"></i>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tableBody.appendChild(newRow);
+                }
+
+                // Reset form
+                document.getElementById('studentForm').reset();
+                document.getElementById('studentModalLabel').textContent = 'Tambah Siswa';
+                document.getElementById('studentId').value = '';
+            } else {
+                alert('Gagal menyimpan data.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat menyimpan data.');
+        });
+    });
+
+    // Helper: escape string for JS
+    function addslashes(str) {
+        return (str + '').replace(/[\\"]/g, '\\$&').replace(/\u0000/g, '\\0');
+    }
+
+    function fillEditForm(id, name, nis, class_, major, birth_date, address, enrollment_date) {
         document.getElementById('studentModalLabel').textContent = 'Edit Siswa';
         document.getElementById('studentId').value = id;
         document.getElementById('name').value = name;
         document.getElementById('nis').value = nis;
         document.getElementById('class').value = class_;
         document.getElementById('major').value = major;
-        document.getElementById('birth_date').value = birth_date;
+        document.getElementById('birth_date').value = birth_date; // format: YYYY-MM-DD
         document.getElementById('address').value = address;
+        document.getElementById('enrollment_date').value = enrollment_date; // pastikan format YYYY-MM-DD
     }
 
-    function showDetail(name, nis, class_, major, birth_date, address) {
+    function showDetail(name, nis, class_, major, birth_date, address, enrollment_date) {
         document.getElementById('detail-name').textContent = name;
         document.getElementById('detail-nis').textContent = nis;
         document.getElementById('detail-class').textContent = class_;
         document.getElementById('detail-major').textContent = major;
         document.getElementById('detail-birth_date').textContent = birth_date;
         document.getElementById('detail-address').textContent = address;
+        document.getElementById('detail-enrollment_date').textContent = enrollment_date;
     }
 
-    // Reset modal ke mode "Tambah" saat ditutup
+    function setDeleteId(id, name) {
+        deleteStudentId = id;
+        document.getElementById('delete-student-name').textContent = name;
+    }
+
     document.getElementById('studentModal').addEventListener('hidden.bs.modal', function () {
-        const form = document.getElementById('studentForm');
-        form.action = "{{ route('students.store') }}";
-        form.querySelector('[name="_method"]').value = 'POST';
-        form.reset();
+        document.getElementById('studentForm').reset();
         document.getElementById('studentModalLabel').textContent = 'Tambah Siswa';
         document.getElementById('studentId').value = '';
     });

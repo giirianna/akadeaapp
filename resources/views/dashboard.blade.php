@@ -6,10 +6,9 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="title">
-                    <h2>Home</h2>
+                    <h2>Dashboard Siswa</h2>
                 </div>
             </div>
-            <!-- end col -->
             <div class="col-md-6">
                 <div class="breadcrumb-wrapper">
                     <nav aria-label="breadcrumb">
@@ -24,683 +23,479 @@
                     </nav>
                 </div>
             </div>
-            <!-- end col -->
         </div>
-        <!-- end row -->
     </div>
     <!-- ========== title-wrapper end ========== -->
 
-    <!-- ========== stats cards start ========== -->
+    <!-- ========== ringkasan statistik ========== -->
     <div class="row">
-        <div class="col-xl-3 col-lg-4 col-sm-6">
-            <div class="icon-card mb-30">
-                <div class="icon purple">
-                    <i class="lni lni-cart-full"></i>
-                </div>
-                <div class="content">
-                    <h6 class="mb-10">Total Orders</h6>
-                    <h3 class="text-bold mb-10">34,567</h3>
-                    <p class="text-sm text-success">
-                        <i class="lni lni-arrow-up"></i> +2.00%
-                        <span class="text-gray">(30 days)</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- End Col -->
-        <div class="col-xl-3 col-lg-4 col-sm-6">
-            <div class="icon-card mb-30">
-                <div class="icon success">
-                    <i class="lni lni-dollar"></i>
-                </div>
-                <div class="content">
-                    <h6 class="mb-10">Total Income</h6>
-                    <h3 class="text-bold mb-10">$74,567</h3>
-                    <p class="text-sm text-success">
-                        <i class="lni lni-arrow-up"></i> +5.45%
-                        <span class="text-gray">Increased</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- End Col -->
         <div class="col-xl-3 col-lg-4 col-sm-6">
             <div class="icon-card mb-30">
                 <div class="icon primary">
-                    <i class="lni lni-credit-cards"></i>
+                    <i class="lni lni-book"></i>
                 </div>
                 <div class="content">
-                    <h6 class="mb-10">Total Expense</h6>
-                    <h3 class="text-bold mb-10">$24,567</h3>
-                    <p class="text-sm text-danger">
-                        <i class="lni lni-arrow-down"></i> -2.00%
-                        <span class="text-gray">Expense</span>
-                    </p>
+                    <h6 class="mb-10">Mata Pelajaran Aktif</h6>
+                    <h3 class="text-bold mb-10">8</h3>
                 </div>
             </div>
         </div>
-        <!-- End Col -->
         <div class="col-xl-3 col-lg-4 col-sm-6">
             <div class="icon-card mb-30">
-                <div class="icon orange">
-                    <i class="lni lni-user"></i>
+                <div class="icon success">
+                    <i class="lni lni-graduation"></i>
                 </div>
                 <div class="content">
-                    <h6 class="mb-10">Total Users</h6>
-                    <h3 class="text-bold mb-10">2,345</h3>
-                    <p class="text-sm text-success">
-                        <i class="lni lni-arrow-up"></i> +12.50%
-                        <span class="text-gray">Growth</span>
-                    </p>
+                    <h6 class="mb-10">Rata-rata Nilai</h6>
+                    <h3 class="text-bold mb-10">87.5</h3>
                 </div>
             </div>
         </div>
-        <!-- End Col -->
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+            <div class="icon-card mb-30">
+                <div class="icon warning">
+                    <i class="lni lni-files"></i>
+                </div>
+                <div class="content">
+                    <h6 class="mb-10">Tugas Belum Selesai</h6>
+                    <h3 class="text-bold mb-10">3</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+            <div class="icon-card mb-30">
+                <div class="icon purple">
+                    <i class="lni lni-calendar"></i>
+                </div>
+                <div class="content">
+                    <h6 class="mb-10">Kehadiran Bulan Ini</h6>
+                    <h3 class="text-bold mb-10">94%</h3>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- ========== stats cards end ========== -->
 
-    <!-- ========== charts row start ========== -->
+    <!-- ========== kalender akademik & modul ========== -->
     <div class="row">
-        <div class="col-lg-7">
+        <!-- Kalender Akademik -->
+        <div class="col-lg-6">
             <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap justify-content-between">
-                    <div class="left">
-                        <h6 class="text-medium mb-10">Yearly Stats</h6>
-                        <h3 class="text-bold">$245,479</h3>
-                    </div>
-                    <div class="right">
-                        <div class="select-style-1">
-                            <div class="select-position select-sm">
-                                <select class="light-bg">
-                                    <option value="">Yearly</option>
-                                    <option value="">Monthly</option>
-                                    <option value="">Weekly</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- end select -->
-                    </div>
+                <div class="title d-flex justify-content-between">
+                    <h6 class="text-medium">Kalender Akademik</h6>
                 </div>
-                <!-- End Title -->
-                <div class="chart">
-                    <canvas id="Chart1" style="width: 100%; height: 400px; margin-left: -35px;"></canvas>
-                </div>
-                <!-- End Chart -->
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <strong>Jadwal Hari Ini:</strong>
+                        <ul class="mt-1 ms-3">
+                            <li>Matematika – 07.00–08.30</li>
+                            <li>Bahasa Indonesia – 08.30–10.00</li>
+                            <li>IPA – 10.30–12.00</li>
+                        </ul>
+                    </li>
+                    <li class="mb-2">
+                        <strong>Ujian Mendatang:</strong>
+                        <ul class="mt-1 ms-3">
+                            <li>UH Matematika – 15 Des 2025</li>
+                            <li>PTS IPA – 20 Des 2025</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Deadline Tugas:</strong>
+                        <ul class="mt-1 ms-3">
+                            <li>Laporan Praktikum – 13 Des 2025</li>
+                            <li>Esai Sejarah – 14 Des 2025</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!-- End Col -->
-        <div class="col-lg-5">
-            <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap align-items-center justify-content-between">
-                    <div class="left">
-                        <h6 class="text-medium mb-30">Sales/Revenue</h6>
-                    </div>
-                    <div class="right">
-                        <div class="select-style-1">
-                            <div class="select-position select-sm">
-                                <select class="light-bg">
-                                    <option value="">Yearly</option>
-                                    <option value="">Monthly</option>
-                                    <option value="">Weekly</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- end select -->
-                    </div>
-                </div>
-                <!-- End Title -->
-                <div class="chart">
-                    <canvas id="Chart2" style="width: 100%; height: 400px; margin-left: -45px;"></canvas>
-                </div>
-                <!-- End Chart -->
-            </div>
-        </div>
-        <!-- End Col -->
-    </div>
-    <!-- ========== charts row end ========== -->
 
-    <!-- ========== map and products table row start ========== -->
-    <div class="row">
-        <div class="col-lg-5">
+        <!-- Modul & Materi -->
+        <div class="col-lg-6">
             <div class="card-style mb-30">
-                <div class="title d-flex justify-content-between align-items-center">
-                    <div class="left">
-                        <h6 class="text-medium mb-30">Geographic Sales</h6>
-                    </div>
+                <div class="title d-flex justify-content-between">
+                    <h6 class="text-medium">Modul & Materi</h6>
+                    <a href="#" class="text-sm text-primary">Lihat Semua</a>
                 </div>
-                <!-- End Title -->
-                <div id="map" style="width: 100%; height: 400px; overflow: hidden;"></div>
-                <p>Last updated: 7 days ago</p>
-            </div>
-        </div>
-        <!-- End Col -->
-        <div class="col-lg-7">
-            <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap justify-content-between align-items-center">
-                    <div class="left">
-                        <h6 class="text-medium mb-30">Top Products</h6>
-                    </div>
-                    <div class="right">
-                        <div class="select-style-1">
-                            <div class="select-position select-sm">
-                                <select class="light-bg">
-                                    <option value="">Yearly</option>
-                                    <option value="">Monthly</option>
-                                    <option value="">Weekly</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- end select -->
-                    </div>
-                </div>
-                <!-- End Title -->
                 <div class="table-responsive">
-                    <table class="table top-selling-table">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th>
-                                    <h6 class="text-sm text-medium">Products</h6>
-                                </th>
-                                <th class="min-width">
-                                    <h6 class="text-sm text-medium">Category</h6>
-                                </th>
-                                <th class="min-width">
-                                    <h6 class="text-sm text-medium">Price</h6>
-                                </th>
-                                <th class="min-width">
-                                    <h6 class="text-sm text-medium">Sold</h6>
-                                </th>
-                                <th class="min-width">
-                                    <h6 class="text-sm text-medium">Profit</h6>
-                                </th>
-                                <th></th>
+                                <th>Mata Pelajaran</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <div class="check-input-primary">
-                                        <input class="form-check-input" type="checkbox" id="checkbox-1" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="product">
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/products/product-mini-1.jpg') }}" alt="" />
-                                        </div>
-                                        <p class="text-sm">Arm Chair</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="text-sm">Interior</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">$345</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">43</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">$45</p>
-                                </td>
-                                <td>
-                                    <div class="action justify-content-end">
-                                        <button class="more-btn ml-10 dropdown-toggle" id="moreAction1"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="lni lni-more-alt"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
-                                            <li class="dropdown-item">
-                                                <a href="#0" class="text-gray">Remove</a>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <a href="#0" class="text-gray">Edit</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
+                                <td>Matematika</td>
+                                <td><span class="badge bg-success">Sudah Dibaca</span></td>
+                                <td><a href="#" class="text-primary">PDF</a></td>
                             </tr>
                             <tr>
-                                <td>
-                                    <div class="check-input-primary">
-                                        <input class="form-check-input" type="checkbox" id="checkbox-2" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="product">
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/products/product-mini-2.jpg') }}" alt="" />
-                                        </div>
-                                        <p class="text-sm">Sofa</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="text-sm">Interior</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">$145</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">13</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">$15</p>
-                                </td>
-                                <td>
-                                    <div class="action justify-content-end">
-                                        <button class="more-btn ml-10 dropdown-toggle" id="moreAction2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="lni lni-more-alt"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction2">
-                                            <li class="dropdown-item">
-                                                <a href="#0" class="text-gray">Remove</a>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <a href="#0" class="text-gray">Edit</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
+                                <td>IPA</td>
+                                <td><span class="badge bg-warning">Belum Dibaca</span></td>
+                                <td><a href="#" class="text-primary">Video</a></td>
                             </tr>
                             <tr>
-                                <td>
-                                    <div class="check-input-primary">
-                                        <input class="form-check-input" type="checkbox" id="checkbox-3" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="product">
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/products/product-mini-3.jpg') }}" alt="" />
-                                        </div>
-                                        <p class="text-sm">Dining Table</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="text-sm">Interior</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">$95</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">32</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">$215</p>
-                                </td>
-                                <td>
-                                    <div class="action justify-content-end">
-                                        <button class="more-btn ml-10 dropdown-toggle" id="moreAction3"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="lni lni-more-alt"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction3">
-                                            <li class="dropdown-item">
-                                                <a href="#0" class="text-gray">Remove</a>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <a href="#0" class="text-gray">Edit</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="check-input-primary">
-                                        <input class="form-check-input" type="checkbox" id="checkbox-4" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="product">
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/products/product-mini-4.jpg') }}" alt="" />
-                                        </div>
-                                        <p class="text-sm">Office Chair</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="text-sm">Interior</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">$105</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">23</p>
-                                </td>
-                                <td>
-                                    <p class="text-sm">$345</p>
-                                </td>
-                                <td>
-                                    <div class="action justify-content-end">
-                                        <button class="more-btn ml-10 dropdown-toggle" id="moreAction4"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="lni lni-more-alt"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction4">
-                                            <li class="dropdown-item">
-                                                <a href="#0" class="text-gray">Remove</a>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <a href="#0" class="text-gray">Edit</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
+                                <td>Bahasa Inggris</td>
+                                <td><span class="badge bg-success">Sudah Dibaca</span></td>
+                                <td><a href="#" class="text-primary">PDF</a></td>
                             </tr>
                         </tbody>
                     </table>
-                    <!-- End Table -->
                 </div>
             </div>
         </div>
-        <!-- End Col -->
     </div>
-    <!-- ========== map and products table row end ========== -->
 
-    <!-- ========== forecast and traffic row start ========== -->
+    <!-- ========== tugas & evaluasi + pengumuman ========== -->
     <div class="row">
-        <div class="col-lg-7">
+        <!-- Tugas & Evaluasi -->
+        <div class="col-lg-6">
             <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap align-items-center justify-content-between">
-                    <div class="left">
-                        <h6 class="text-medium mb-2">Sales Forecast</h6>
-                    </div>
-                    <div class="right">
-                        <div class="select-style-1 mb-2">
-                            <div class="select-position select-sm">
-                                <select class="light-bg">
-                                    <option value="">Last Month</option>
-                                    <option value="">Last 3 Months</option>
-                                    <option value="">Last Year</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- end select -->
-                    </div>
+                <div class="title d-flex justify-content-between">
+                    <h6 class="text-medium">Tugas & Evaluasi</h6>
+                    <a href="#" class="text-sm text-primary">Lihat Semua</a>
                 </div>
-                <!-- End Title -->
-                <div class="chart">
-                    <div id="legend3">
-                        <ul class="legend3 d-flex flex-wrap align-items-center mb-30">
-                            <li>
-                                <div class="d-flex">
-                                    <span class="bg-color primary-bg"> </span>
-                                    <div class="text">
-                                        <p class="text-sm text-success">
-                                            <span class="text-dark">Revenue</span> +25.55%
-                                            <i class="lni lni-arrow-up"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex">
-                                    <span class="bg-color purple-bg"></span>
-                                    <div class="text">
-                                        <p class="text-sm text-success">
-                                            <span class="text-dark">Net Profit</span> +45.55%
-                                            <i class="lni lni-arrow-up"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex">
-                                    <span class="bg-color orange-bg"></span>
-                                    <div class="text">
-                                        <p class="text-sm text-danger">
-                                            <span class="text-dark">Orders</span> -4.2%
-                                            <i class="lni lni-arrow-down"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <canvas id="Chart3" style="width: 100%; height: 450px; margin-left: -35px;"></canvas>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Judul</th>
+                                <th>Status</th>
+                                <th>Nilai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laporan Praktikum</td>
+                                <td><span class="badge bg-warning">Dikumpulkan</span></td>
+                                <td>85</td>
+                            </tr>
+                            <tr>
+                                <td>Latihan Soal Matematika</td>
+                                <td><span class="badge bg-success">Dinilai</span></td>
+                                <td>92</td>
+                            </tr>
+                            <tr>
+                                <td>Esai Sejarah</td>
+                                <td><span class="badge bg-secondary">Belum Dikerjakan</span></td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <!-- End Col -->
+
+        <!-- Pengumuman & Notifikasi -->
+        <div class="col-lg-6">
+            <div class="card-style mb-30">
+                <div class="title">
+                    <h6 class="text-medium">Pengumuman & Notifikasi</h6>
+                </div>
+                <div class="activity-timeline">
+                    <div class="activity-item d-flex mb-3">
+                        <div class="icon me-3">
+                            <i class="lni lni-bullhorn text-warning"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm mb-1">Wali kelas: “Pastikan SPP bulan Desember sudah dibayar sebelum 15 Desember.”</p>
+                            <small class="text-gray">10 Des 2025, 08:30</small>
+                        </div>
+                    </div>
+                    <div class="activity-item d-flex mb-3">
+                        <div class="icon me-3">
+                            <i class="lni lni-alarm text-danger"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm mb-1">Deadline tugas esai Sejarah tinggal 2 hari lagi!</p>
+                            <small class="text-gray">10 Des 2025, 07:15</small>
+                        </div>
+                    </div>
+                    <div class="activity-item d-flex mb-3">
+                        <div class="icon me-3">
+                            <i class="lni lni-cog text-info"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm mb-1">Sistem akan maintenance pada 14 Desember pukul 22.00–02.00.</p>
+                            <small class="text-gray">09 Des 2025, 14:00</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== profil siswa + grafik performa ========== -->
+    <div class="row">
+        <!-- Profil Siswa -->
         <div class="col-lg-5">
             <div class="card-style mb-30">
-                <div class="title d-flex flex-wrap align-items-center justify-content-between">
-                    <div class="left">
-                        <h6 class="text-medium mb-2">Traffic Overview</h6>
-                    </div>
-                    <div class="right">
-                        <div class="select-style-1 mb-2">
-                            <div class="select-position select-sm">
-                                <select class="bg-ligh">
-                                    <option value="">Last 6 Months</option>
-                                    <option value="">Last 3 Months</option>
-                                    <option value="">Last Year</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- end select -->
+                <div class="title">
+                    <h6 class="text-medium">Profil Siswa</h6>
+                </div>
+                @php
+                    $user = auth()->user();
+                    $siswa = $user->siswa ?? null;
+                    $nama = $siswa ? $siswa->nama : 'Nama Siswa';
+                    $kelas = $siswa ? $siswa->kelas : 'Kelas Belum Diatur';
+                    $nis = $siswa ? $siswa->nis : 'NIS Belum Diatur';
+                @endphp
+                <div class="d-flex align-items-center mb-20">
+                    <div>
+                        <h5 class="mb-1">{{ $nama }}</h5>
+                        <p class="text-sm text-gray">{{ $kelas }}</p>
+                        <p class="text-sm">NIS: {{ $nis }}</p>
                     </div>
                 </div>
-                <!-- End Title -->
-                <div class="chart">
-                    <div id="legend4">
-                        <ul class="legend3 d-flex flex-wrap gap-3 gap-sm-0 align-items-center mb-30">
-                            <li>
-                                <div class="d-flex">
-                                    <span class="bg-color primary-bg"> </span>
-                                    <div class="text">
-                                        <p class="text-sm text-success">
-                                            <span class="text-dark">Store Visits</span>
-                                            +25.55%
-                                            <i class="lni lni-arrow-up"></i>
-                                        </p>
-                                        <h2>3456</h2>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex">
-                                    <span class="bg-color danger-bg"></span>
-                                    <div class="text">
-                                        <p class="text-sm text-danger">
-                                            <span class="text-dark">Visitors</span> -2.05%
-                                            <i class="lni lni-arrow-down"></i>
-                                        </p>
-                                        <h2>3456</h2>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+
+                <div class="progress mb-15">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+                        78% Belajar
                     </div>
-                    <canvas id="Chart4" style="width: 100%; height: 420px; margin-left: -35px;"></canvas>
                 </div>
-                <!-- End Chart -->
+                <p class="text-sm mb-15">Progress materi telah diselesaikan</p>
+
+                <!-- SPP Ringkasan (Dinamis dari DB) -->
+                @php
+                    // Ambil data siswa yang sedang login
+                    $siswa = auth()->user()->siswa ?? null;
+
+                    if ($siswa && isset($siswa->tanggal_masuk)) {
+                        $tanggal_masuk = \Carbon\Carbon::parse($siswa->tanggal_masuk);
+                        $bulan_masuk = (int) $tanggal_masuk->format('m');
+                        $tahun_masuk = (int) $tanggal_masuk->format('Y');
+                        
+                        // Bulan & tahun sekarang (asumsi: Desember 2025 sebagai referensi tampilan)
+                        // Di produksi, ganti dengan Carbon::now()
+                        $bulan_sekarang = 12; // (int) \Carbon\Carbon::now()->format('m');
+                        $tahun_sekarang = 2025; // (int) \Carbon\Carbon::now()->format('Y');
+
+                        // Hitung jumlah bulan dari masuk hingga sekarang
+                        $jumlah_bulan = 0;
+                        $tmp_bulan = $bulan_masuk;
+                        $tmp_tahun = $tahun_masuk;
+
+                        while (!($tmp_bulan == $bulan_sekarang && $tmp_tahun == $tahun_sekarang)) {
+                            $jumlah_bulan++;
+                            $tmp_bulan++;
+                            if ($tmp_bulan > 12) {
+                                $tmp_bulan = 1;
+                                $tmp_tahun++;
+                            }
+                        }
+                        $jumlah_bulan++; // termasuk bulan sekarang
+
+                        $tarif_per_bulan = 300000;
+                        $total_tagihan = $jumlah_bulan * $tarif_per_bulan;
+
+                        // Ambil bulan yang sudah dibayar
+                        $pembayaran_bulan = \App\Models\PembayaranSpp::where('siswa_id', $siswa->id)
+                            ->where('tahun', $tahun_sekarang)
+                            ->pluck('bulan')
+                            ->toArray();
+
+                        $sudah_dibayar = count($pembayaran_bulan) * $tarif_per_bulan;
+                        $sisa_tagihan = $total_tagihan - $sudah_dibayar;
+                        $lunas = $sisa_tagihan <= 0;
+
+                        // Buat daftar bulan dari masuk → sekarang
+                        $bulan_list = [];
+                        $bln = $bulan_masuk;
+                        $thn = $tahun_masuk;
+                        for ($i = 0; $i < $jumlah_bulan; $i++) {
+                            if ($bln > 12) {
+                                $bln = 1;
+                                $thn++;
+                            }
+                            $bulan_list[$bln] = \Carbon\Carbon::create()->month($bln)->format('F');
+                            $bln++;
+                        }
+                        ksort($bulan_list);
+                        $bulan_lunas = $pembayaran_bulan;
+                    } else {
+                        // Fallback jika tidak ada data
+                        $bulan_masuk = 8;
+                        $bulan_sekarang = 12;
+                        $jumlah_bulan = 5;
+                        $total_tagihan = 1500000;
+                        $sudah_dibayar = 1200000;
+                        $sisa_tagihan = 300000;
+                        $lunas = false;
+                        $bulan_list = [8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'];
+                        $bulan_lunas = [8, 9, 10, 11];
+                    }
+                @endphp
+
+                <div class="border-top pt-3 mt-3">
+                    <h6 class="text-sm fw-bold mb-2">Status SPP</h6>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Total Tagihan</span>
+                        <strong>Rp{{ number_format($total_tagihan, 0, ',', '.') }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Sudah Dibayar</span>
+                        <strong class="text-success">Rp{{ number_format($sudah_dibayar, 0, ',', '.') }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Sisa Tagihan</span>
+                        <strong class="{{ $sisa_tagihan > 0 ? 'text-danger' : 'text-success' }}">
+                            Rp{{ number_format($sisa_tagihan, 0, ',', '.') }}
+                        </strong>
+                    </div>
+
+                    @if($lunas)
+                        <span class="badge bg-success mb-3">Lunas</span>
+                    @else
+                        <span class="badge bg-danger mb-3">Belum Lunas</span>
+                    @endif
+                </div>
             </div>
         </div>
-        <!-- End Col -->
+
+        <!-- Grafik Performa -->
+        <div class="col-lg-7">
+            <div class="card-style mb-30">
+                <div class="title">
+                    <h6 class="text-medium">Grafik Performa</h6>
+                </div>
+                <div class="chart">
+                    <canvas id="ChartPerforma" style="width: 100%; height: 300px; margin-left: -20px;"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- ========== forecast and traffic row end ========== -->
 
-    <!-- ========== chart scripts ========== -->
+    <!-- ========== Detail SPP - Google Sheet Style ========== -->
+    <div class="row" id="detail-spp">
+        <div class="col-12">
+            <div class="card-style mb-30">
+                <div class="title d-flex justify-content-between align-items-center">
+                    <h6 class="text-medium">Detail SPP ({{ min(array_keys($bulan_list)) }} – {{ max(array_keys($bulan_list)) }} 2025)</h6>
+                    <span class="text-sm text-muted">Tarif: Rp300.000/bulan</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-borderless" style="font-size: 0.95rem;">
+                        <thead>
+                            <tr style="background-color: #f9fafb;">
+                                <th style="padding: 12px 15px; border-bottom: 2px solid #e5e7eb;">#</th>
+                                <th style="padding: 12px 15px; border-bottom: 2px solid #e5e7eb;">Bulan</th>
+                                <th style="padding: 12px 15px; border-bottom: 2px solid #e5e7eb; text-align: right;">Tagihan</th>
+                                <th style="padding: 12px 15px; border-bottom: 2px solid #e5e7eb; text-align: center;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($bulan_list as $bulan_num => $bulan_nama)
+                                <tr style="border-bottom: 1px solid #f3f4f6;">
+                                    <td style="padding: 12px 15px;">{{ $loop->iteration }}</td>
+                                    <td style="padding: 12px 15px;">{{ $bulan_nama }} 2025</td>
+                                    <td style="padding: 12px 15px; text-align: right;">Rp{{ number_format(300000, 0, ',', '.') }}</td>
+                                    <td style="padding: 12px 15px; text-align: center;">
+                                        @if(in_array($bulan_num, $bulan_lunas))
+                                            <span class="badge bg-success" style="font-size: 0.85rem; padding: 5px 10px;">Lunas</span>
+                                        @else
+                                            <span class="badge bg-danger" style="font-size: 0.85rem; padding: 5px 10px;">Belum Bayar</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #f9fafb; font-weight: 600;">
+                                <td colspan="2" style="padding: 12px 15px;">Total</td>
+                                <td style="padding: 12px 15px; text-align: right;">Rp{{ number_format($total_tagihan, 0, ',', '.') }}</td>
+                                <td style="padding: 12px 15px; text-align: center;">
+                                    @if($lunas)
+                                        <span class="badge bg-success">Lunas</span>
+                                    @else
+                                        <span class="badge bg-warning">Belum Lunas</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Chart 1 - Yearly Stats
-        const chart1 = document.getElementById('Chart1');
-        if (chart1) {
-            new Chart(chart1, {
-                type: 'line',
+        const ctx = document.getElementById('ChartPerforma');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'bar',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [
-                        {
-                            label: 'Sales',
-                            data: [10, 20, 15, 25, 30, 35, 28, 32, 40, 38, 45, 50],
-                            borderColor: '#3C50E0',
-                            backgroundColor: 'rgba(60, 80, 224, 0.05)',
-                            tension: 0.4,
-                            fill: true
-                        }
-                    ]
+                    labels: ['Matematika', 'IPA', 'B.Indo', 'B.Inggris', 'Sejarah', 'PJOK', 'Seni', 'Agama'],
+                    datasets: [{
+                        label: 'Nilai',
+                        data: [88, 90, 85, 92, 80, 95, 87, 93],
+                        backgroundColor: '#3C50E0',
+                        borderColor: '#3C50E0',
+                        borderWidth: 1
+                    }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
                     scales: {
                         y: {
                             beginAtZero: true,
                             max: 100
                         }
-                    }
-                }
-            });
-        }
-
-        // Chart 2 - Sales/Revenue (Pie)
-        const chart2 = document.getElementById('Chart2');
-        if (chart2) {
-            new Chart(chart2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Direct', 'Referral', 'Social'],
-                    datasets: [
-                        {
-                            data: [30, 25, 45],
-                            backgroundColor: ['#3C50E0', '#9B59B6', '#FF7675'],
-                            borderWidth: 0
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-        }
-
-        // Chart 3 - Sales Forecast
-        const chart3 = document.getElementById('Chart3');
-        if (chart3) {
-            new Chart(chart3, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [
-                        {
-                            label: 'Revenue',
-                            data: [20, 25, 20, 30, 35, 40, 35, 45, 50, 55, 60, 65],
-                            borderColor: '#3C50E0',
-                            backgroundColor: 'rgba(60, 80, 224, 0.05)',
-                            tension: 0.4,
-                            fill: true
-                        },
-                        {
-                            label: 'Net Profit',
-                            data: [10, 15, 12, 18, 22, 25, 20, 28, 32, 35, 40, 45],
-                            borderColor: '#9B59B6',
-                            backgroundColor: 'rgba(155, 89, 182, 0.05)',
-                            tension: 0.4,
-                            fill: true
-                        },
-                        {
-                            label: 'Orders',
-                            data: [15, 18, 14, 22, 26, 30, 25, 33, 38, 40, 45, 50],
-                            borderColor: '#FF9D38',
-                            backgroundColor: 'rgba(255, 157, 56, 0.05)',
-                            tension: 0.4,
-                            fill: true
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        }
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100
-                        }
-                    }
-                }
-            });
-        }
-
-        // Chart 4 - Traffic
-        const chart4 = document.getElementById('Chart4');
-        if (chart4) {
-            new Chart(chart4, {
-                type: 'line',
-                data: {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-                    datasets: [
-                        {
-                            label: 'Store Visits',
-                            data: [2000, 2500, 2200, 3000, 3500, 4000],
-                            borderColor: '#3C50E0',
-                            backgroundColor: 'rgba(60, 80, 224, 0.05)',
-                            tension: 0.4,
-                            fill: true
-                        },
-                        {
-                            label: 'Visitors',
-                            data: [1500, 2000, 1800, 2500, 3000, 3200],
-                            borderColor: '#FF7675',
-                            backgroundColor: 'rgba(255, 118, 117, 0.05)',
-                            tension: 0.4,
-                            fill: true
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 5000
-                        }
-                    }
-                }
-            });
-        }
-
-        // Initialize map
-        const mapElement = document.getElementById('map');
-        if (mapElement && typeof jsVectorMap !== 'undefined') {
-            new jsVectorMap({
-                selector: '#map',
-                map: 'world_merc',
-                regionStyle: {
-                    initial: {
-                        fill: '#3C50E0'
+                        legend: { display: false }
                     }
                 }
             });
         }
     </script>
-    <!-- ========== chart scripts end ========== -->
 
+    <style>
+        .progress { height: 12px; border-radius: 6px; }
+        .progress-bar {
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .card-style {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        .text-gray { color: #888; }
+        .icon-card .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .icon.primary { background-color: #e0f0ff; color: #1d4ed8; }
+        .icon.success { background-color: #e6f7e6; color: #16a34a; }
+        .icon.warning { background-color: #fff8e1; color: #b45309; }
+        .icon.purple { background-color: #f3e8ff; color: #7e22ce; }
+        .activity-item i { font-size: 1.1rem; }
+
+        /* Google Sheet Style */
+        .table-borderless th,
+        .table-borderless td {
+            border: none !important;
+        }
+        .table-borderless thead th {
+            color: #374151;
+            font-weight: 600;
+        }
+        .badge {
+            border-radius: 50px;
+        }
+    </style>
 @endsection
