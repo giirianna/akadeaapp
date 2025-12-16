@@ -14,17 +14,32 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create roles
-        Role::create(['name' => 'basic']);
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'super_admin']);
-        Role::create(['name' => 'teacher']);
+        // Delete old roles if they exist
+        Role::whereIn('name', ['basic', 'super_admin'])->delete();
 
-        // Optionally assign super_admin to the first user
-        $firstUser = User::first();
-        if ($firstUser) {
-            $firstUser->assignRole('super_admin');
-            $this->command->info("Super admin role assigned to user: {$firstUser->email}");
+        // Create 3 base roles
+        Role::firstOrCreate(
+            ['name' => 'admin'],
+            ['guard_name' => 'web']
+        );
+        
+        Role::firstOrCreate(
+            ['name' => 'teacher'],
+            ['guard_name' => 'web']
+        );
+        
+        Role::firstOrCreate(
+            ['name' => 'student'],
+            ['guard_name' => 'web']
+        );
+
+        // Assign admin role to first user
+        $user = \App\Models\User::first();
+        if ($user) {
+            // Remove old roles
+            $user->syncRoles([]);
+            // Assign admin role
+            $user->assignRole('admin');
         }
     }
 }

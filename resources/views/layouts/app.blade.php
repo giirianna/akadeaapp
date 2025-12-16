@@ -111,6 +111,7 @@
                 </li>
 
                 {{-- Management Menu with Students, SPP, and Exam Teachers --}}
+                @role('teacher|admin')
                 <li class="nav-item nav-item-has-children">
                     <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_3"
                         aria-controls="ddmenu_3" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,8 +140,10 @@
                         </li>
                     </ul>
                 </li>
+                @endrole
 
-                {{-- Settings Menu --}}
+                {{-- Settings Menu - Visible to ADMIN only --}}
+                @role('admin')
                 <li class="nav-item nav-item-has-children">
                     <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_4"
                         aria-controls="ddmenu_4" aria-expanded="false" aria-label="Toggle navigation">
