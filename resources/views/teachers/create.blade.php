@@ -6,17 +6,17 @@
 
 <section class="tab-components">
     <style>
-        /* Modern Form Styling for Teacher Modal/Page */
+        /* Modern Form Styling for Teacher Modal/Page - v2.0 UPDATED */
         .teacher-form-wrapper {
             padding: 8px;
         }
 
         .teacher-form-wrapper .section-card {
-            background: #ffffff;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            padding: 20px;
-            margin-bottom: 20px;
+            background: #ffffff !important;
+            border-radius: 12px !important;
+            border: 1px solid #e5e7eb !important;
+            padding: 20px !important;
+            margin-bottom: 20px !important;
         }
 
         .teacher-form-wrapper .section-header {
@@ -86,16 +86,16 @@
 
         /* Form Grid */
         .teacher-form-wrapper .form-grid {
-            display: grid;
-            gap: 16px;
+            display: grid !important;
+            gap: 16px !important;
         }
 
         .teacher-form-wrapper .form-grid.cols-2 {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr) !important;
         }
 
         .teacher-form-wrapper .form-grid.cols-3 {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr) !important;
         }
 
         @media (max-width: 640px) {
@@ -130,27 +130,28 @@
         .teacher-form-wrapper .form-field input[type="date"],
         .teacher-form-wrapper .form-field select,
         .teacher-form-wrapper .form-field textarea {
-            width: 100%;
-            padding: 10px 12px;
-            font-size: 0.875rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background: #fff;
-            color: #1f2937;
+            width: 100% !important;
+            padding: 10px 12px !important;
+            font-size: 0.875rem !important;
+            border: 1px solid #d1d5db !important;
+            border-radius: 8px !important;
+            background: #fff !important;
+            color: #1f2937 !important;
             transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            box-sizing: border-box !important;
         }
 
         .teacher-form-wrapper .form-field input:focus,
         .teacher-form-wrapper .form-field select:focus,
         .teacher-form-wrapper .form-field textarea:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            outline: none !important;
+            border-color: #3b82f6 !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
         }
 
         .teacher-form-wrapper .form-field input::placeholder,
         .teacher-form-wrapper .form-field textarea::placeholder {
-            color: #9ca3af;
+            color: #9ca3af !important;
         }
 
         .teacher-form-wrapper .form-field select {
@@ -158,7 +159,7 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 10px center;
-            padding-right: 36px;
+            padding-right: 36px !important;
         }
 
         /* Photo Upload */
@@ -339,17 +340,17 @@
         }
 
         .teacher-form-wrapper .btn-save {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            background: #10b981;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 10px 20px !important;
+            background: #10b981 !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 8px !important;
+            font-size: 0.875rem !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
             transition: background 0.15s ease;
         }
 
