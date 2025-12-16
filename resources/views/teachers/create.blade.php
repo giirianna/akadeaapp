@@ -6,88 +6,119 @@
 
 <section class="tab-components">
     <style>
-        /* Modern Form Styling for Teacher Modal/Page */
+        /* Clean Modern Form Styling */
         .teacher-form-wrapper {
-            padding: 8px;
+            padding: 0;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .teacher-form-wrapper .section-card {
             background: #ffffff;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .teacher-form-wrapper .section-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .teacher-form-wrapper .section-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid #f1f5f9;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f3f4f6;
         }
 
         .teacher-form-wrapper .section-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             flex-shrink: 0;
+            transition: transform 0.2s ease;
         }
 
-        .teacher-form-wrapper .section-icon.green { background: #dcfce7; color: #16a34a; }
-        .teacher-form-wrapper .section-icon.blue { background: #dbeafe; color: #2563eb; }
-        .teacher-form-wrapper .section-icon.purple { background: #ede9fe; color: #7c3aed; }
-        .teacher-form-wrapper .section-icon.orange { background: #ffedd5; color: #ea580c; }
-        .teacher-form-wrapper .section-icon.pink { background: #fce7f3; color: #db2777; }
+        .teacher-form-wrapper .section-card:hover .section-icon {
+            transform: scale(1.05);
+        }
+
+        .teacher-form-wrapper .section-icon.green { 
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); 
+            color: #059669; 
+        }
+        .teacher-form-wrapper .section-icon.blue { 
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); 
+            color: #2563eb; 
+        }
+        .teacher-form-wrapper .section-icon.purple { 
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); 
+            color: #7c3aed; 
+        }
+        .teacher-form-wrapper .section-icon.orange { 
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); 
+            color: #ea580c; 
+        }
+        .teacher-form-wrapper .section-icon.pink { 
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); 
+            color: #db2777; 
+        }
 
         .teacher-form-wrapper .section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #1f2937;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #111827;
             margin: 0;
+            letter-spacing: -0.02em;
         }
 
         .teacher-form-wrapper .section-subtitle {
-            font-size: 0.8125rem;
+            font-size: 0.875rem;
             color: #6b7280;
-            margin: 2px 0 0 0;
+            margin: 4px 0 0 0;
+            font-weight: 400;
         }
 
         /* Info Box */
         .teacher-form-wrapper .info-box {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            padding: 12px 14px;
-            background: #eff6ff;
-            border-radius: 8px;
-            border-left: 3px solid #3b82f6;
-            margin-bottom: 16px;
+            gap: 12px;
+            padding: 16px 18px;
+            background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+            border-radius: 12px;
+            border: none;
+            margin-bottom: 20px;
         }
 
         .teacher-form-wrapper .info-box i {
             color: #3b82f6;
-            font-size: 16px;
+            font-size: 18px;
             flex-shrink: 0;
-            margin-top: 1px;
+            margin-top: 2px;
         }
 
         .teacher-form-wrapper .info-box p {
             margin: 0;
-            font-size: 0.8125rem;
+            font-size: 0.875rem;
             color: #1e40af;
-            line-height: 1.4;
+            line-height: 1.5;
+            font-weight: 450;
         }
 
         /* Form Grid */
         .teacher-form-wrapper .form-grid {
             display: grid;
-            gap: 16px;
+            gap: 20px;
         }
 
         .teacher-form-wrapper .form-grid.cols-2 {
@@ -98,10 +129,14 @@
             grid-template-columns: repeat(3, 1fr);
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .teacher-form-wrapper .form-grid.cols-2,
             .teacher-form-wrapper .form-grid.cols-3 {
                 grid-template-columns: 1fr;
+            }
+            
+            .teacher-form-wrapper .section-card {
+                padding: 20px 20px;
             }
         }
 
@@ -112,15 +147,17 @@
 
         .teacher-form-wrapper .form-field label {
             display: block;
-            font-size: 0.8125rem;
-            font-weight: 500;
+            font-size: 0.875rem;
+            font-weight: 600;
             color: #374151;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
         }
 
         .teacher-form-wrapper .form-field label .req {
             color: #ef4444;
-            margin-left: 2px;
+            margin-left: 3px;
+            font-weight: 500;
         }
 
         .teacher-form-wrapper .form-field input[type="text"],
@@ -131,58 +168,80 @@
         .teacher-form-wrapper .form-field select,
         .teacher-form-wrapper .form-field textarea {
             width: 100%;
-            padding: 10px 12px;
-            font-size: 0.875rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background: #fff;
+            padding: 12px 16px;
+            font-size: 0.9375rem;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            background: #fafafa;
             color: #1f2937;
-            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            transition: all 0.2s ease;
+            font-weight: 450;
+        }
+
+        .teacher-form-wrapper .form-field input:hover,
+        .teacher-form-wrapper .form-field select:hover,
+        .teacher-form-wrapper .form-field textarea:hover {
+            border-color: #d1d5db;
+            background: #ffffff;
         }
 
         .teacher-form-wrapper .form-field input:focus,
         .teacher-form-wrapper .form-field select:focus,
         .teacher-form-wrapper .form-field textarea:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #6366f1;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.08);
         }
 
         .teacher-form-wrapper .form-field input::placeholder,
         .teacher-form-wrapper .form-field textarea::placeholder {
             color: #9ca3af;
+            font-weight: 400;
         }
 
         .teacher-form-wrapper .form-field select {
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 10px center;
-            padding-right: 36px;
+            background-position: right 14px center;
+            padding-right: 44px;
+            cursor: pointer;
         }
 
         /* Photo Upload */
         .teacher-form-wrapper .photo-upload {
             display: flex;
             align-items: center;
-            gap: 16px;
-            padding: 16px;
-            background: #f9fafb;
-            border: 1px dashed #d1d5db;
-            border-radius: 10px;
-            margin-top: 8px;
+            gap: 20px;
+            padding: 20px 24px;
+            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+            border: 2px dashed #e5e7eb;
+            border-radius: 14px;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .teacher-form-wrapper .photo-upload:hover {
+            border-color: #d1d5db;
+            background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
         }
 
         .teacher-form-wrapper .photo-preview-box {
-            width: 72px;
-            height: 72px;
-            border-radius: 10px;
-            background: #e5e7eb;
+            width: 80px;
+            height: 80px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .teacher-form-wrapper .photo-upload:hover .photo-preview-box {
+            transform: scale(1.02);
         }
 
         .teacher-form-wrapper .photo-preview-box img {
@@ -192,7 +251,7 @@
         }
 
         .teacher-form-wrapper .photo-preview-box i {
-            font-size: 28px;
+            font-size: 32px;
             color: #9ca3af;
         }
 
@@ -201,75 +260,98 @@
         }
 
         .teacher-form-wrapper .photo-upload-info .title {
-            font-weight: 600;
-            font-size: 0.875rem;
-            color: #1f2937;
-            margin-bottom: 2px;
+            font-weight: 700;
+            font-size: 0.9375rem;
+            color: #111827;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
         }
 
         .teacher-form-wrapper .photo-upload-info .desc {
-            font-size: 0.75rem;
+            font-size: 0.8125rem;
             color: #6b7280;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
+            line-height: 1.4;
         }
 
         .teacher-form-wrapper .upload-btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            background: #3b82f6;
+            gap: 8px;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 0.8125rem;
-            font-weight: 500;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.15s ease;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
         }
 
         .teacher-form-wrapper .upload-btn:hover {
-            background: #2563eb;
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+            box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+            transform: translateY(-1px);
         }
 
         /* Subjects Grid */
         .teacher-form-wrapper .subjects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 10px;
-            max-height: 280px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            max-height: 320px;
             overflow-y: auto;
-            padding: 4px;
+            padding: 6px;
+        }
+
+        .teacher-form-wrapper .subjects-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .teacher-form-wrapper .subjects-grid::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 3px;
+        }
+
+        .teacher-form-wrapper .subjects-grid::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
         }
 
         .teacher-form-wrapper .subject-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
+            gap: 14px;
+            padding: 14px 16px;
+            background: #ffffff;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: all 0.2s ease;
         }
 
         .teacher-form-wrapper .subject-item:hover {
-            border-color: #3b82f6;
-            background: #f8fafc;
+            border-color: #c7d2fe;
+            background: #fafaff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(99, 102, 241, 0.06);
         }
 
         .teacher-form-wrapper .subject-item.selected {
-            border-color: #3b82f6;
-            background: #eff6ff;
+            border-color: #6366f1;
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
         .teacher-form-wrapper .subject-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #3b82f6;
+            width: 20px;
+            height: 20px;
+            accent-color: #6366f1;
             cursor: pointer;
             flex-shrink: 0;
+            border-radius: 6px;
         }
 
         .teacher-form-wrapper .subject-item .subject-details {
@@ -278,105 +360,144 @@
         }
 
         .teacher-form-wrapper .subject-item .subject-name {
-            font-weight: 500;
-            font-size: 0.875rem;
-            color: #1f2937;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            color: #111827;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            letter-spacing: -0.01em;
         }
 
         .teacher-form-wrapper .subject-item .subject-meta {
-            font-size: 0.75rem;
+            font-size: 0.8125rem;
             color: #6b7280;
+            margin-top: 2px;
         }
 
         /* Warning Box */
         .teacher-form-wrapper .warning-box {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            padding: 12px 14px;
-            background: #fffbeb;
-            border-radius: 8px;
-            border-left: 3px solid #f59e0b;
+            gap: 12px;
+            padding: 16px 18px;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-radius: 12px;
+            border: none;
         }
 
         .teacher-form-wrapper .warning-box i {
-            color: #f59e0b;
-            font-size: 16px;
+            color: #d97706;
+            font-size: 18px;
             flex-shrink: 0;
+            margin-top: 1px;
         }
 
         .teacher-form-wrapper .warning-box p {
             margin: 0;
-            font-size: 0.8125rem;
+            font-size: 0.875rem;
             color: #92400e;
+            line-height: 1.5;
         }
 
         .teacher-form-wrapper .warning-box a {
-            color: #92400e;
+            color: #b45309;
             font-weight: 600;
-            text-decoration: underline;
+            text-decoration: none;
+            border-bottom: 1px solid currentColor;
+            transition: color 0.15s ease;
+        }
+
+        .teacher-form-wrapper .warning-box a:hover {
+            color: #d97706;
         }
 
         /* Error Message */
         .teacher-form-wrapper .error-msg {
             display: flex;
             align-items: center;
-            gap: 4px;
-            margin-top: 4px;
-            font-size: 0.75rem;
+            gap: 6px;
+            margin-top: 6px;
+            font-size: 0.8125rem;
             color: #dc2626;
+            font-weight: 500;
         }
 
         /* Action Buttons */
         .teacher-form-wrapper .form-actions {
             display: flex;
-            gap: 10px;
+            gap: 14px;
             justify-content: flex-end;
-            padding-top: 8px;
+            padding-top: 12px;
         }
 
         .teacher-form-wrapper .btn-save {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            background: #10b981;
+            gap: 8px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 600;
+            border-radius: 10px;
+            font-size: 0.9375rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.15s ease;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+            letter-spacing: -0.01em;
         }
 
         .teacher-form-wrapper .btn-save:hover {
-            background: #059669;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
         }
 
         .teacher-form-wrapper .btn-cancel {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 18px;
-            background: #f3f4f6;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #ffffff;
             color: #4b5563;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 500;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 0.9375rem;
+            font-weight: 600;
             cursor: pointer;
             text-decoration: none;
-            transition: background 0.15s ease;
+            transition: all 0.2s ease;
         }
 
         .teacher-form-wrapper .btn-cancel:hover {
-            background: #e5e7eb;
+            background: #f9fafb;
+            border-color: #d1d5db;
             color: #374151;
+            transform: translateY(-1px);
         }
+
+        /* Smooth animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .teacher-form-wrapper .section-card {
+            animation: fadeInUp 0.3s ease forwards;
+        }
+
+        .teacher-form-wrapper .section-card:nth-child(1) { animation-delay: 0s; }
+        .teacher-form-wrapper .section-card:nth-child(2) { animation-delay: 0.05s; }
+        .teacher-form-wrapper .section-card:nth-child(3) { animation-delay: 0.1s; }
+        .teacher-form-wrapper .section-card:nth-child(4) { animation-delay: 0.15s; }
+        .teacher-form-wrapper .section-card:nth-child(5) { animation-delay: 0.2s; }
     </style>
 
     <div class="container-fluid">
