@@ -170,6 +170,19 @@
                 @csrf
                 <input type="hidden" name="id" id="studentId">
                 <div class="modal-body">
+                    <!-- Info Box about Account Creation -->
+                    <div class="alert alert-info d-flex align-items-start" role="alert" id="accountInfoBox">
+                        <i class="lni lni-information me-2" style="font-size: 1.2rem;"></i>
+                        <div>
+                            <strong>Akun Login Otomatis</strong>
+                            <p class="mb-0 small">Sistem akan otomatis membuat akun login untuk siswa dengan:</p>
+                            <ul class="mb-0 small mt-1">
+                                <li>Email: <code>{NIS}@student.akadeaapp.com</code></li>
+                                <li>Password: <code>{NIS}</code> (sama dengan NIS)</li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="input-style-1 mb-3">
                         <label for="name">Nama Siswa</label>
                         <input type="text" name="name" id="name" class="form-control" required>
@@ -177,6 +190,7 @@
                     <div class="input-style-1 mb-3">
                         <label for="nis">NIS</label>
                         <input type="text" name="nis" id="nis" class="form-control" required>
+                        <small class="text-muted">NIS akan digunakan sebagai email dan password login</small>
                     </div>
                     <div class="input-style-1 mb-3">
                         <label for="class">Kelas</label>
@@ -429,7 +443,18 @@
         document.getElementById('birth_date').value = birth_date; // format: YYYY-MM-DD
         document.getElementById('address').value = address;
         document.getElementById('enrollment_date').value = enrollment_date; // pastikan format YYYY-MM-DD
+        
+        // Hide account info box when editing
+        document.getElementById('accountInfoBox').style.display = 'none';
     }
+
+    // Show account info box when opening modal for new student
+    document.getElementById('studentModal').addEventListener('show.bs.modal', function (event) {
+        // If not triggered by edit button, show the info box
+        if (!document.getElementById('studentId').value) {
+            document.getElementById('accountInfoBox').style.display = 'flex';
+        }
+    });
 
     function showDetail(name, nis, class_, major, birth_date, address, enrollment_date) {
         document.getElementById('detail-name').textContent = name;
