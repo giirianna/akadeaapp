@@ -49,9 +49,9 @@
                             <div class="col-md-4">
                                 <select id="filter-role" class="form-select">
                                     <option value="">All Roles</option>
-                                    <option value="super_admin">Super Admin</option>
                                     <option value="admin">Admin</option>
-                                    <option value="basic">Basic</option>
+                                    <option value="teacher">Teacher</option>
+                                    <option value="student">Student</option>
                                 </select>
                             </div>
                             <div class="col-md-3">

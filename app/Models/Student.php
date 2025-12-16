@@ -10,16 +10,26 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'class',
         'major',
         'nis',
         'birth_date',
+        'enrollment_date',
         'address',
     ];
 
-    // Tambahkan ini agar birth_date otomatis jadi objek Carbon
     protected $casts = [
-        'birth_date' => 'date', // atau 'datetime' jika butuh jam
+        'birth_date' => 'date',
+        'enrollment_date' => 'date',
     ];
+
+    /**
+     * Get the user account associated with the student.
+     */
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }

@@ -11,6 +11,8 @@ return [
     'role_management' => 'Manajemen Role',
     'home' => 'Beranda',
     'menu' => 'Menu',
+    'exam_students' => 'Ujian Siswa',
+    'exam_teachers' => 'Ujian Guru',
     
     // Common Actions
     'add' => 'Tambah',

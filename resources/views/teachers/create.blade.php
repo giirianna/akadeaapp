@@ -6,7 +6,11 @@
 
 <section class="tab-components">
     <style>
+<<<<<<< HEAD
         /* Clean Modern Form Styling */
+=======
+        /* Modern Form Styling for Teacher Modal/Page - v2.0 UPDATED */
+>>>>>>> main
         .teacher-form-wrapper {
             padding: 0;
             max-width: 900px;
@@ -14,6 +18,7 @@
         }
 
         .teacher-form-wrapper .section-card {
+<<<<<<< HEAD
             background: #ffffff;
             border-radius: 16px;
             border: none;
@@ -25,6 +30,13 @@
 
         .teacher-form-wrapper .section-card:hover {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+=======
+            background: #ffffff !important;
+            border-radius: 12px !important;
+            border: 1px solid #e5e7eb !important;
+            padding: 20px !important;
+            margin-bottom: 20px !important;
+>>>>>>> main
         }
 
         .teacher-form-wrapper .section-header {
@@ -117,16 +129,21 @@
 
         /* Form Grid */
         .teacher-form-wrapper .form-grid {
+<<<<<<< HEAD
             display: grid;
             gap: 20px;
+=======
+            display: grid !important;
+            gap: 16px !important;
+>>>>>>> main
         }
 
         .teacher-form-wrapper .form-grid.cols-2 {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr) !important;
         }
 
         .teacher-form-wrapper .form-grid.cols-3 {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr) !important;
         }
 
         @media (max-width: 768px) {
@@ -167,6 +184,7 @@
         .teacher-form-wrapper .form-field input[type="date"],
         .teacher-form-wrapper .form-field select,
         .teacher-form-wrapper .form-field textarea {
+<<<<<<< HEAD
             width: 100%;
             padding: 12px 16px;
             font-size: 0.9375rem;
@@ -183,30 +201,56 @@
         .teacher-form-wrapper .form-field textarea:hover {
             border-color: #d1d5db;
             background: #ffffff;
+=======
+            width: 100% !important;
+            padding: 10px 12px !important;
+            font-size: 0.875rem !important;
+            border: 1px solid #d1d5db !important;
+            border-radius: 8px !important;
+            background: #fff !important;
+            color: #1f2937 !important;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            box-sizing: border-box !important;
+>>>>>>> main
         }
 
         .teacher-form-wrapper .form-field input:focus,
         .teacher-form-wrapper .form-field select:focus,
         .teacher-form-wrapper .form-field textarea:focus {
+<<<<<<< HEAD
             outline: none;
             border-color: #6366f1;
             background: #ffffff;
             box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.08);
+=======
+            outline: none !important;
+            border-color: #3b82f6 !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+>>>>>>> main
         }
 
         .teacher-form-wrapper .form-field input::placeholder,
         .teacher-form-wrapper .form-field textarea::placeholder {
+<<<<<<< HEAD
             color: #9ca3af;
             font-weight: 400;
+=======
+            color: #9ca3af !important;
+>>>>>>> main
         }
 
         .teacher-form-wrapper .form-field select {
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
+<<<<<<< HEAD
             background-position: right 14px center;
             padding-right: 44px;
             cursor: pointer;
+=======
+            background-position: right 10px center;
+            padding-right: 36px !important;
+>>>>>>> main
         }
 
         /* Photo Upload */
@@ -432,6 +476,7 @@
         }
 
         .teacher-form-wrapper .btn-save {
+<<<<<<< HEAD
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -446,6 +491,20 @@
             transition: all 0.2s ease;
             box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
             letter-spacing: -0.01em;
+=======
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 10px 20px !important;
+            background: #10b981 !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 8px !important;
+            font-size: 0.875rem !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: background 0.15s ease;
+>>>>>>> main
         }
 
         .teacher-form-wrapper .btn-save:hover {

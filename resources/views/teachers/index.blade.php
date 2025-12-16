@@ -183,7 +183,7 @@
 
 <!-- ========== MODAL: POPUP UTAMA ========== -->
 <div class="modal fade" id="popupModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="popupModalLabel">Loading...</h5>
@@ -210,6 +210,32 @@
                         type="button"
                         class="btn btn-sm btn-primary px-3 py-1"
                         id="modalSuccessOkBtn"
+                        style="font-size: 0.8125rem;"
+                    >
+                        OK
+                    </button>
+                </div>
+
+                <!-- ERROR ALERT -->
+                <div
+                    id="modalErrorAlert"
+                    class="d-none text-center py-4 px-3"
+                    style="opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease;"
+                >
+                    <div class="mb-2">
+                        <div
+                            class="d-inline-flex align-items-center justify-content-center"
+                            style="width: 36px; height: 36px; border-radius: 50%; background: #fee2e2; color: #dc2626;"
+                        >
+                            <i class="lni lni-cross-circle fs-5"></i>
+                        </div>
+                    </div>
+                    <h6 class="fw-bold text-dark mb-1">Gagal!</h6>
+                    <p id="modalErrorMessage" class="text-muted mb-2 small">Terjadi kesalahan.</p>
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-danger px-3 py-1"
+                        id="modalErrorOkBtn"
                         style="font-size: 0.8125rem;"
                     >
                         OK
@@ -290,11 +316,24 @@
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
 
-                    let content = doc.querySelector('.container-fluid > div')?.outerHTML ||
-                                  doc.querySelector('section')?.outerHTML ||
+                    // Clear previous content before adding new
+                    modalContent.innerHTML = '';
+
+                    // Extract styles from the loaded content
+                    const styles = doc.querySelectorAll('style');
+                    styles.forEach(style => {
+                        // Inject styles into modal content area
+                        const styleClone = style.cloneNode(true);
+                        modalContent.appendChild(styleClone);
+                    });
+
+                    // Get the main content
+                    let content = doc.querySelector('section')?.outerHTML ||
+                                  doc.querySelector('.container-fluid > div')?.outerHTML ||
                                   html;
 
-                    modalContent.innerHTML = content;
+                    // Append content after styles
+                    modalContent.innerHTML += content;
 
                     const form = modalContent.querySelector('form');
                     if (form) {
@@ -354,11 +393,51 @@
                                         modal.hide();
                                         setTimeout(() => location.reload(), 300);
                                     }, 3000);
+                                } else {
+                                    // Show error alert
+                                    const errorAlert = document.getElementById('modalErrorAlert');
+                                    const errorMsg = document.getElementById('modalErrorMessage');
+                                    const errorOkBtn = document.getElementById('modalErrorOkBtn');
+
+                                    errorMsg.textContent = data.message || 'Terjadi kesalahan saat menyimpan data.';
+
+                                    modalContent.style.display = 'none';
+                                    errorAlert.classList.remove('d-none');
+
+                                    // Trigger smooth entrance animation
+                                    errorAlert.offsetHeight; // force reflow
+                                    errorAlert.style.opacity = '1';
+                                    errorAlert.style.transform = 'translateY(0)';
+
+                                    errorOkBtn.onclick = function () {
+                                        // Reset and show form again
+                                        errorAlert.classList.add('d-none');
+                                        errorAlert.style.opacity = '0';
+                                        errorAlert.style.transform = 'translateY(10px)';
+                                        modalContent.style.display = 'block';
+                                    };
                                 }
                             })
                             .catch(err => {
                                 if (err.message !== 'Validation failed') {
-                                    alert('Terjadi kesalahan. Silakan coba lagi.');
+                                    // Show error alert for network errors
+                                    const errorAlert = document.getElementById('modalErrorAlert');
+                                    const errorMsg = document.getElementById('modalErrorMessage');
+                                    const errorOkBtn = document.getElementById('modalErrorOkBtn');
+
+                                    errorMsg.textContent = 'Terjadi kesalahan jaringan. Silakan coba lagi.';
+
+                                    modalContent.style.display = 'none';
+                                    errorAlert.classList.remove('d-none');
+                                    errorAlert.style.opacity = '1';
+                                    errorAlert.style.transform = 'translateY(0)';
+
+                                    errorOkBtn.onclick = function () {
+                                        errorAlert.classList.add('d-none');
+                                        errorAlert.style.opacity = '0';
+                                        errorAlert.style.transform = 'translateY(10px)';
+                                        modalContent.style.display = 'block';
+                                    };
                                 }
                             });
                         });
