@@ -10,6 +10,7 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'class',
         'major',
@@ -23,4 +24,12 @@ class Student extends Model
         'birth_date' => 'date',
         'enrollment_date' => 'date',
     ];
+
+    /**
+     * Get the user account associated with the student.
+     */
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }
