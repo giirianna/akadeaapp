@@ -13,8 +13,9 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('class');
             $table->string('major')->nullable();
-            $table->string('nis')->unique(); 
+            $table->string('nis')->unique();
             $table->date('birth_date')->nullable();
+            $table->date('enrollment_date'); // ✅ WAJIB
             $table->string('address')->nullable();
             $table->timestamps();
         });

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class StudentController extends Controller
 {
@@ -22,15 +21,15 @@ class StudentController extends Controller
             'class' => 'required|string|max:255',
             'major' => 'nullable|string|max:255',
             'birth_date' => 'nullable|date',
+            'enrollment_date' => 'required|date',
             'address' => 'nullable|string',
         ]);
 
-        // Hanya izinkan field yang diperlukan
-        Student::create($request->only([
-            'name', 'nis', 'class', 'major', 'birth_date', 'address'
+        $student = Student::create($request->only([
+            'name', 'nis', 'class', 'major', 'birth_date', 'enrollment_date', 'address'
         ]));
 
-        return redirect()->route('students.index')->with('success', 'Data siswa berhasil disimpan.');
+        return response()->json(['success' => true, 'student' => $student]);
     }
 
     public function update(Request $request, Student $student)
@@ -41,19 +40,20 @@ class StudentController extends Controller
             'class' => 'required|string|max:255',
             'major' => 'nullable|string|max:255',
             'birth_date' => 'nullable|date',
+            'enrollment_date' => 'required|date',
             'address' => 'nullable|string',
         ]);
 
         $student->update($request->only([
-            'name', 'nis', 'class', 'major', 'birth_date', 'address'
+            'name', 'nis', 'class', 'major', 'birth_date', 'enrollment_date', 'address'
         ]));
 
-        return redirect()->route('students.index')->with('success', 'Data siswa berhasil diperbarui.');
+        return response()->json(['success' => true, 'student' => $student]);
     }
 
     public function destroy(Student $student)
     {
-    $student->delete();
-    return response()->json(['success' => true]);
+        $student->delete();
+        return response()->json(['success' => true]);
     }
 }

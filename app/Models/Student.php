@@ -15,11 +15,12 @@ class Student extends Model
         'major',
         'nis',
         'birth_date',
+        'enrollment_date',
         'address',
     ];
 
-    // Tambahkan ini agar birth_date otomatis jadi objek Carbon
     protected $casts = [
-        'birth_date' => 'date', // atau 'datetime' jika butuh jam
+        'birth_date' => 'date',
+        'enrollment_date' => 'date',
     ];
 }

@@ -15,7 +15,6 @@ class CreateSppPaymentsTable extends Migration
             $table->string('class');
             $table->string('major')->nullable();
             $table->string('month'); 
-            $table->date('due_date');
             $table->decimal('amount', 10, 2);
             $table->decimal('amount_paid', 10, 2)->default(0);
             $table->date('payment_date')->nullable();
