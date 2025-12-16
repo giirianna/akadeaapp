@@ -339,6 +339,11 @@
                 const modal = bootstrap.Modal.getInstance(document.getElementById('studentModal'));
                 modal.hide();
 
+                // Show success message with credentials if provided
+                if (data.message) {
+                    alert(data.message);
+                }
+
                 const student = data.student;
 
                 if (studentId) {
@@ -400,7 +405,7 @@
                 document.getElementById('studentModalLabel').textContent = 'Tambah Siswa';
                 document.getElementById('studentId').value = '';
             } else {
-                alert('Gagal menyimpan data.');
+                alert(data.message || 'Gagal menyimpan data.');
             }
         })
         .catch(error => {
