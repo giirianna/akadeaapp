@@ -61,8 +61,12 @@
                                 <!-- Gambar Soal (jika ada) -->
                                 @if($q->image)
                                     <div class="my-2">
-                                        <img src="{{ Storage::url($q->image) }}" alt="Gambar soal {{ $index + 1 }}"
-                                             class="img-fluid rounded border" style="max-height: 200px; object-fit: contain;">
+                                        <img src="{{ asset('storage/' . $q->image) }}" 
+                                             alt="Gambar soal {{ $index + 1 }}"
+                                             class="img-fluid rounded border" 
+                                             style="max-height: 200px; object-fit: contain;"
+                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                        <small class="text-warning" style="display: none;">Gambar tidak dapat dimuat</small>
                                     </div>
                                 @endif
 

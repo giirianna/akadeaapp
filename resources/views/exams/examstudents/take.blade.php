@@ -27,6 +27,21 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <h5>{{ $loop->iteration }}. {!! nl2br(e($q->question_text)) !!}</h5>
+                    
+                    {{-- Display question image if exists --}}
+                    @if($q->image)
+                        <div class="question-image mb-3">
+                            <img src="{{ asset('storage/' . $q->image) }}" 
+                                 alt="Question Image" 
+                                 class="img-fluid rounded border"
+                                 style="max-width: 100%; max-height: 400px; object-fit: contain;"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="alert alert-warning" style="display: none;">
+                                <small>Gambar tidak dapat dimuat</small>
+                            </div>
+                        </div>
+                    @endif
+                    
                     @if($q->type === 'multiple_choice')
                         @foreach($q->options as $i => $opt)
                         <div class="form-check">
