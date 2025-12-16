@@ -12,12 +12,24 @@ return new class extends Migration
     public function up()
 {
     Schema::table('questions', function (Blueprint $table) {
-        $table->text('description')->nullable();
-        $table->boolean('required')->default(true);
-        $table->string('image')->nullable();
-        $table->integer('scale_min')->nullable();
-        $table->integer('scale_max')->nullable();
-        $table->json('rows')->nullable();
+        if (!Schema::hasColumn('questions', 'description')) {
+            $table->text('description')->nullable();
+        }
+        if (!Schema::hasColumn('questions', 'required')) {
+            $table->boolean('required')->default(true);
+        }
+        if (!Schema::hasColumn('questions', 'image')) {
+            $table->string('image')->nullable();
+        }
+        if (!Schema::hasColumn('questions', 'scale_min')) {
+            $table->integer('scale_min')->nullable();
+        }
+        if (!Schema::hasColumn('questions', 'scale_max')) {
+            $table->integer('scale_max')->nullable();
+        }
+        if (!Schema::hasColumn('questions', 'rows')) {
+            $table->json('rows')->nullable();
+        }
     });
 }
 
