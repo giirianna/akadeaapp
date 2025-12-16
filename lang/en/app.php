@@ -11,6 +11,8 @@ return [
     'role_management' => 'Role Management',
     'home' => 'Home',
     'menu' => 'Menu',
+    'exam_students' => 'Exam Students',
+    'exam_teachers' => 'Exam Teachers',
     
     // Common Actions
     'add' => 'Add',
