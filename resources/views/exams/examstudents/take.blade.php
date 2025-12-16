@@ -2,7 +2,7 @@
 @section('title', 'Kerjakan Ujian')
 @section('content')
 <style>
-    body { margin: 0; overflow: hidden; }
+    body { margin: 0; }
     #exam-container { padding: 20px; background: white; min-height: 100vh; }
 </style>
 
