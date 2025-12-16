@@ -67,9 +67,9 @@ class RoleController extends Controller
         foreach ($users as $index => $user) {
             $roleName = $user->roles->first()?->name ?? 'No Role';
             $badgeClass = match($roleName) {
-                'super_admin' => 'danger',
-                'admin' => 'warning',
-                'basic' => 'info',
+                'admin' => 'danger',
+                'teacher' => 'warning',
+                'student' => 'info',
                 default => 'secondary'
             };
 
@@ -117,11 +117,30 @@ class RoleController extends Controller
     {
         $request->validate([
             'role' => 'required|exists:roles,name',
+            'permissions' => 'nullable|array',
+            'permissions.*' => 'exists:permissions,name',
         ]);
 
         // Sync roles (remove all existing roles and assign the new one)
         $user->syncRoles([$request->role]);
 
-        return redirect()->route('roles.index')->with('success', 'Role berhasil diperbarui.');
+        // Sync custom permissions
+        if ($request->has('permissions')) {
+            $user->syncPermissions($request->permissions);
+        } else {
+            // If no custom permissions selected, remove all direct permissions
+            // User will inherit permissions from their role
+            $user->syncPermissions([]);
+        }
+
+        // Handle AJAX request
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Role and permissions updated successfully.'
+            ]);
+        }
+
+        return redirect()->route('roles.index')->with('success', 'Role dan permission berhasil diperbarui.');
     }
 }
