@@ -170,6 +170,7 @@
                         </li>
                     </ul>
                 </li>
+                @endrole
             </ul>
         </nav>
     </aside>
