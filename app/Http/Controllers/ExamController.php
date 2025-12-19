@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 
 class ExamController extends Controller
 {
+
+    
     public function index()
     {
         $exams = Exam::withCount('questions', 'submissions')

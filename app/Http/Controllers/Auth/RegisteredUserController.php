@@ -33,6 +33,15 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'school_secret_code' => [
+                'required',
+                'string',
+                function ($attribute, $value, $fail) {
+                    if ($value !== env('SCHOOL_SECRET_CODE')) {
+                        $fail('The school secret code is invalid.');
+                    }
+                },
+            ],
         ]);
 
         $user = User::create([
@@ -40,6 +49,9 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // Assign admin role to the newly registered user
+        $user->assignRole('admin');
 
         event(new Registered($user));
 
