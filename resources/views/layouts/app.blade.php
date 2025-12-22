@@ -85,9 +85,12 @@
         <nav class="sidebar-nav">
             <ul>
                 {{-- Home Menu with Dashboard and Exam Students --}}
+                @php
+                    $isHomeActive = request()->routeIs('dashboard') || request()->routeIs('student.exams.*');
+                @endphp
                 <li class="nav-item nav-item-has-children">
-                    <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_home"
-                        aria-controls="ddmenu_home" aria-expanded="false" aria-label="Toggle navigation">
+                    <a href="#0" class="{{ $isHomeActive ? '' : 'collapsed' }}" data-bs-toggle="collapse" data-bs-target="#ddmenu_home"
+                        aria-controls="ddmenu_home" aria-expanded="{{ $isHomeActive ? 'true' : 'false' }}" aria-label="Toggle navigation">
                         <span class="icon">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +99,7 @@
                         </span>
                         <span class="text">{{ __('app.home') ?? 'Home' }}</span>
                     </a>
-                    <ul id="ddmenu_home" class="collapse dropdown-nav">
+                    <ul id="ddmenu_home" class="collapse dropdown-nav {{ $isHomeActive ? 'show' : '' }}">
                         <li>
                             <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 {{ __('app.dashboard') }}
@@ -110,11 +113,14 @@
                     </ul>
                 </li>
 
-                {{-- Management Menu with Students, SPP, and Exam Teachers --}}
-                @role('teacher|admin')
+                {{-- Management Menu - Show if user has any management permissions --}}
+                @if(auth()->user()->can('students.view') || auth()->user()->can('spp.view') || auth()->user()->can('exams.view'))
+                @php
+                    $isManagementActive = request()->routeIs('students.*') || request()->routeIs('spp.*') || request()->routeIs('exams.*');
+                @endphp
                 <li class="nav-item nav-item-has-children">
-                    <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_3"
-                        aria-controls="ddmenu_3" aria-expanded="false" aria-label="Toggle navigation">
+                    <a href="#0" class="{{ $isManagementActive ? '' : 'collapsed' }}" data-bs-toggle="collapse" data-bs-target="#ddmenu_3"
+                        aria-controls="ddmenu_3" aria-expanded="{{ $isManagementActive ? 'true' : 'false' }}" aria-label="Toggle navigation">
                         <span class="icon">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -126,27 +132,40 @@
                         </span>
                         <span class="text">{{ __('app.management') }}</span>
                     </a>
-                    <ul id="ddmenu_3" class="collapse dropdown-nav">
+                    <ul id="ddmenu_3" class="collapse dropdown-nav {{ $isManagementActive ? 'show' : '' }}">
+                        @can('students.view')
                         <li>
-                            <a href="{{ route('students.index') }}"> {{ __('app.students') }} </a>
+                            <a href="{{ route('students.index') }}" class="{{ request()->routeIs('students.*') ? 'active' : '' }}"> 
+                                {{ __('app.students') }} 
+                            </a>
                         </li>
+                        @endcan
+                        @can('spp.view')
                         <li>
-                            <a href="{{ route('spp.index') }}"> {{ __('app.spp_payments') }} </a>
+                            <a href="{{ route('spp.index') }}" class="{{ request()->routeIs('spp.*') ? 'active' : '' }}"> 
+                                {{ __('app.spp_payments') }} 
+                            </a>
                         </li>
+                        @endcan
+                        @can('exams.view')
                         <li>
                             <a href="{{ route('exams.index') }}" class="{{ request()->routeIs('exams.*') ? 'active' : '' }}">
                                 {{ __('app.exam_teachers') ?? 'Exam Teachers' }}
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
-                @endrole
+                @endif
 
-                {{-- Settings Menu - Visible to ADMIN only --}}
-                @role('admin')
+                {{-- Settings Menu - Show if user has any settings permissions --}}
+                @if(auth()->user()->can('roles.view') || auth()->user()->can('teachers.view') || auth()->user()->can('subjects.view'))
+                @php
+                    $isSettingsActive = request()->routeIs('roles.*') || request()->routeIs('teachers.*') || request()->routeIs('subjects.*');
+                @endphp
                 <li class="nav-item nav-item-has-children">
-                    <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_4"
-                        aria-controls="ddmenu_4" aria-expanded="false" aria-label="Toggle navigation">
+                    <a href="#0" class="{{ $isSettingsActive ? '' : 'collapsed' }}" data-bs-toggle="collapse" data-bs-target="#ddmenu_4"
+                        aria-controls="ddmenu_4" aria-expanded="{{ $isSettingsActive ? 'true' : 'false' }}" aria-label="Toggle navigation">
                         <span class="icon">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -158,19 +177,31 @@
                         </span>
                         <span class="text">{{ __('app.settings') }}</span>
                     </a>
-                    <ul id="ddmenu_4" class="collapse dropdown-nav">
+                    <ul id="ddmenu_4" class="collapse dropdown-nav {{ $isSettingsActive ? 'show' : '' }}">
+                        @can('roles.view')
                         <li>
-                            <a href="{{ route('roles.index') }}"> {{ __('app.role_management') }} </a>
+                            <a href="{{ route('roles.index') }}" class="{{ request()->routeIs('roles.*') ? 'active' : '' }}"> 
+                                {{ __('app.role_management') }} 
+                            </a>
                         </li>
+                        @endcan
+                        @can('teachers.view')
                         <li>
-                            <a href="{{ route('teachers.index') }}"> {{ __('app.teachers') }} </a>
+                            <a href="{{ route('teachers.index') }}" class="{{ request()->routeIs('teachers.*') ? 'active' : '' }}"> 
+                                {{ __('app.teachers') }} 
+                            </a>
                         </li>
+                        @endcan
+                        @can('subjects.view')
                         <li>
-                            <a href="{{ route('subjects.index') }}"> {{ __('app.subjects') }} </a>
+                            <a href="{{ route('subjects.index') }}" class="{{ request()->routeIs('subjects.*') ? 'active' : '' }}"> 
+                                {{ __('app.subjects') }} 
+                            </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
-                @endrole
+                @endif
             </ul>
         </nav>
     </aside>
@@ -275,7 +306,7 @@
                                             </div>
                                             <div>
                                                 <h6 class="fw-500">{{ auth()->user()->name ?? 'User' }}</h6>
-                                                <p>{{ __('app.admin') }}</p>
+                                                <p>{{ ucfirst(auth()->user()->getRoleNames()->first() ?? 'User') }}</p>
                                             </div>
                                         </div>
                                     </div>

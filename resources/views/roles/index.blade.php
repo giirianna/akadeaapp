@@ -42,6 +42,11 @@
                                 <h6>{{ __('app.user_roles') ?? 'User Roles' }}</h6>
                                 <p class="text-sm">{{ __('app.manage_user_roles') ?? 'Manage user roles and permissions' }}</p>
                             </div>
+                            <div>
+                                <a href="{{ route('roles.custom.index') }}" class="main-btn primary-btn btn-hover">
+                                    <i class="lni lni-cog"></i> Manage Custom Roles
+                                </a>
+                            </div>
                         </div>
 
                         <!-- Filters -->
