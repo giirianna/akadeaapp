@@ -10,6 +10,7 @@ class ExamSubmission extends Model
 
     protected $casts = [
         'answers' => 'array',
+        'essay_scores' => 'array',
         'submitted_at' => 'datetime',
     ];
 

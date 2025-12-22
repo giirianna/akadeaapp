@@ -13,7 +13,7 @@ return [
     'menu' => 'Menu',
     'exam_students' => 'Ujian Siswa',
     'exam_teachers' => 'Ujian Guru',
-    
+
     // Common Actions
     'add' => 'Tambah',
     'edit' => 'Edit',
@@ -30,7 +30,7 @@ return [
     'actions' => 'Aksi',
     'detail' => 'Detail',
     'submit' => 'Kirim',
-    
+
     // Common Labels
     'name' => 'Nama',
     'email' => 'Email',
@@ -43,7 +43,7 @@ return [
     'total' => 'Total',
     'no_data' => 'Tidak ada data',
     'loading' => 'Memuat...',
-    
+
     // Messages
     'success' => 'Berhasil!',
     'error' => 'Error!',
@@ -53,7 +53,7 @@ return [
     'data_saved' => 'Data berhasil disimpan.',
     'data_updated' => 'Data berhasil diperbarui.',
     'data_deleted' => 'Data berhasil dihapus.',
-    
+
     // Student Module
     'student_list' => 'Daftar Siswa',
     'add_student' => 'Tambah Siswa',
@@ -71,7 +71,7 @@ return [
     'academic_year' => 'Tahun Ajaran',
     'parent_name' => 'Nama Orang Tua',
     'parent_phone' => 'Telepon Orang Tua',
-    
+
     // Teacher Module
     'teacher_list' => 'Daftar Guru',
     'add_teacher' => 'Tambah Guru',
@@ -85,7 +85,7 @@ return [
     'teacher_photo' => 'Foto Guru',
     'honorary' => 'Honorer',
     'permanent' => 'Tetap',
-    
+
     // Additional UI Text
     'teacher_list_description' => 'Daftar lengkap guru yang terdaftar dalam sistem',
     'no_teacher_data' => 'Belum ada data guru.',
@@ -94,7 +94,7 @@ return [
     'no_student_data' => 'Belum ada data siswa.',
     'student_name' => 'Nama Siswa',
     'major' => 'Jurusan',
-    
+
     // SPP Module
     'spp_list' => 'Daftar Pembayaran SPP',
     'add_spp' => 'Tambah Pembayaran SPP',
@@ -113,7 +113,7 @@ return [
     'no_spp_data' => 'Belum ada data pembayaran SPP.',
     'month' => 'Bulan',
     'bill_amount' => 'Jumlah Tagihan',
-    
+
     // Subject Module
     'subject_list' => 'Daftar Mata Pelajaran',
     'add_subject' => 'Tambah Mata Pelajaran',
@@ -123,7 +123,7 @@ return [
     'subject_code' => 'Kode Mata Pelajaran',
     'credits' => 'SKS',
     'semester' => 'Semester',
-    
+
     // Role Module
     'role_list' => 'Daftar Role',
     'add_role' => 'Tambah Role',
@@ -135,36 +135,36 @@ return [
     'manage_user_roles' => 'Kelola role dan izin pengguna',
     'current_role' => 'Role Saat Ini',
     'teacher' => 'Guru',
-    
+
     // Profile
     'profile' => 'Profil',
     'view_profile' => 'Lihat Profil',
     'notifications' => 'Notifikasi',
     'logout' => 'Keluar',
     'admin' => 'Admin',
-    
+
     // Language
     'language' => 'Bahasa',
     'english' => 'Inggris',
     'indonesian' => 'Indonesia',
-    
+
     // Breadcrumbs
     'breadcrumb_home' => 'Dashboard',
-    
+
     // Table Headers
     'no' => 'No',
     'per_page' => 'per halaman',
     'showing' => 'Menampilkan',
     'of' => 'dari',
     'entries' => 'data',
-    
+
     // Form
     'required_field' => 'Wajib diisi',
     'optional' => 'Opsional',
     'select' => 'Pilih',
     'choose_file' => 'Pilih file',
     'no_file_chosen' => 'Tidak ada file dipilih',
-    
+
     // Months
     'january' => 'Januari',
     'february' => 'Februari',
@@ -179,7 +179,7 @@ return [
     'november' => 'November',
     'december' => 'Desember',
     'settings' => 'Pengaturan',
-    
+
     // Form Fields - Common
     'select_student' => 'Pilih Siswa',
     'select_teacher' => 'Pilih Guru',
@@ -204,7 +204,7 @@ return [
     'enter_address' => 'Masukkan alamat',
     'enter_phone_number' => 'Masukkan nomor telepon',
     'required_indicator' => '*',
-    
+
     // SPP Form
     'due_date' => 'Tanggal Jatuh Tempo',
     'amount_billed' => 'Jumlah Tagihan',
@@ -217,17 +217,17 @@ return [
     'transfer' => 'Transfer',
     'cash' => 'Tunai',
     'payment_method_example' => 'Misalnya: Transfer, Tunai, dll',
-    
+
     // Student Form
     'nis' => 'NIS',
     'student_name' => 'Nama Siswa',
-    
+
     // Subject Form
     'teaching_teacher' => 'Guru Pengajar',
     'class_level' => 'Tingkat Kelas',
     'active' => 'Aktif',
     'inactive' => 'Tidak Aktif',
-    
+
     // Teacher Form
     'personal_information' => 'Informasi Pribadi',
     'professional_information' => 'Informasi Profesional',
@@ -238,7 +238,7 @@ return [
     'bachelors_degree' => 'Sarjana (S1)',
     'masters_degree' => 'Magister (S2)',
     'doctoral_degree' => 'Doktor (S3)',
-    
+
     // Subject Names (for teacher form)
     'religious_education' => 'Pendidikan Agama & Budi Pekerti',
     'ppkn' => 'PPKn (Pancasila & Kewarganegaraan)',
@@ -250,7 +250,7 @@ return [
     'informatics' => 'Informatika / TIK',
     'arts_culture' => 'Seni Budaya',
     'crafts_sociology' => 'Prakarya / Sosiologi (Pilihan)',
-    
+
     // Religions
     'islam' => 'Islam',
     'christian' => 'Kristen',
@@ -259,7 +259,7 @@ return [
     'protestant' => 'Protestan',
     'jewish' => 'Yahudi',
     'atheist' => 'Ateis',
-    
+
     // Role Form
     'user_information' => 'Informasi Pengguna',
     'assign_role' => 'Tetapkan Role',
@@ -268,4 +268,25 @@ return [
     'admin_role' => 'Admin: Dapat mengelola siswa, guru, dan pembayaran SPP',
     'super_admin_role' => 'Super Admin: Akses penuh sistem termasuk manajemen role',
     'update_role' => 'Perbarui Role',
+
+    // Major
+    'major' => 'Jurusan',
+    'major_list' => 'Daftar Jurusan',
+    'add_major' => 'Tambah Jurusan',
+    'edit_major' => 'Edit Jurusan',
+    'view_major' => 'Lihat Jurusan',
+    'delete_major' => 'Hapus Jurusan',
+    'add_more' => 'Tambah Lagi',
+    'code' => 'Kode',
+    'action' => 'Aksi',
+    'no' => 'No',
+    'settings' => 'Pengaturan',
+    'delete_warning' => 'Peringatan: Tindakan ini tidak dapat dibatalkan!',
+    'delete_confirmation' => 'Apakah Anda yakin ingin menghapus jurusan ini?',
+    'created_at' => 'Dibuat Pada',
+    'updated_at' => 'Diperbarui Pada',
+    'close' => 'Tutup',
+    'refresh' => 'Segarkan',
+    'no_major_message' => 'Klik menu Aksi untuk menambah jurusan baru',
+    'total' => 'Total',
 ];

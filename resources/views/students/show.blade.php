@@ -76,7 +76,7 @@
                                     <h6>Jurusan</h6>
                                 </div>
                                 <div class="detail-value">
-                                    <p>{{ $student->major ?? '-' }}</p>
+                                    <p>{{ $student->major?->name ?? '-' }}</p>
                                 </div>
                             </div>
                             <!-- end detail row -->

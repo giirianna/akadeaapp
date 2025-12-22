@@ -70,9 +70,13 @@
                             <!-- Class -->
                             <div class="card-style mb-30">
                                 <div class="input-style-1">
-                                    <label for="class">{{ __('app.class') }}</label>
-                                    <input type="text" name="class" id="class" placeholder="{{ __('app.enter_class') }}"
-                                        value="{{ old('class') }}" required />
+                                    <label for="class">{{ __('app.class') }} <span class="text-danger">*</span></label>
+                                    <select name="class" id="class" class="form-control" required>
+                                        <option value="">{{ __('app.select_class') }}</option>
+                                        @foreach($classLevels as $level)
+                                            <option value="{{ $level }}" {{ old('class') == $level ? 'selected' : '' }}>Kelas {{ $level }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('class')
                                         <span class="text-danger small">{{ $message }}</span>
                                     @enderror
@@ -83,10 +87,26 @@
                             <!-- Major -->
                             <div class="card-style mb-30">
                                 <div class="input-style-1">
-                                    <label for="major">{{ __('app.major') }}</label>
-                                    <input type="text" name="major" id="major" placeholder="{{ __('app.enter_major') }}"
-                                        value="{{ old('major') }}" />
-                                    @error('major')
+                                    <label for="major_id">{{ __('app.major') }}</label>
+                                    <select name="major_id" id="major_id" class="form-control">
+                                        <option value="">{{ __('app.select_major') }}</option>
+                                        @foreach($majors as $major)
+                                            <option value="{{ $major->id }}" {{ old('major_id') == $major->id ? 'selected' : '' }}>{{ $major->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('major_id')
+                                        <span class="text-danger small">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- end card -->
+
+                            <!-- Enrollment Date -->
+                            <div class="card-style mb-30">
+                                <div class="input-style-1">
+                                    <label for="enrollment_date">{{ __('app.enrollment_date') }} <span class="text-danger">*</span></label>
+                                    <input type="date" name="enrollment_date" id="enrollment_date" value="{{ old('enrollment_date') }}" required />
+                                    @error('enrollment_date')
                                         <span class="text-danger small">{{ $message }}</span>
                                     @enderror
                                 </div>

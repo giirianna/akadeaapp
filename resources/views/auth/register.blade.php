@@ -179,6 +179,26 @@
                                         </div>
                                         <!-- end col -->
                                         <div class="col-12">
+                                            <div class="input-style-1">
+                                                <label for="school_secret_code">School Secret Code <span class="text-danger">*</span></label>
+                                                <input
+                                                    id="school_secret_code"
+                                                    type="text"
+                                                    name="school_secret_code"
+                                                    placeholder="Enter the school secret code"
+                                                    value="{{ old('school_secret_code') }}"
+                                                    required
+                                                />
+                                                <small class="text-muted d-block mt-2">
+                                                    <i class="lni lni-lock"></i> Contact your school administrator for the secret code
+                                                </small>
+                                                @error('school_secret_code')
+                                                    <span class="text-danger d-block mt-2">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <!-- end col -->
+                                        <div class="col-12">
                                             <div class="form-check checkbox-style mb-30">
                                                 <input class="form-check-input" type="checkbox" id="terms" name="terms" required />
                                                 <label class="form-check-label" for="terms">

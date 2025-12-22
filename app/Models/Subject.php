@@ -15,10 +15,18 @@ class Subject extends Model
         'subject_code',
         'subject_name',
         'class_level',
-        'major',
+        'major_id',
         'description',
         'status'
     ];
+
+    /**
+     * Get the major that this subject belongs to.
+     */
+    public function major()
+    {
+        return $this->belongsTo(Major::class, 'major_id');
+    }
 
     /**
      * Get teachers assigned to this subject via pivot table (many-to-many).

@@ -50,8 +50,8 @@
                     @foreach($majors as $major)
                     <li>
                         <label class="dropdown-item d-flex align-items-center gap-2 rounded">
-                            <input type="checkbox" name="major[]" value="{{ $major }}" class="form-check-input m-0 major-checkbox">
-                            <span>{{ $major }}</span>
+                            <input type="checkbox" name="major_id[]" value="{{ $major->id }}" class="form-check-input m-0 major-checkbox">
+                            <span>{{ $major->name }}@if($major->code) ({{ $major->code }})@endif</span>
                         </label>
                     </li>
                     @endforeach

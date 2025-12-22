@@ -89,7 +89,7 @@
                                                 <p>{{ $student->class }}</p>
                                             </td>
                                             <td class="text-center min-width">
-                                                <p>{{ $student->major ?? '-' }}</p>
+                                                <p>{{ $student->major?->name ?? '-' }}</p>
                                             </td>
                                             <td class="text-center min-width">
                                                 <p>
@@ -193,12 +193,22 @@
                         <small class="text-muted">NIS akan digunakan sebagai email dan password login</small>
                     </div>
                     <div class="input-style-1 mb-3">
-                        <label for="class">Kelas</label>
-                        <input type="text" name="class" id="class" class="form-control" required>
+                        <label for="class">Kelas <span class="text-danger">*</span></label>
+                        <select name="class" id="class" class="form-control" required>
+                            <option value="">-- Pilih Kelas --</option>
+                            <option value="X">Kelas X</option>
+                            <option value="XI">Kelas XI</option>
+                            <option value="XII">Kelas XII</option>
+                        </select>
                     </div>
                     <div class="input-style-1 mb-3">
-                        <label for="major">Jurusan</label>
-                        <input type="text" name="major" id="major" class="form-control">
+                        <label for="major_id">Jurusan</label>
+                        <select name="major_id" id="major_id" class="form-control">
+                            <option value="">-- Pilih Jurusan --</option>
+                            @foreach($majors as $major)
+                                <option value="{{ $major->id }}">{{ $major->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="input-style-1 mb-3">
                         <label for="birth_date">Tanggal Lahir</label>
@@ -353,9 +363,9 @@
                 const modal = bootstrap.Modal.getInstance(document.getElementById('studentModal'));
                 modal.hide();
 
-                // Show success message with credentials if provided
+                // Show success message with toast notification
                 if (data.message) {
-                    alert(data.message);
+                    showToast(data.message, 'success');
                 }
 
                 const student = data.student;
@@ -365,10 +375,11 @@
                     const row = document.querySelector(`tr[data-id="${studentId}"]`);
                     if (row) {
                         const enrollmentDisplay = new Date(student.enrollment_date).toLocaleDateString('id-ID');
+                        const majorName = student.major ? student.major.name : '-';
                         row.querySelector('.text-start p').textContent = student.name;
                         row.querySelectorAll('.text-center p')[1].textContent = student.nis;
                         row.querySelectorAll('.text-center p')[2].textContent = student.class;
-                        row.querySelectorAll('.text-center p')[3].textContent = student.major || '-';
+                        row.querySelectorAll('.text-center p')[3].textContent = majorName;
                         row.querySelectorAll('.text-center p')[4].textContent = enrollmentDisplay;
                     }
                 } else {
@@ -379,26 +390,27 @@
 
                     const newRow = document.createElement('tr');
                     newRow.setAttribute('data-id', student.id);
+                    const majorName = student.major ? student.major.name : '-';
                     newRow.innerHTML = `
                         <td class="text-center"><p>${newIndex}</p></td>
                         <td class="text-start min-width"><p>${student.name}</p></td>
                         <td class="text-center min-width"><p><strong>${student.nis}</strong></p></td>
                         <td class="text-center min-width"><p>${student.class}</p></td>
-                        <td class="text-center min-width"><p>${student.major || '-'}</p></td>
+                        <td class="text-center min-width"><p>${majorName}</p></td>
                         <td class="text-center min-width"><p>${enrollmentDisplay}</p></td>
                         <td class="text-center">
                             <div class="action d-flex gap-2 justify-content-center">
                                 <button type="button" class="text-info" data-bs-toggle="modal" data-bs-target="#detailModal"
-                                    onclick="showDetail('${addslashes(student.name)}', '${student.nis}', '${student.class}', 
-                                    '${addslashes(student.major || '-')}', 
+                                    onclick="showDetail('${addslashes(student.name)}', '${student.nis}', '${student.class}',
+                                    '${majorName}',
                                     '${student.birth_date ? new Date(student.birth_date).toLocaleDateString('id-ID') : '-'}',
                                     '${addslashes(student.address || '-')}', '${enrollmentDisplay}')"
                                     title="Detail">
                                     <i class="lni lni-eye"></i>
                                 </button>
                                 <button type="button" class="text-warning" data-bs-toggle="modal" data-bs-target="#studentModal"
-                                    onclick="fillEditForm(${student.id}, '${addslashes(student.name)}', '${student.nis}', 
-                                    '${student.class}', '${addslashes(student.major || '')}', 
+                                    onclick="fillEditForm(${student.id}, '${addslashes(student.name)}', '${student.nis}',
+                                    '${student.class}', '${student.major_id || ''}',
                                     '${student.birth_date || ''}', '${addslashes(student.address || '')}', '${student.enrollment_date}')"
                                     title="Edit">
                                     <i class="lni lni-pencil"></i>
@@ -419,12 +431,12 @@
                 document.getElementById('studentModalLabel').textContent = 'Tambah Siswa';
                 document.getElementById('studentId').value = '';
             } else {
-                alert(data.message || 'Gagal menyimpan data.');
+                showToast(data.message || 'Gagal menyimpan data.', 'danger');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Terjadi kesalahan saat menyimpan data.');
+            showToast('Terjadi kesalahan saat menyimpan data.', 'danger');
         });
     });
 
@@ -433,17 +445,17 @@
         return (str + '').replace(/[\\"]/g, '\\$&').replace(/\u0000/g, '\\0');
     }
 
-    function fillEditForm(id, name, nis, class_, major, birth_date, address, enrollment_date) {
+    function fillEditForm(id, name, nis, class_, major_id, birth_date, address, enrollment_date) {
         document.getElementById('studentModalLabel').textContent = 'Edit Siswa';
         document.getElementById('studentId').value = id;
         document.getElementById('name').value = name;
         document.getElementById('nis').value = nis;
         document.getElementById('class').value = class_;
-        document.getElementById('major').value = major;
+        document.getElementById('major_id').value = major_id;
         document.getElementById('birth_date').value = birth_date; // format: YYYY-MM-DD
         document.getElementById('address').value = address;
         document.getElementById('enrollment_date').value = enrollment_date; // pastikan format YYYY-MM-DD
-        
+
         // Hide account info box when editing
         document.getElementById('accountInfoBox').style.display = 'none';
     }
@@ -476,5 +488,40 @@
         document.getElementById('studentModalLabel').textContent = 'Tambah Siswa';
         document.getElementById('studentId').value = '';
     });
+
+    // Toast notification function
+    function showToast(message, type = 'success') {
+        const toastHtml = `
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-${type}">
+                    <strong class="me-auto text-white">
+                        <i class="lni lni-${type === 'success' ? 'checkmark' : 'close-circle'} me-2"></i>
+                        ${type === 'success' ? 'Berhasil' : 'Peringatan'}
+                    </strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ${message}
+                </div>
+            </div>
+        `;
+
+        const toastContainer = document.getElementById('toastContainer');
+        const toastElement = document.createElement('div');
+        toastElement.innerHTML = toastHtml;
+        toastContainer.appendChild(toastElement);
+
+        const toast = new bootstrap.Toast(toastElement.querySelector('.toast'));
+        toast.show();
+
+        // Remove the toast element after it's hidden
+        toastElement.addEventListener('hidden.bs.toast', function () {
+            toastElement.remove();
+        });
+    }
 </script>
+
+<!-- Toast Container -->
+<div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
 @endsection
