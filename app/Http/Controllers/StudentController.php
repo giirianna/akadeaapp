@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\User;
+use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -12,8 +13,23 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::with('user')->orderBy('name')->paginate(10);
-        return view('students.index', compact('students'));
+        $students = Student::with('user', 'major')->orderBy('name')->paginate(10);
+        $majors = Major::orderBy('name')->get();
+        return view('students.index', compact('students', 'majors'));
+    }
+
+    public function create()
+    {
+        $majors = Major::orderBy('name')->get();
+        $classLevels = ['X', 'XI', 'XII'];
+        return view('students.create', compact('majors', 'classLevels'));
+    }
+
+    public function edit(Student $student)
+    {
+        $majors = Major::orderBy('name')->get();
+        $classLevels = ['X', 'XI', 'XII'];
+        return view('students.edit', compact('student', 'majors', 'classLevels'));
     }
 
     public function store(Request $request)
@@ -21,8 +37,8 @@ class StudentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'nis' => 'required|unique:students',
-            'class' => 'required|string|max:255',
-            'major' => 'nullable|string|max:255',
+            'class' => 'required|in:X,XI,XII',
+            'major_id' => 'nullable|exists:majors,id',
             'birth_date' => 'nullable|date',
             'enrollment_date' => 'required|date',
             'address' => 'nullable|string',
@@ -48,7 +64,7 @@ class StudentController extends Controller
                 'name' => $request->name,
                 'nis' => $request->nis,
                 'class' => $request->class,
-                'major' => $request->major,
+                'major_id' => $request->major_id,
                 'birth_date' => $request->birth_date,
                 'enrollment_date' => $request->enrollment_date,
                 'address' => $request->address,
@@ -76,8 +92,8 @@ class StudentController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'nis' => 'required|unique:students,nis,' . $student->id,
-            'class' => 'required|string|max:255',
-            'major' => 'nullable|string|max:255',
+            'class' => 'required|in:X,XI,XII',
+            'major_id' => 'nullable|exists:majors,id',
             'birth_date' => 'nullable|date',
             'enrollment_date' => 'required|date',
             'address' => 'nullable|string',
@@ -90,7 +106,7 @@ class StudentController extends Controller
                 'name' => $request->name,
                 'nis' => $request->nis,
                 'class' => $request->class,
-                'major' => $request->major,
+                'major_id' => $request->major_id,
                 'birth_date' => $request->birth_date,
                 'enrollment_date' => $request->enrollment_date,
                 'address' => $request->address,

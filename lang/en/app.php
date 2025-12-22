@@ -13,7 +13,7 @@ return [
     'menu' => 'Menu',
     'exam_students' => 'Exam Students',
     'exam_teachers' => 'Exam Teachers',
-    
+
     // Common Actions
     'add' => 'Add',
     'edit' => 'Edit',
@@ -30,7 +30,7 @@ return [
     'actions' => 'Actions',
     'detail' => 'Detail',
     'submit' => 'Submit',
-    
+
     // Common Labels
     'name' => 'Name',
     'email' => 'Email',
@@ -43,7 +43,7 @@ return [
     'total' => 'Total',
     'no_data' => 'No data available',
     'loading' => 'Loading...',
-    
+
     // Messages
     'success' => 'Success!',
     'error' => 'Error!',
@@ -53,7 +53,7 @@ return [
     'data_saved' => 'Data saved successfully.',
     'data_updated' => 'Data updated successfully.',
     'data_deleted' => 'Data deleted successfully.',
-    
+
     // Student Module
     'student_list' => 'Student List',
     'add_student' => 'Add Student',
@@ -71,7 +71,7 @@ return [
     'academic_year' => 'Academic Year',
     'parent_name' => 'Parent Name',
     'parent_phone' => 'Parent Phone',
-    
+
     // Teacher Module
     'teacher_list' => 'Teacher List',
     'add_teacher' => 'Add Teacher',
@@ -85,7 +85,7 @@ return [
     'teacher_photo' => 'Teacher Photo',
     'honorary' => 'Honorary',
     'permanent' => 'Permanent',
-    
+
     // Additional UI Text
     'teacher_list_description' => 'Complete list of teachers registered in the system',
     'no_teacher_data' => 'No teacher data available yet.',
@@ -94,7 +94,7 @@ return [
     'no_student_data' => 'No student data available yet.',
     'student_name' => 'Student Name',
     'major' => 'Major',
-    
+
     // SPP Module
     'spp_list' => 'SPP Payment List',
     'add_spp' => 'Add SPP Payment',
@@ -113,7 +113,7 @@ return [
     'no_spp_data' => 'No SPP payment data available yet.',
     'month' => 'Month',
     'bill_amount' => 'Bill Amount',
-    
+
     // Subject Module
     'subject_list' => 'Subject List',
     'add_subject' => 'Add Subject',
@@ -123,7 +123,7 @@ return [
     'subject_code' => 'Subject Code',
     'credits' => 'Credits',
     'semester' => 'Semester',
-    
+
     // Role Module
     'role_list' => 'Role List',
     'add_role' => 'Add Role',
@@ -135,36 +135,36 @@ return [
     'manage_user_roles' => 'Manage user roles and permissions',
     'current_role' => 'Current Role',
     'teacher' => 'Teacher',
-    
+
     // Profile
     'profile' => 'Profile',
     'view_profile' => 'View Profile',
     'notifications' => 'Notifications',
     'logout' => 'Logout',
     'admin' => 'Admin',
-    
+
     // Language
     'language' => 'Language',
     'english' => 'English',
     'indonesian' => 'Indonesian',
-    
+
     // Breadcrumbs
     'breadcrumb_home' => 'Dashboard',
-    
+
     // Table Headers
     'no' => 'No',
     'per_page' => 'per page',
     'showing' => 'Showing',
     'of' => 'of',
     'entries' => 'entries',
-    
+
     // Form
     'required_field' => 'Required field',
     'optional' => 'Optional',
     'select' => 'Select',
     'choose_file' => 'Choose file',
     'no_file_chosen' => 'No file chosen',
-    
+
     // Months
     'january' => 'January',
     'february' => 'February',
@@ -179,7 +179,7 @@ return [
     'november' => 'November',
     'december' => 'December',
     'settings' => 'Settings',
-    
+
     // Form Fields - Common
     'select_student' => 'Select Student',
     'select_teacher' => 'Select Teacher',
@@ -204,7 +204,7 @@ return [
     'enter_address' => 'Enter address',
     'enter_phone_number' => 'Enter phone number',
     'required_indicator' => '*',
-    
+
     // SPP Form
     'due_date' => 'Due Date',
     'amount_billed' => 'Amount Billed',
@@ -217,17 +217,17 @@ return [
     'transfer' => 'Transfer',
     'cash' => 'Cash',
     'payment_method_example' => 'For example: Transfer, Cash, etc',
-    
+
     // Student Form
     'nis' => 'NIS',
     'student_name' => 'Student Name',
-    
+
     // Subject Form
     'teaching_teacher' => 'Teaching Teacher',
     'class_level' => 'Class Level',
     'active' => 'Active',
     'inactive' => 'Inactive',
-    
+
     // Teacher Form
     'personal_information' => 'Personal Information',
     'professional_information' => 'Professional Information',
@@ -238,7 +238,7 @@ return [
     'bachelors_degree' => "Bachelor's Degree (S1)",
     'masters_degree' => "Master's Degree (S2)",
     'doctoral_degree' => "Doctoral Degree (S3)",
-    
+
     // Subject Names (for teacher form)
     'religious_education' => 'Religious Education & Character Education',
     'ppkn' => 'PPKn (Pancasila & Citizenship)',
@@ -250,7 +250,7 @@ return [
     'informatics' => 'Informatics / ICT',
     'arts_culture' => 'Arts and Culture',
     'crafts_sociology' => 'Crafts / Sociology (Elective)',
-    
+
     // Religions
     'islam' => 'Islam',
     'christian' => 'Christian',
@@ -259,7 +259,7 @@ return [
     'protestant' => 'Protestant',
     'jewish' => 'Jewish',
     'atheist' => 'Atheist',
-    
+
     // Role Form
     'user_information' => 'User Information',
     'assign_role' => 'Assign Role',
@@ -268,4 +268,25 @@ return [
     'admin_role' => 'Admin: Can manage students, teachers, and SPP payments',
     'super_admin_role' => 'Super Admin: Full system access including role management',
     'update_role' => 'Update Role',
+
+    // Major
+    'major' => 'Major',
+    'major_list' => 'Major List',
+    'add_major' => 'Add Major',
+    'edit_major' => 'Edit Major',
+    'view_major' => 'View Major',
+    'delete_major' => 'Delete Major',
+    'add_more' => 'Add More',
+    'code' => 'Code',
+    'action' => 'Action',
+    'no' => 'No',
+    'settings' => 'Settings',
+    'delete_warning' => 'Warning: This action cannot be undone!',
+    'delete_confirmation' => 'Are you sure you want to delete this major?',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+    'close' => 'Close',
+    'refresh' => 'Refresh',
+    'no_major_message' => 'Click the Action menu to add a new major',
+    'total' => 'Total',
 ];

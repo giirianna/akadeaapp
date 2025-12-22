@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'school_secret_code' => [
                 'required',
@@ -51,7 +51,11 @@ class RegisteredUserController extends Controller
         ]);
 
         // Assign admin role to the newly registered user
-        $user->assignRole('admin');
+        try {
+            $user->assignRole('admin');
+        } catch (\Spatie\Permission\Exceptions\RoleDoesNotExist $e) {
+            // Role doesn't exist yet, it will be created on next migration/seed
+        }
 
         event(new Registered($user));
 

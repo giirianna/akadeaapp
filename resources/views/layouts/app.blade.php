@@ -25,7 +25,7 @@
             padding: 4px;
             gap: 4px;
         }
-        
+
         .language-switcher-toggle .lang-btn {
             background: transparent;
             border: none;
@@ -40,26 +40,26 @@
             align-items: center;
             gap: 4px;
         }
-        
+
         .language-switcher-toggle .lang-btn:hover {
             background: rgba(0, 0, 0, 0.05);
         }
-        
+
         .language-switcher-toggle .lang-btn.active {
             background: white;
             color: var(--primary);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Dark mode support */
         .dark .language-switcher-toggle {
             background: rgba(255, 255, 255, 0.1);
         }
-        
+
         .dark .language-switcher-toggle .lang-btn {
             color: var(--gray-4);
         }
-        
+
         .dark .language-switcher-toggle .lang-btn.active {
             background: var(--dark-2);
             color: white;
@@ -79,7 +79,8 @@
     <aside class="sidebar-nav-wrapper">
         <div class="navbar-logo">
             <a href="{{ route('dashboard') }}" style="text-decoration: none;">
-                <span style="font-size: 1.25rem; font-weight: 700; color: #2563eb; letter-spacing: -0.5px;">Akadea</span>
+                <span
+                    style="font-size: 1.25rem; font-weight: 700; color: #2563eb; letter-spacing: -0.5px;">Akadea</span>
             </a>
         </div>
         <nav class="sidebar-nav">
@@ -91,19 +92,22 @@
                         <span class="icon">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10.7071 2.29289C10.3166 1.90237 9.68342 1.90237 9.29289 2.29289L2.29289 9.29289C1.90237 9.68342 1.90237 10.3166 2.29289 10.7071C2.68342 11.0976 3.31658 11.0976 3.70711 10.7071L4 10.4142V17C4 17.5523 4.44772 18 5 18H7C7.55228 18 8 17.5523 8 17V15C8 14.4477 8.44772 14 9 14H11C11.5523 14 12 14.4477 12 15V17C12 17.5523 12.4477 18 13 18H15C15.5523 18 16 17.5523 16 17V10.4142L16.2929 10.7071C16.6834 11.0976 17.3166 11.0976 17.7071 10.7071C18.0976 10.3166 18.0976 9.68342 17.7071 9.29289L10.7071 2.29289Z" />
+                                <path
+                                    d="M10.7071 2.29289C10.3166 1.90237 9.68342 1.90237 9.29289 2.29289L2.29289 9.29289C1.90237 9.68342 1.90237 10.3166 2.29289 10.7071C2.68342 11.0976 3.31658 11.0976 3.70711 10.7071L4 10.4142V17C4 17.5523 4.44772 18 5 18H7C7.55228 18 8 17.5523 8 17V15C8 14.4477 8.44772 14 9 14H11C11.5523 14 12 14.4477 12 15V17C12 17.5523 12.4477 18 13 18H15C15.5523 18 16 17.5523 16 17V10.4142L16.2929 10.7071C16.6834 11.0976 17.3166 11.0976 17.7071 10.7071C18.0976 10.3166 18.0976 9.68342 17.7071 9.29289L10.7071 2.29289Z" />
                             </svg>
                         </span>
                         <span class="text">{{ __('app.home') ?? 'Home' }}</span>
                     </a>
                     <ul id="ddmenu_home" class="collapse dropdown-nav">
                         <li>
-                            <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard') }}"
+                                class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 {{ __('app.dashboard') }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('student.exams.index') }}" class="{{ request()->routeIs('student.exams.*') ? 'active' : '' }}">
+                            <a href="{{ route('student.exams.index') }}"
+                                class="{{ request()->routeIs('student.exams.*') ? 'active' : '' }}">
                                 {{ __('app.exam_students') ?? 'Exam Students' }}
                             </a>
                         </li>
@@ -134,7 +138,8 @@
                             <a href="{{ route('spp.index') }}"> {{ __('app.spp_payments') }} </a>
                         </li>
                         <li>
-                            <a href="{{ route('exams.index') }}" class="{{ request()->routeIs('exams.*') ? 'active' : '' }}">
+                            <a href="{{ route('exams.index') }}"
+                                class="{{ request()->routeIs('exams.*') ? 'active' : '' }}">
                                 {{ __('app.exam_teachers') ?? 'Exam Teachers' }}
                             </a>
                         </li>
@@ -150,10 +155,14 @@
                         <span class="icon">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.4333 10.0001C17.4333 10.3501 17.15 10.6334 16.8 10.6334H11.9C11.55 10.6334 11.2667 10.3501 11.2667 10.0001C11.2667 9.65008 11.55 9.36675 11.9 9.36675H16.8C17.15 9.36675 17.4333 9.65008 17.4333 10.0001Z" />
-                                <path d="M8.73333 10.0001C8.73333 10.3501 8.45 10.6334 8.1 10.6334H3.2C2.85 10.6334 2.56667 10.3501 2.56667 10.0001C2.56667 9.65008 2.85 9.36675 3.2 9.36675H8.1C8.45 9.36675 8.73333 9.65008 8.73333 10.0001Z" />
-                                <path d="M10 12.5667C11.4167 12.5667 12.5667 11.4167 12.5667 10C12.5667 8.58333 11.4167 7.43333 10 7.43333C8.58333 7.43333 7.43333 8.58333 7.43333 10C7.43333 11.4167 8.58333 12.5667 10 12.5667Z" />
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667ZM3.33333 10C3.33333 6.31811 6.31811 3.33333 10 3.33333C13.6819 3.33333 16.6667 6.31811 16.6667 10C16.6667 13.6819 13.6819 16.6667 10 16.6667C6.31811 16.6667 3.33333 13.6819 3.33333 10Z" />
+                                <path
+                                    d="M17.4333 10.0001C17.4333 10.3501 17.15 10.6334 16.8 10.6334H11.9C11.55 10.6334 11.2667 10.3501 11.2667 10.0001C11.2667 9.65008 11.55 9.36675 11.9 9.36675H16.8C17.15 9.36675 17.4333 9.65008 17.4333 10.0001Z" />
+                                <path
+                                    d="M8.73333 10.0001C8.73333 10.3501 8.45 10.6334 8.1 10.6334H3.2C2.85 10.6334 2.56667 10.3501 2.56667 10.0001C2.56667 9.65008 2.85 9.36675 3.2 9.36675H8.1C8.45 9.36675 8.73333 9.65008 8.73333 10.0001Z" />
+                                <path
+                                    d="M10 12.5667C11.4167 12.5667 12.5667 11.4167 12.5667 10C12.5667 8.58333 11.4167 7.43333 10 7.43333C8.58333 7.43333 7.43333 8.58333 7.43333 10C7.43333 11.4167 8.58333 12.5667 10 12.5667Z" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667ZM3.33333 10C3.33333 6.31811 6.31811 3.33333 10 3.33333C13.6819 3.33333 16.6667 6.31811 16.6667 10C16.6667 13.6819 13.6819 16.6667 10 16.6667C6.31811 16.6667 3.33333 13.6819 3.33333 10Z" />
                             </svg>
                         </span>
                         <span class="text">{{ __('app.settings') }}</span>
@@ -167,6 +176,12 @@
                         </li>
                         <li>
                             <a href="{{ route('subjects.index') }}"> {{ __('app.subjects') }} </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('majors.index') }}"
+                                class="{{ request()->routeIs('majors.*') ? 'active' : '' }}">
+                                {{ __('app.major') ?? 'Major' }}
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -202,8 +217,10 @@
                         <div class="header-right">
                             <!-- dark mode switcher start -->
                             <div class="dark-mode-box ml-15 d-flex align-items-center">
-                                <button id="theme-toggle" class="dark-mode-toggle" type="button" title="Toggle Dark Mode">
-                                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <button id="theme-toggle" class="dark-mode-toggle" type="button"
+                                    title="Toggle Dark Mode">
+                                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2">
                                         <circle cx="12" cy="12" r="5"></circle>
                                         <line x1="12" y1="1" x2="12" y2="3"></line>
                                         <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -214,7 +231,8 @@
                                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                                     </svg>
-                                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2">
                                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                                     </svg>
                                 </button>
@@ -223,10 +241,12 @@
                             <!-- language switcher start -->
                             <div class="language-box ml-15 d-flex align-items-center">
                                 <div class="language-switcher-toggle">
-                                    <button class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}" onclick="switchLanguage('en')" title="English">
+                                    <button class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}"
+                                        onclick="switchLanguage('en')" title="English">
                                         🇬🇧 EN
                                     </button>
-                                    <button class="lang-btn {{ app()->getLocale() == 'id' ? 'active' : '' }}" onclick="switchLanguage('id')" title="Indonesia">
+                                    <button class="lang-btn {{ app()->getLocale() == 'id' ? 'active' : '' }}"
+                                        onclick="switchLanguage('id')" title="Indonesia">
                                         🇮🇩 ID
                                     </button>
                                 </div>
@@ -352,13 +372,13 @@
             const form = document.createElement('form');
             form.method = 'POST';
             form.action = '/language/' + locale;
-            
+
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const csrfInput = document.createElement('input');
             csrfInput.type = 'hidden';
             csrfInput.name = '_token';
             csrfInput.value = csrfToken;
-            
+
             form.appendChild(csrfInput);
             document.body.appendChild(form);
             form.submit();

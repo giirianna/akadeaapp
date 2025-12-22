@@ -13,7 +13,7 @@ class Student extends Model
         'user_id',
         'name',
         'class',
-        'major',
+        'major_id',
         'nis',
         'birth_date',
         'enrollment_date',
@@ -31,5 +31,13 @@ class Student extends Model
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class);
+    }
+
+    /**
+     * Get the major that this student belongs to.
+     */
+    public function major()
+    {
+        return $this->belongsTo(\App\Models\Major::class, 'major_id');
     }
 }

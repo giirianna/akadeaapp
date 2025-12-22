@@ -8,6 +8,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\StudentExamController;
+use App\Http\Controllers\MajorController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -30,14 +31,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Modul ujian Guru (examteachers) 
+// Modul ujian Guru (examteachers)
 Route::middleware(['web'])->prefix('examteachers')->name('exams.')->group(function () {
     Route::get('/', [ExamController::class, 'index'])->name('index');
     Route::get('/create', [ExamController::class, 'create'])->name('create');
     Route::post('/', [ExamController::class, 'store'])->name('store');
+    Route::get('/template/download', [ExamController::class, 'downloadTemplate'])->name('template.download');
     Route::get('/{exam}', [ExamController::class, 'show'])->name('show');
     Route::get('/{exam}/submissions', [ExamController::class, 'submissions'])->name('submissions'); // ← BARU
-    
+    Route::post('/{exam}/import-questions', [ExamController::class, 'importQuestions'])->name('import-questions'); // ← BARU
+
     // route edit & delete
     Route::get('/{exam}/edit', [ExamController::class, 'edit'])->name('edit');
     Route::put('/{exam}', [ExamController::class, 'update'])->name('update');
@@ -56,6 +59,7 @@ Route::resource('students', StudentController::class);
 Route::resource('spp', SppController::class);
 Route::resource('teachers', TeacherController::class);
 Route::resource('subjects', SubjectController::class);
+Route::resource('majors', MajorController::class);
 
 // Language Switcher
 Route::post('/language/{locale}', function ($locale) {
@@ -72,4 +76,4 @@ Route::middleware('auth')->group(function () {
     Route::put('/roles/{user}', [RoleController::class, 'update'])->name('roles.update');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use App\Models\Teacher;
+use App\Models\Major;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,7 +19,7 @@ class SubjectController extends Controller
         if (request()->ajax()) {
             return $this->getData();
         }
-        
+
         return view('subjects.index');
     }
 
@@ -27,15 +28,15 @@ class SubjectController extends Controller
      */
     public function getData()
     {
-        $query = Subject::with('teachers');
+        $query = Subject::with('teachers', 'major');
 
         // Apply filters
         if (request()->has('class_level') && request('class_level') != '') {
             $query->where('class_level', request('class_level'));
         }
 
-        if (request()->has('major') && request('major') != '') {
-            $query->where('major', request('major'));
+        if (request()->has('major_id') && request('major_id') != '') {
+            $query->where('major_id', request('major_id'));
         }
 
         if (request()->has('status') && request('status') != '') {
@@ -45,14 +46,14 @@ class SubjectController extends Controller
         // Apply search
         if (request()->has('search') && request('search.value') != '') {
             $search = request('search.value');
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('subject_code', 'like', "%{$search}%")
-                  ->orWhere('subject_name', 'like', "%{$search}%")
-                  ->orWhere('class_level', 'like', "%{$search}%")
-                  ->orWhere('major', 'like', "%{$search}%")
-                  ->orWhereHas('teachers', function($tq) use ($search) {
-                      $tq->where('full_name', 'like', "%{$search}%");
-                  });
+                    ->orWhere('subject_name', 'like', "%{$search}%")
+                    ->orWhere('class_level', 'like', "%{$search}%")
+                    ->orWhere('major', 'like', "%{$search}%")
+                    ->orWhereHas('teachers', function ($tq) use ($search) {
+                        $tq->where('full_name', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -81,15 +82,18 @@ class SubjectController extends Controller
         foreach ($subjects as $subject) {
             // Get teacher names from pivot relation
             $teacherNames = $subject->teachers->pluck('full_name')->join(', ');
-            
+
+            // Get major name from relationship
+            $majorName = $subject->major ? $subject->major->name : '—';
+
             $data[] = [
                 'subject_code' => $subject->subject_code,
                 'subject_name' => $subject->subject_name,
                 'teacher_name' => $teacherNames ?: '—',
                 'class_level' => $subject->class_level,
-                'major' => $subject->major,
-                'status' => $subject->status === 'active' 
-                    ? '<span class="status-btn active-btn">Aktif</span>' 
+                'major' => $majorName,
+                'status' => $subject->status === 'active'
+                    ? '<span class="status-btn active-btn">Aktif</span>'
                     : '<span class="status-btn close-btn">Tidak Aktif</span>',
                 'actions' => '
                     <div class="action">
@@ -119,17 +123,8 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        $majors = [
-            'Semua Jurusan',
-            'Rekayasa Perangkat Lunak',
-            'Teknik Komputer dan Jaringan',
-            'Akuntansi',
-            'Otomatisasi Tata Kelola Perkantoran',
-            'Desain Komunikasi Visual',
-            'Tata Boga',
-            'Multimedia',
-        ];
-
+        // Get majors from the Major model
+        $majors = Major::orderBy('name')->get();
         $classLevels = ['X', 'XI', 'XII'];
 
         // If AJAX request, return partial view for modal
@@ -146,36 +141,42 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'subject_code'  => 'required|string|max:20',
-            'subject_name'  => 'required|string|max:100',
-            'class_level'   => 'required|array|min:1',
+            'subject_code' => 'required|string|max:20',
+            'subject_name' => 'required|string|max:100',
+            'class_level' => 'required|array|min:1',
             'class_level.*' => 'in:X,XI,XII',
-            'major'         => 'required|array|min:1',
-            'major.*'       => 'string',
-            'description'   => 'nullable|string',
-            'status'        => 'required|in:active,inactive',
+            'major_id' => 'required|array|min:1',
+            'major_id.*' => 'exists:majors,id',
+            'description' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
         ]);
 
         $createdCount = 0;
         $baseCode = $validated['subject_code'];
-        
+
         foreach ($validated['class_level'] as $classLevel) {
-            foreach ($validated['major'] as $major) {
+            foreach ($validated['major_id'] as $majorId) {
+                // Get the major name for code generation
+                $major = Major::find($majorId);
+                if (!$major) {
+                    continue;
+                }
+
                 // Generate unique code with suffix
-                $majorAbbrev = Str::upper(Str::substr(preg_replace('/[^A-Za-z]/', '', $major), 0, 3));
+                $majorAbbrev = Str::upper(Str::substr(preg_replace('/[^A-Za-z]/', '', $major->name), 0, 3));
                 $uniqueCode = $baseCode . '-' . $classLevel . '-' . $majorAbbrev;
-                
+
                 // Check if this combination already exists, if so add a number suffix
                 $existingCount = Subject::where('subject_code', 'like', $uniqueCode . '%')->count();
                 if ($existingCount > 0) {
                     $uniqueCode = $uniqueCode . '-' . ($existingCount + 1);
                 }
-                
+
                 Subject::create([
                     'subject_code' => $uniqueCode,
                     'subject_name' => $validated['subject_name'],
                     'class_level' => $classLevel,
-                    'major' => $major,
+                    'major_id' => $majorId,
                     'description' => $validated['description'] ?? null,
                     'status' => $validated['status'],
                     'teacher_id' => null,
@@ -208,7 +209,7 @@ class SubjectController extends Controller
         if (request()->ajax()) {
             return view('subjects.partials.show', compact('subject'));
         }
-        
+
         return view('subjects.show', compact('subject'));
     }
 
@@ -217,16 +218,8 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        $majors = [
-            'Semua Jurusan',
-            'Rekayasa Perangkat Lunak',
-            'Teknik Komputer dan Jaringan',
-            'Akuntansi',
-            'Otomatisasi Tata Kelola Perkantoran',
-            'Desain Komunikasi Visual',
-            'Tata Boga',
-            'Multimedia',
-        ];
+        // Get majors from the Major model
+        $majors = Major::orderBy('name')->get();
 
         $classLevels = ['X', 'XI', 'XII'];
 
@@ -244,12 +237,12 @@ class SubjectController extends Controller
     public function update(Request $request, Subject $subject)
     {
         $validated = $request->validate([
-            'subject_code'  => 'required|string|max:20|unique:subjects,subject_code,' . $subject->id,
-            'subject_name'  => 'required|string|max:100',
-            'class_level'   => 'required|in:X,XI,XII',
-            'major'         => 'required|string',
-            'description'   => 'nullable|string',
-            'status'        => 'required|in:active,inactive',
+            'subject_code' => 'required|string|max:20|unique:subjects,subject_code,' . $subject->id,
+            'subject_name' => 'required|string|max:100',
+            'class_level' => 'required|in:X,XI,XII',
+            'major_id' => 'required|exists:majors,id',
+            'description' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
         ]);
 
         $subject->update($validated);
@@ -265,7 +258,7 @@ class SubjectController extends Controller
         return redirect()->route('subjects.index')->with('success', 'Mata pelajaran berhasil diperbarui.');
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
